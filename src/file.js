@@ -26,7 +26,9 @@ function PubSub() {
             fs.copyFile(
                 path.join(imgSrc, filename), 
                 path.join(imgDest, tempFileName),
-                (e) => { }
+                (e) => {
+                    console.log(JSON.stringify(e))
+                }
             )
 
             //emit so that other things can use the data

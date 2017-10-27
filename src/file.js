@@ -8,13 +8,12 @@ const imgDest = 'src/pictures'
 var imageCount = 1
 
 
-function PubSub() {
+function PubSub(p) {
     EventEmitter.call(this)
     const that = this
 
-    //START THE FILE WATCH
-    console.log('Start watching files')
-    fs.watch(imgSrc, function (event, filename) {
+    console.log('Start watching files', p)
+    fs.watch(p, function (event, filename) {
         if (fs.existsSync(imgSrc + filename) && event == 'rename') {
             //assign and increment the filename
             var tempFileName = 'img' + imageCount.toString().padStart(6, '0') + '.jpg'
@@ -24,13 +23,13 @@ function PubSub() {
             
             //copy the file
             fs.copyFile(
-                path.join(imgSrc, filename), 
+                path.join(p, filename), 
                 path.join(imgDest, tempFileName),
                 (e) => {
                     console.log(JSON.stringify(e))
                 }
             )
-
+            
             //emit so that other things can use the data
             that.emit('newFile', imgDest, tempFileName)
         }

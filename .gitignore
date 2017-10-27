@@ -1,4 +1,4 @@
 /img
 /archive
-/src/pictures/
-!/src/pictures/.gitkeep 
+src/pictures/*
+!src/pictures/.gitkeep 

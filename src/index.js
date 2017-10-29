@@ -54,7 +54,9 @@ io.on('connection', function(socket){
 
  
 app.get('/pictures/*', function (req, res) {
-  res.sendFile(__dirname + req.url);
+  var output_name = req.url.match('/pictures/(.*)')[1]
+  console.log('app.get /pictures/*', output_name, req.url)
+  res.sendFile(config.file.filepath + '/' +output_name);
 })
 
 app.get('/client/*', function(req, res){

@@ -1,4 +1,5 @@
 function renderFileTree(d) {
+    console.log(d)
     directories = d.children.filter((v,i,a) => {
         return v.type == 'directory'
     })

@@ -1,6 +1,6 @@
 {
-    "name": "photo-booth-js",
-    "version": "0.0.1",
+    "name": "photoboothjs",
+    "version": "1.0.0",
     "description": "photoboothJS",
     "dependencies": {
         "d3": "^4.11.0",

@@ -7,17 +7,19 @@ function renderFileTree(d) {
         .attr('id', 'file_container')
     file_container.append('text')
         .text('SELECT FILE LOCATION')
+        .attr('id','fileTitle')
     file_container.selectAll('#fileFolder')
         .data(directories)
         .enter()
         .append('text')
+        .attr('id','fileFolder')
         .text( (d,i)=>{
             return d.name
         })
         .attr('style','cursor:pointer')
         .attr('x',0)
         .attr('y', (d,i) => {
-            return i*25
+            return i*25 + d3.select('#fileTitle').node().getBBox().height *1.1
         })
         .on("click", (d) => {
             console.log('click element', d)

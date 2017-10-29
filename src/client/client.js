@@ -107,7 +107,10 @@ socket.on('new file', function(msg){
         .attr('width', '100%')
         .attr('height', '100%')
         .attr('x',0)
-        .attr('y',0)    
+        .attr('y',0)
+        .on('load', function() {
+            console.log('loaded')
+        }).attr('xlink:href', 'pictures/' + msg)
     setTimeout(function() {
         console.log('remove after time out')
         svg.select('image')

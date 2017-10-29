@@ -13,7 +13,7 @@ function PubSub(p) {
         console.log(event, filename)
         function watchFiles() {
             console.log(event, filename)
-            if (fs.existsSync(imgSrc + filename) && event == 'rename') {
+            if (fs.existsSync(p + filename) && event == 'rename') {
                 console.log('file event', event, filename);
                 
                 //emit so that other things can use the data

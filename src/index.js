@@ -28,7 +28,8 @@ io.on('connection', function(socket){
   socket.on('get_file_tree', function() {
     console.log('get folder tree', os.type())
     if(os.type()=='Linux'){
-      tree = dirTree('/home/pi/pictures');    
+      console.log('Linus File System')
+      tree = dirTree('/home/pi/Pictures');    
     } else if (os.type()=='Windows_NT') {
       tree = dirTree('C:/Users/Toby/Pictures');
     } else {

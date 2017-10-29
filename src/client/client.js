@@ -1,13 +1,13 @@
 function renderFileTree(d) {
-    console.log(d)
     directories = d.children.filter((v,i,a) => {
         return v.type == 'directory'
     })
+    console.log(d,directories)
     var file_container = svg.append('g')
         .attr('id', 'file_container')
     file_container.append('text')
         .text('SELECT FILE LOCATION')
-    file_container.selectAll('text')
+    file_container.selectAll('#fileFolder')
         .data(directories)
         .enter()
         .append('text')

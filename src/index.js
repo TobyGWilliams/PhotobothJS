@@ -1,3 +1,4 @@
+const os = require('os')
 const FILE = require('./file.js')
 var app = require('express')();
 var http = require('http').Server(app);
@@ -25,8 +26,14 @@ io.on('connection', function(socket){
   })
 
   socket.on('get_file_tree', function() {
-    console.log('get folder tree')
-    const tree = dirTree('C:/Users/Toby/Pictures');
+    console.log('get folder tree', os.type())
+    if(os.type()=='Linux'){
+      tree = dirTree('/home/pi/pictures');    
+    } else if (os.type()=='Windows_NT') {
+      tree = dirTree('C:/Users/Toby/Pictures');
+    } else {
+      console.log('error incoming', os.type())
+    }
     socket.emit('send_file_tree',tree)
   })
 

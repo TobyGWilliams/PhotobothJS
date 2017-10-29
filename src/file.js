@@ -12,8 +12,9 @@ function PubSub(p) {
     fs.watch(p, function (event, filename) {
         console.log(event, filename)
         function watchFiles() {
+            const regexFileName = RegExp('img(.*).jpg')
             console.log(event, filename)
-            if (event == 'rename') {
+            if (event == 'rename' && regexFileName.test(filename)) {
                 console.log('file event', event, filename);
                 
                 //emit so that other things can use the data

@@ -12,5 +12,11 @@
     "repository": {
         "type": "git",
         "url": "git://github.com/tobygwilliams/photoboothjs.git"
-    }
+    },
+    "devDependencies": {
+        "mocha": "^4.0.1"
+    },
+    "scripts": {
+        "test": "mocha"
+      }
 }

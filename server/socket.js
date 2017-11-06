@@ -1,10 +1,9 @@
-function Socket (){ }
+function Socket (emitter, server){
+    this.emitter = emitter
+    console.log('socket.js')
 
-Socket.prototype.connect = function(s) {
-    var io = require('socket.io').listen(s);
-    console.log('socket created')
-    
-    io.on('connection', function(socket){
+    this.io = require('socket.io').listen(server);
+    this.io.on('connection', function(socket){
         console.log('a user connected');
 
         socket.on('disconnect', function(){
@@ -14,17 +13,19 @@ Socket.prototype.connect = function(s) {
         socket.on('getConfig', function(){
             console.log('getConfig')
         });  
-      
-    });
-}
+        
+        this.emitter.on('tick', (e) => {
+            socket.emit('tick', e)
+        })
+    
+        this.emitter.on('tick-final', (e) => {
+            socket.emit('tick-final', e)
+        })
 
-Socket.prototype.listen_countdown = function(c) {
-    c.on('tick', (e) => {
-        console.log('socket.js', 'tick', e)
-    })
-    c.on('tick-final', (e) => {
-        console.log('socket.js','final-tick', e)
-    })
-}
+    });
+
+    
+ }
+
 
 module.exports = Socket

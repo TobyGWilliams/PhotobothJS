@@ -14,11 +14,9 @@ import { PhotoComponent } from './photo/photo.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ConfigComponent } from './config/config.component';
 
-// import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
-
-
-// const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 const ROUTES = [
   {
@@ -49,7 +47,8 @@ const ROUTES = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES),
-    // SocketIoModule.forRoot(config),
+    // SocketIoModule,
+    SocketIoModule.forRoot(config),
     MatSidenavModule, BrowserAnimationsModule, MatToolbarModule, MatListModule, MatButtonModule,
     MatIconModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule, MatGridListModule,
     MatDialogModule

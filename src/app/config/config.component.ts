@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 // import { Socket } from 'socket.io';
+import { Socket } from 'ng-socket-io';
 
 @Component({
   selector: 'app-config',
@@ -8,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigComponent implements OnInit {
   config = {}
-  // constructor(private socket: Socket) {}
-  constructor() {}
+  constructor(private socket: Socket) {}
+  // constructor() {}
   ngOnInit() {
     console.log('config component');
     // this.socket.fromEvent('setConfig').subscribe( (m) => {

@@ -47,7 +47,6 @@ const ROUTES = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(ROUTES),
-    // SocketIoModule,
     SocketIoModule.forRoot(config),
     MatSidenavModule, BrowserAnimationsModule, MatToolbarModule, MatListModule, MatButtonModule,
     MatIconModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule, MatGridListModule,

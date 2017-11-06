@@ -1,1 +1,2 @@
-<div class="center-layout"></div>
+<div class="center-layout" *ngIf="!countdown"></div>
+<div class="countdown-number" *ngIf="countdown">{{number}}</div>

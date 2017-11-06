@@ -1,8 +1,13 @@
 .center-layout {
-        width:95%;
-        height:95%;
-        background:url(../../assets/MagicMirror.svg);
-        background-size:contain;
-        background-repeat:no-repeat;
-        background-position:center;
-    }
+    width:95%;
+    height:95%;
+    background:url(../../assets/MagicMirror.svg);
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+}
+.countdown-number {
+    color: white;
+    font-size: 48em;
+    text-align: center;
+}

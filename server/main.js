@@ -20,7 +20,13 @@ var camera = new Camera(emitter)
 var serv = server.server
 var socket = new Socket(emitter, serv)
 
-countdown.start(10)
+setTimeout(
+    ()=>{ countdown.start(10) }, 
+    1000
+)
+
 // const GPIO = require('./gpio.js')
 // var gpioa = new GPIO(emitter, 18)
+
+
 

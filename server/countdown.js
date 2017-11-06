@@ -5,6 +5,7 @@ function Countdown(emitter) {
 
 Countdown.prototype.start = function(l) {
     var ticks = 0
+    this.e.emit('tick-start', 0)
     var timer = setInterval(
         () => {
             ticks += 1

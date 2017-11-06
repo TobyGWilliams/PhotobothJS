@@ -3,7 +3,7 @@ function Socket (emitter, server){
     console.log('socket.js')
 
     this.io = require('socket.io').listen(server);
-    this.io.on('connection', function(socket){
+    this.io.on('connection', (socket) => {
         console.log('a user connected');
 
         socket.on('disconnect', function(){
@@ -16,6 +16,10 @@ function Socket (emitter, server){
         
         this.emitter.on('tick', (e) => {
             socket.emit('tick', e)
+        })
+
+        this.emitter.on('tick-start', (e) => {
+            socket.emit('tick-start', e)
         })
     
         this.emitter.on('tick-final', (e) => {

@@ -7,26 +7,35 @@ import { Socket } from 'ng-socket-io';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-  countdown = false
+  state = 'home'
   number = 0
+  pictureURL: String = ''
   constructor(
     private socket: Socket
   ) {
-    console.log('homepage component');
     this.socket.fromEvent('tick').subscribe((m: number) => {
-      this.countdown = true
+      this.state = 'running'
       this.number = m
       console.log('tick', this);
     });
     this.socket.fromEvent('tick-final').subscribe((m: number) => {
-      this.countdown = false
-      this.number = m
+      this.state = 'final'
+      this.number = 10
       console.log('tick-final', this)
+      setTimeout(() => {
+        this.state = 'home'
+        console.log('tick-final-timeout', this)
+      }, 2000)
     })
     this.socket.fromEvent('tick-start').subscribe((m: number) => {
-      this.countdown = true
+      this.state = 'start'
       console.log('tick-start', this)
     })
+    this.socket.fromEvent('file-new').subscribe((f: String) => {
+      this.state = 'picture'
+      this.pictureURL = f
+      console.log('file-new', f);
+    });
   }
   ngOnInit() { }
 }

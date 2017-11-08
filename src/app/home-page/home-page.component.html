@@ -1,2 +1,4 @@
-<div class="center-layout" *ngIf="!countdown"></div>
-<div class="countdown-number" *ngIf="countdown">{{number}}</div>
+<div class="title-picture" *ngIf="state=='home'"></div>
+<div class="picture" [style.background-image]="'url(../../assets/number-' + number + '.svg)'" *ngIf="state=='running'"></div>
+<div class="picture" [style.background-image]="'url(./picture/' + pictureURL + ')'" *ngIf="state=='picture'"></div>
+<div class="flash" *ngIf="state=='final'"></div>

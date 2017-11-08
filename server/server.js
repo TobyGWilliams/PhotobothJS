@@ -4,17 +4,28 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
 
-var Server = function(){
+var Server = function(f){
+        var self = {
+            filepath: f
+        }
+        console.log(self)
+
         // Parsers for POST data
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: false }));
     
         // Point static path to dist
         app.use(express.static(path.join(__dirname, '../dist')));
-    
+
+        app.get('/picture/img*.jpg', (req, res) => {
+            var fileName = req.path.match('/picture/(.*)')[1]
+            res.sendFile(path.join(self.filepath, fileName));
+        });
+
+
         // Catch all other routes and return the index file
         app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../dist/index.html'));
+            res.sendFile(path.join(__dirname, '../dist/index.html'));
         });
     
         //Get port from environment and store in Express.

@@ -2,28 +2,25 @@ const os = require('os')
 const path = require("path");
 const fs = require('fs')
 
-function callback_file_watch (event, filename) {
-    console.log(event, filename)
-    function watchFiles() {
-        const regexFileName = RegExp('img(.*).jpg')
-        // console.log(event, filename, filePath)
-        if (event == 'rename' && regexFileName.test(filename) && fs.existsSync(filePath + "/"+ filename)) {
-            // console.log('file event', event, filename);
-            this.emitter.emit('file-new', filename)
-        }
+class File{
+    constructor(e, f) {
+        this.emitter = e
+        this.filepath = f
+
+        console.log('File.js', this.emitter, this.filepath)
+
+        fs.watch(this.filepath, (event, filename) => {
+            // console.log('change detected', event, filename, this.filepath)
+            setTimeout(() => {
+                const regexFileName = RegExp('img(.*).jpg')
+                // console.log('callback', event, filename, this.filepath, fs.existsSync(this.filepath + "/"+ filename))
+                if (event == 'rename' && regexFileName.test(filename) && fs.existsSync(this.filepath + "/"+ filename)) {
+                    console.log('new file!')
+                    this.emitter.emit('file-new', filename)
+                }
+            }, 50)
+        });
     }
-    setTimeout(watchFiles,50)
 }
-
-
-function File(emitter, filepath) {
-    this.emitter = emitter
-    this.filepath = filepath
-    
-    console.log('File.js', this.emitter, this.filepath)
-
-    fs.watch(this.filepath, callback_file_watch);
-}
-
 
 module.exports = File

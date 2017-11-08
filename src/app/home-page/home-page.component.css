@@ -1,13 +1,24 @@
-.center-layout {
+.title-picture {
+    background:url(../../assets/MagicMirror.svg);
     width:95%;
     height:95%;
-    background:url(../../assets/MagicMirror.svg);
     background-size:contain;
     background-repeat:no-repeat;
     background-position:center;
 }
-.countdown-number {
-    color: white;
-    font-size: 48em;
-    text-align: center;
+.picture {
+    /* background:url(); */
+    width:95%;
+    height:95%;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
+}
+.flash {
+    width:95%;
+    height:95%;
+    background:url(../../assets/flash.png);
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
 }

@@ -9,10 +9,6 @@ function Socket (emitter, server){
         socket.on('disconnect', function(){
           console.log('user disconnected');
         });
-    
-        socket.on('getConfig', function(){
-            console.log('getConfig')
-        });  
         
         this.emitter.on('tick', (e) => {
             socket.emit('tick', e)
@@ -24,6 +20,10 @@ function Socket (emitter, server){
     
         this.emitter.on('tick-final', (e) => {
             socket.emit('tick-final', e)
+        })
+
+        this.emitter.on('file-new', (e) => {
+            socket.emit('file-new', e)
         })
 
     });

@@ -4,16 +4,16 @@ function Countdown(emitter) {
 }
 
 Countdown.prototype.start = function(l) {
-    var ticks = 0
+    var ticks = l
     this.e.emit('tick-start', 0)
     var timer = setInterval(
         () => {
-            ticks += 1
+            ticks -= 1
             
             console.log('Countdown.js tick', ticks)
             this.e.emit('tick', ticks)
             
-            if (ticks==l) {
+            if (ticks==0) {
                 console.log('Countdown.js tick-final', ticks)
                 this.e.emit('tick-final', ticks)
                 clearInterval(timer)

@@ -34,7 +34,11 @@ export class HomePageComponent implements OnInit {
     this.socket.fromEvent('file-new').subscribe((f: String) => {
       this.state = 'picture'
       this.pictureURL = f
-      console.log('file-new', f);
+      console.log('file-new', this.pictureURL, this.state);
+      setTimeout(() => {
+        this.state = 'home'
+        console.log('file-new', this)
+      }, 5000)
     });
   }
   ngOnInit() { }

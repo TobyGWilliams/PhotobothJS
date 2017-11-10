@@ -5,12 +5,11 @@ import { HttpModule } from '@angular/http';
 
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSidenavModule, MatListModule, MatToolbarModule, MatButtonModule, MatGridListModule } from '@angular/material';
+import { MatListModule, MatToolbarModule, MatButtonModule, MatGridListModule } from '@angular/material';
 import { MatIconModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { PhotoComponent } from './photo/photo.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ConfigComponent } from './config/config.component';
 
@@ -25,10 +24,6 @@ const ROUTES = [
     pathMatch: 'full'
   },
   {
-    path: 'photo',
-    component: PhotoComponent
-  },
-  {
     path: 'home',
     component: HomePageComponent
   }
@@ -37,7 +32,6 @@ const ROUTES = [
 @NgModule({
   declarations: [
     AppComponent,
-    PhotoComponent,
     HomePageComponent,
     ConfigComponent
   ],
@@ -48,7 +42,7 @@ const ROUTES = [
     HttpModule,
     RouterModule.forRoot(ROUTES),
     SocketIoModule.forRoot(config),
-    MatSidenavModule, BrowserAnimationsModule, MatToolbarModule, MatListModule, MatButtonModule,
+    BrowserAnimationsModule, MatToolbarModule, MatListModule, MatButtonModule,
     MatIconModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule, MatGridListModule,
     MatDialogModule
   ],

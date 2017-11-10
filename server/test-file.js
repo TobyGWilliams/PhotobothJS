@@ -34,6 +34,10 @@ fs.readdir(config.file_path, (err, files) => {
 });
 
 setTimeout(()=>{
+  countdown.start(10)
+}, 1000)
+
+setTimeout(()=>{
     var file = new File(emitter, config.file_path)
     fs.copyFile('C:/Users/Toby/Pictures/img0004.jpg', 'C:/Users/Toby/Pictures/Google Photos Backup/img0004.jpg', (err) => {});
-}, 5000)
+}, 25000)

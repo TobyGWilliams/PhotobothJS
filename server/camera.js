@@ -8,7 +8,7 @@ var Camera = function(emitter){
         // console.log('Camera.js', e)
         this.exec(
             "gphoto2 --capture-image-and-download --filename 'img%Y%m%d%H%M%S.jpg' ",     
-            function(error, stdout, stderr) {
+            (error, stdout, stderr) => {
                 console.log('stdout: ' + stdout);
                 console.log('stderr: ' + stderr);
                 if (error !== null) {
@@ -17,7 +17,8 @@ var Camera = function(emitter){
                 } else {
                     return true
                 }
-        });
+            }
+        );
     })
 }
 

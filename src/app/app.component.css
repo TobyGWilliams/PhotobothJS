@@ -1,7 +1,3 @@
-#navBar{
-    height:30px;
-    background: gray;
-}
-.body {
-    background-color: black
+router-outlet{
+    background-color: black;
 }

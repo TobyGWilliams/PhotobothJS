@@ -1,9 +1,14 @@
-var Dropbox = require('dropbox');
-var dbx = new Dropbox({ accessToken: 'YOUR_ACCESS_TOKEN_HERE' });
-dbx.filesListFolder({path: ''})
-  .then(function(response) {
-    console.log(response);
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
+var Dbx = require('dropbox');
+
+var Dropbox = function(token){
+    var dbx = new Dbx({ accessToken: '' });
+    dbx.filesListFolder({path: ''})
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+}
+
+module.exports = Dropbox

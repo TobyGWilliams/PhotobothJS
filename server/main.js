@@ -19,7 +19,7 @@ var server = new Server(config.file_path)
 var file = new File(emitter, config.file_path)
 var countdown = new Countdown(emitter)
 var camera = new Camera(emitter, config.file_path)
-var gpio = new IO(emitter, 18)
+var gpio = new IO(emitter, config.watch_pin)
 var dropbox = new Dropbox(emitter, config.dropboxToken, config.file_path)
 
 

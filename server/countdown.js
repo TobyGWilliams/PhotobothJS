@@ -2,7 +2,7 @@ function Countdown(emitter) {
     console.log('Countdown.js init', emitter)
     this.e = emitter
     this.e.on('gpio-press', (x)=>{
-	this.start(10)
+	    this.start(10)
     })
 }
 

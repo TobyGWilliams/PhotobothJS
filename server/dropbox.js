@@ -9,17 +9,19 @@ var Dropbox = function(emitter, token, file_path){
   this.dbx = new Dbx({accessToken: token});
 
   this.subFolder = moment.utc().format('YYYY_MM_DD_HH_mm_ss')
-  console.log('New subfolder: ', this.subFolder)
+  console.log('Dropbox.js','New subfolder', this.subFolder)
 
   this.emitter.on('file-new', (d)=>{
     var file = fs.readFileSync(this.file_path + "/"+ d)
     
     this.dbx.filesUpload({path: '/' + this.subFolder + '/' + d, contents: file})
     .then(function(response) {
-      console.log(response);
+      this.emitter.emit('dropbox-uploadSuccess')
+      // console.log(response);
     })
     .catch(function(error) {
-      console.error(error);
+      this.emitter.emit('dropbox-uploadFailed')
+      // console.error(error);
     });
 
   })

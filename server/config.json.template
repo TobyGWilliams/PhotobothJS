@@ -1,5 +1,5 @@
 {
-    "file_path": "", 
-    "watch_pin": 18, 
-    "dropboxToken": ""
+    "file_path": "insert directory here", 
+    "watch_pin": 0000001, 
+    "dropboxToken": "insert token from dropbox"
 }

@@ -10,6 +10,8 @@ export class HomePageComponent implements OnInit {
   state = 'home'
   number = 0
   pictureURL: String = ''
+  qrCodeURL: String = ''
+  qrCodeVisible: Boolean = false
   constructor(
     private socket: Socket
   ) {
@@ -25,7 +27,7 @@ export class HomePageComponent implements OnInit {
       setTimeout(() => {
         this.state = 'home'
         console.log('tick-final-timeout', this)
-      }, 2000)
+      }, 10000)
     })
     this.socket.fromEvent('tick-start').subscribe((m: number) => {
       this.state = 'start'
@@ -39,6 +41,11 @@ export class HomePageComponent implements OnInit {
         this.state = 'home'
         console.log('file-new', this)
       }, 5000)
+    });
+    this.socket.fromEvent('dropbox-newURL').subscribe((f: String) => {
+      console.log('dropbox-newURL', f)
+      this.qrCodeURL = f
+      this.qrCodeVisible = true
     });
   }
   ngOnInit() { }

@@ -26,6 +26,10 @@ function Socket (emitter, server){
             socket.emit('file-new', e)
         })
 
+        this.emitter.on('dropbox-newURL', (e) => {
+            socket.emit('dropbox-newURL', e)
+        })
+
     });
 
     

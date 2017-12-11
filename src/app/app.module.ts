@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { QRCodeModule } from 'angular2-qrcode';
+
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatListModule, MatToolbarModule, MatButtonModule, MatGridListModule } from '@angular/material';
@@ -44,7 +46,8 @@ const ROUTES = [
     SocketIoModule.forRoot(config),
     BrowserAnimationsModule, MatToolbarModule, MatListModule, MatButtonModule,
     MatIconModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule, MatGridListModule,
-    MatDialogModule
+    MatDialogModule,
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

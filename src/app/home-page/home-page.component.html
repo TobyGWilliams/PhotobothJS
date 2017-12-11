@@ -1,3 +1,7 @@
+<div class="qr" *ngIf="qrCodeVisible">
+    <qr-code [value]="qrCodeURL" [size]="150" ></qr-code>
+    <div class="whiteText">Scan to View</div>
+</div>
 <div class="title-picture" *ngIf="state=='home'"></div>
 <div class="picture" [style.background-image]="'url(../../assets/number-' + number + '.svg)'" *ngIf="state=='running'"></div>
 <div class="picture" [style.background-image]="'url(./picture/' + pictureURL + ')'" *ngIf="state=='picture'"></div>

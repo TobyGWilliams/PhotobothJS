@@ -21,3 +21,10 @@
     background-repeat:no-repeat;
     background-position:center;
 }
+.qr {
+    float: right;
+}
+.whiteText {
+    color: white;
+    text-align: center;
+}

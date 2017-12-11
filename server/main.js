@@ -30,15 +30,11 @@ var socket = new Socket(emitter, serv)
 // emitter.on('gpio-press', (x)=>{
 // 	console.log('gpio-press')
 // })
-
-
 // countdown.start(10)
-
 //setInterval(
  //    ()=>{ countdown.start(10) }, 
 //     25000
  //)
-
 // const GPIO = require('./gpio.js')
 // var gpioa = new GPIO(emitter, 18)
 

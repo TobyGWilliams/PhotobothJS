@@ -1,4 +1,6 @@
-const config_file = './config.json'
+const config = require('./config.json')
+console.log(config)
+
 
 const Dropbox = require('./dropbox.js')
 const EventEmitter = require('events')
@@ -10,8 +12,7 @@ const JsonFile = require('jsonfile')
 const Socket = require('./socket.js')
 const IO = require('./gpio.js')
 
-var config = JsonFile.readFileSync(config_file)
-console.log(config)
+
 
 
 var emitter = new EventEmitter()

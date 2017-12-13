@@ -7,6 +7,18 @@ var Dropbox = function(emitter, token, file_path){
   this.file_path = file_path
   this.token = token
   this.dbx = new Dbx({accessToken: token});
+  
+  this.dbx.usersGetCurrentAccount()
+    .then((r)=>{
+        this.emitter.emit('dropbox-login-success', {
+          name: r.name.display_name,
+          email:r.email
+        })
+      })
+    .catch((r)=>{
+      console.log('dropbox-login-failure')
+    }
+  )
 
   this.subFolder = moment.utc().format('YYYY_MM_DD_HH_mm_ss')
   // console.log('Dropbox.js','New subfolder', this.subFolder)
@@ -27,9 +39,7 @@ var Dropbox = function(emitter, token, file_path){
       // console.log(e)
       this.emitter.emit('dropbox-uploadFailed')
     });
-
   })
-
 }
 
 module.exports = Dropbox

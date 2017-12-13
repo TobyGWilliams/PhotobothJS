@@ -29,7 +29,10 @@ function Socket (emitter, server){
         this.emitter.on('dropbox-newURL', (e) => {
             socket.emit('dropbox-newURL', e)
         })
-
+        
+        this.emitter.on('dropbox-login-success', (e) => {
+            socket.emit('dropbox-login-success', e)
+        })
     });
 
     

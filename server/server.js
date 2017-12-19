@@ -22,7 +22,15 @@ var Server = function(f){
             res.sendFile(path.join(self.filepath, fileName));
         });
 
+        app.get('/dropbox*', (req, res)=>{
+            console.log(req.originalUrl, req.params, req.query, req.baseUrl, req.headers, req.cookies)
+            console.log(req.query)
+            console.log('----------------------------')
+            res.redirect('/home')
 
+        })
+
+//https://www.dropbox.com/oauth2/authorize?response_type=token&client_id=4210jna60uh85i9&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Adropbox?
         // Catch all other routes and return the index file
         app.get('*', (req, res) => {
             res.sendFile(path.join(__dirname, '../dist/index.html'));

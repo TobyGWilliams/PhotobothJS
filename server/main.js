@@ -13,8 +13,6 @@ const Socket = require('./socket.js')
 const IO = require('./gpio.js')
 
 
-
-
 var emitter = new EventEmitter()
 var server = new Server(config.file_path)
 var file = new File(emitter, config.file_path)

@@ -33,6 +33,12 @@ function Socket (emitter, server){
         this.emitter.on('dropbox-login-success', (e) => {
             socket.emit('dropbox-login-success', e)
         })
+        
+        socket.on('dropbox-token',(e) => {
+            // console.log('dropbox-token', e)
+            this.emitter.emit('dropbox-token', e)
+        })
+
     });
 
     

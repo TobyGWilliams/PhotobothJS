@@ -7,5 +7,5 @@ var emitter = new EventEmitter()
 var countQ = new CountdownQuad(emitter)
 
 
-countQ.multiplePictures(10)
-// countQ.start()
+// countQ.multiplePictures(10)
+countQ.start()

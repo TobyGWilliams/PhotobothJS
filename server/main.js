@@ -1,6 +1,14 @@
 const config = require('./config.json')
 console.log(config)
 
+//change screen time out. 
+// exec('setterm -blank 0', (error, stdout, stderr) => {
+//     console.log('set screen time out')
+//     console.log('error', error)
+//     console.log('std out', stdout)
+//     console.log('std err', stderr)
+// })
+
 
 const Dropbox = require('./dropbox.js')
 const EventEmitter = require('events')

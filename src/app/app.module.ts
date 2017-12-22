@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ConfigComponent } from './config/config.component';
+import { DropboxComponent } from './dropbox/dropbox.component';
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
@@ -26,6 +27,10 @@ const ROUTES = [
     pathMatch: 'full'
   },
   {
+    path: 'dropbox',
+    component: DropboxComponent,
+  },
+  {
     path: 'home',
     component: HomePageComponent
   }
@@ -35,7 +40,8 @@ const ROUTES = [
   declarations: [
     AppComponent,
     HomePageComponent,
-    ConfigComponent
+    ConfigComponent,
+    DropboxComponent
   ],
   entryComponents: [ ConfigComponent],
   imports: [

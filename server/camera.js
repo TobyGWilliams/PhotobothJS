@@ -9,9 +9,9 @@ var Camera = function(emitter, path){
     
     this.emitter.on('tick-final', (e)=>{
         // console.log('Camera.js', e)
-        var outputFilePath = this.path + '/img' + new Date().toISOString() + '.jpg'
-	console.log(outputFilePath)
-	this.exec(
+        var outputFilePath = this.path + '/img' + new Date().toISOString().replace(/:/g, '_') + '.jpg'
+        console.log(outputFilePath)
+        this.exec(
             "gphoto2 --capture-image-and-download --filename '" + outputFilePath +"'",     
             (error, stdout, stderr) => {
                 console.log('stdout: ' + stdout);

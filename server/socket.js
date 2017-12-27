@@ -10,6 +10,10 @@ function Socket (emitter, server){
           console.log('user disconnected');
         });
         
+        socket.on('tick', () => {
+            console.log('internal to socket.io')
+        })
+
         this.emitter.on('tick', (e) => {
             socket.emit('tick', e)
         })

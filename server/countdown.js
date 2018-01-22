@@ -1,27 +1,66 @@
 function Countdown(emitter) {
-    console.log('Countdown.js init', emitter)
     this.e = emitter
-    this.e.on('gpio-press', (x)=>{
-	    this.start(10)
-    })
-    this.start = function(l) {
-        var ticks = l
-        this.e.emit('tick-start', 0)
-        var timer = setInterval(
-            () => {
-                ticks -= 1
-                
-                console.log('Countdown.js tick', ticks)
-                this.e.emit('tick', ticks)
-                
-                if (ticks==0) {
-                    console.log('Countdown.js tick-final', ticks)
-                    this.e.emit('tick-final', ticks)
-                    clearInterval(timer)
-                }
-            },
-            1000
-        );
+    this.photos = 0
+    this.photosLeft = 0
+    this.photos = 0
+    this.initialCountdown = 0
+    this.intermediateCountdown = 0
+
+    this.countdown = (l) => {
+        return new Promise(
+            (resolve,reject)=>{
+                var ticks = l
+                var timer = setInterval(
+                    () => {
+                        ticks -= 1
+                        if (ticks != 0) {
+                            // console.log('Countdown.js tick', ticks, this.photos, this.photosLeft)
+                            this.e.emit('tick', 
+                                {
+                                    ticks: ticks,
+                                    photos: this.photos,
+                                    photosLeft: this.photosLeft 
+                                }
+                            )
+                        }
+                        
+                        if (ticks==0) {
+                            // console.log('Countdown.js tick-final',this.photos, this.photosLeft)
+                            this.e.emit('tick-final', {
+                                ticks: ticks,
+                                photos: this.photos,
+                                photosLeft: this.photosLeft 
+                            })
+                            clearInterval(timer)
+                            resolve()
+                        }
+                    },
+                    1000
+                );
+            }
+        )
+    }
+
+    this.countdownResolve = () =>{
+        if (this.photosLeft > 0 && this.photosLeft != this.photos) {
+            this.photosLeft -= 1
+            this.countdown(this.intermediateCountdown).then(this.countdownResolve)
+        } else if (this.photosLeft == this.photos) {
+            this.photosLeft -= 1
+            this.countdown(this.initialCountdown).then(this.countdownResolve)
+        } else if (this.photosLeft == 0) {
+            this.e.emit('tick-finish', {photos: this.photos})
+        }
+        
+    }
+    
+    this.start = (numberPictures, initialCountdown, intermediateCountdown) => {
+        this.photos = numberPictures
+        this.initialCountdown = initialCountdown
+        this.intermediateCountdown = intermediateCountdown
+        this.photosLeft = this.photos
+        
+        this.countdownResolve()
     }
 }
 

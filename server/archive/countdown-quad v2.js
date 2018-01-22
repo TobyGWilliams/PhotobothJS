@@ -2,7 +2,11 @@ function Countdown(emitter) {
     this.e = emitter
     this.photos = 0
     this.photosLeft = 0
-    this.countdown = (l)=>{
+    this.photos = 0
+    this.initialCountdown = 0
+    this.intermediateCountdown = 0
+
+    this.countdown = (l) => {
         return new Promise(
             (resolve,reject)=>{
                 var ticks = l
@@ -13,7 +17,7 @@ function Countdown(emitter) {
                         this.e.emit('tick', ticks)
                         
                         if (ticks==0) {
-                            console.log('Countdown.js tick-final', ticks)
+                            console.log('Countdown.js tick-final',this.photos, this.photosLeft)
                             this.e.emit('tick-final', ticks)
                             clearInterval(timer)
                             resolve()
@@ -26,27 +30,25 @@ function Countdown(emitter) {
     }
 
     this.countdownResolve = () =>{
-        this.photosLeft -= 1
-        console.log('Countdown.js multi-photo', this.photos)
-        this.e.emit('multi-photo', this.photos)
-        if (this.photosLeft > 0){
-            this.countdown(5).then(this.countdownResolve)
+        if (this.photosLeft > 0 && this.photosLeft != this.photos) {
+            this.photosLeft -= 1
+            this.countdown(this.intermediateCountdown).then(this.countdownResolve)
+        } else if (this.photosLeft == this.photos) {
+            this.photosLeft -= 1
+            this.countdown(this.initialCountdown).then(this.countdownResolve)
+        } else if (this.photosLeft == 0) {
+            console.log('finished')
         }
         
     }
-
-    this.multiplePictures = () => {
-        this.photos = 4
-        this.photosLeft = this.photos
-        console.log('Countdown.js multi-photo-start', this.photos)
-        this.countdown(10).then(this.countdownResolve)
-    }
     
-    this.start = () => {
-        console.log('start')
-        this.photos = 1
+    this.start = (numberPictures, initialCountdown, intermediateCountdown) => {
+        this.photos = numberPictures
+        this.initialCountdown = initialCountdown
+        this.intermediateCountdown = intermediateCountdown
         this.photosLeft = this.photos
-        this.countdown(10).then(()=>{})
+        
+        this.countdownResolve()
     }
 }
 

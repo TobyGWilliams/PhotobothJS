@@ -1,23 +1,21 @@
 console.log('Countdown Quad Test')
 
+const config = require('../config.json')
 const EventEmitter = require('events')
-const CountdownQuad = require('../countdown.js')
+const Countdown = require('../countdown.js')
 
 var emitter = new EventEmitter()
-var countQ = new CountdownQuad(emitter)
+var countdown = new Countdown(emitter)
 
-var server = new Server(config.file_path)
-var serv = server.server
+//switch for emitter logging
+if (false) {
+    emitter.on('tick',(d)=>{
+        console.log('tick', d)
+    })
+    
+    emitter.on('tick-final',(d)=>{
+        console.log('tick-final', d)
+    })
+}
 
-var socket = new Socket(emitter, serv)
-
-emitter.on('tick',(d)=>{
-    console.log('tick', d)
-})
-
-emitter.on('tick-final',(d)=>{
-    console.log('tick-final', d)
-})
-
-
-countQ.start(4, 8, 3)
+countdown.start(4, 8, 3)

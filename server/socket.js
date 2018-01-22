@@ -1,6 +1,6 @@
 function Socket (emitter, server){
     this.emitter = emitter
-    console.log('socket.js')
+    console.log('socket.js - won\'t emit events unless user is connected')
 
     this.io = require('socket.io').listen(server);
     this.io.on('connection', (socket) => {
@@ -9,17 +9,9 @@ function Socket (emitter, server){
         socket.on('disconnect', function(){
           console.log('user disconnected');
         });
-        
-        socket.on('tick', () => {
-            console.log('internal to socket.io')
-        })
 
         this.emitter.on('tick', (e) => {
             socket.emit('tick', e)
-        })
-
-        this.emitter.on('tick-start', (e) => {
-            socket.emit('tick-start', e)
         })
     
         this.emitter.on('tick-final', (e) => {
@@ -39,14 +31,10 @@ function Socket (emitter, server){
         })
         
         socket.on('dropbox-token',(e) => {
-            // console.log('dropbox-token', e)
             this.emitter.emit('dropbox-token', e)
         })
-
     });
-
-    
- }
+}
 
 
 module.exports = Socket

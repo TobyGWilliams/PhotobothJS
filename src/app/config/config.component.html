@@ -1,5 +1,14 @@
-<h2 mat-dialog-title>Configuration</h2>
 <mat-dialog-content>
+    <h3>Dropbox</h3>
+    <p>Connecting to dropbox will allow the automatic offloading of pictures to a PhotoboothJS specific folder. No access to other files or folders is requested</p>
+    <div *ngIf="config.dropboxAuthStatus=='not-auth'">
+        <a mat-raised-button color="primary" href="{{config.dropboxAuthUrl}}">Connect to Dropbox</a>
+    </div>
+    <div *ngIf="config.dropboxAuthStatus!='not-auth'">
+        <p>You are connected to dropbox as: <b>{{config.dropboxName}}</b> with email: <b>{{config.dropboxEmail}}</b></p>
+        <p>To deactivate the permissions, navigate to settings in dropbox and de-authorised the app.</p>
+    </div>
+
     <h3>Folder Configuration</h3>
     <p>Specify and enable the target folder to capture the pictures to and monitor.</p>
     <form>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Socket } from 'ng-socket-io';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-home-page',
@@ -13,7 +14,8 @@ export class HomePageComponent implements OnInit {
   qrCodeURL: String = ''
   qrCodeVisible: Boolean = false
   constructor(
-    private socket: Socket
+    private socket: Socket,
+    public snackBar: MatSnackBar
   ) {
     this.socket.fromEvent('tick').subscribe((m: number) => {
       this.state = 'running'
@@ -47,6 +49,12 @@ export class HomePageComponent implements OnInit {
       this.qrCodeURL = f
       this.qrCodeVisible = true
     });
+    this.socket.fromEvent('dropbox-login-success').subscribe((d) => {
+      console.log(d, 'dropbox-login-success')
+      this.snackBar.open('Dropbox log in success', 'dismiss', {
+        duration: 5000,
+      });
+    })
   }
   ngOnInit() { }
 }

@@ -7,7 +7,7 @@ import { QRCodeModule } from 'angular2-qrcode';
 
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatListModule, MatToolbarModule, MatButtonModule, MatGridListModule } from '@angular/material';
+import { MatListModule, MatToolbarModule, MatButtonModule, MatGridListModule, MatSnackBarModule } from '@angular/material';
 import { MatIconModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material';
 
@@ -27,12 +27,12 @@ const ROUTES = [
     pathMatch: 'full'
   },
   {
-    path: 'dropbox',
-    component: DropboxComponent,
-  },
-  {
     path: 'home',
     component: HomePageComponent
+  },
+  {
+    path: 'dropbox',
+    component: DropboxComponent,
   }
 ];
 
@@ -51,7 +51,7 @@ const ROUTES = [
     RouterModule.forRoot(ROUTES),
     SocketIoModule.forRoot(config),
     BrowserAnimationsModule, MatToolbarModule, MatListModule, MatButtonModule,
-    MatIconModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule, MatGridListModule,
+    MatIconModule, MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule, MatGridListModule, MatSnackBarModule,
     MatDialogModule,
     QRCodeModule
   ],

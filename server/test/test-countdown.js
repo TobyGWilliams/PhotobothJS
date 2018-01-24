@@ -1,4 +1,4 @@
-console.log('Countdown Quad Test')
+console.log('Countdown Test Script')
 
 const config = require('../config.json')
 const EventEmitter = require('events')
@@ -8,7 +8,7 @@ var emitter = new EventEmitter()
 var countdown = new Countdown(emitter)
 
 //switch for emitter logging
-if (false) {
+if (true) {
     emitter.on('tick',(d)=>{
         console.log('tick', d)
     })

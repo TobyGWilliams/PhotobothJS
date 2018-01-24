@@ -29,12 +29,24 @@ function Socket (emitter, server){
         this.emitter.on('dropbox-login-success', (e) => {
             socket.emit('dropbox-login-success', e)
         })
+
+        this.emitter.on('dropbox-authUrl', (e) => {
+            socket.emit('dropbox-authUrl', e)
+        })
+
+        this.emitter.on('dropbox-authStatus', (e) => {
+            socket.emit('dropbox-authStatus', e)
+        })
         
         socket.on('dropbox-token',(e) => {
             this.emitter.emit('dropbox-token', e)
         })
+
+        socket.on('config-get', () => {
+            this.emitter.emit('config-get')
+        })
+        
     });
 }
-
 
 module.exports = Socket

@@ -17,9 +17,12 @@ export class DropboxComponent implements OnInit {
 
   ngOnInit() {
     this.socket.on('connect', () => {
-      console.log('dropbox-token', window.location.hash)
-      this.socket.emit('dropbox-token', window.location.hash)
-      this.router.navigateByUrl('/home')
+      console.log(window.location.hash)
+      if(window.location.hash != null){
+        this.socket.emit('dropbox-token', window.location.hash)
+        this.router.navigateByUrl('/home')
+      }
+
     })
 
   }

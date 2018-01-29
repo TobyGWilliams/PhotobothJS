@@ -22,7 +22,7 @@ const IO = require('./gpio.js')
 
 
 var emitter = new EventEmitter()
-var server = new Server(config.file_path)
+var server = new Server(emitter, config.file_path)
 var file = new File(emitter, config.file_path)
 var countdown = new Countdown(emitter)
 var camera = new Camera(emitter, config.file_path)

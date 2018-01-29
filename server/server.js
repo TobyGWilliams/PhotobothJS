@@ -20,14 +20,7 @@ var Server = function(emitter, filepath){
             var fileName = req.path.match('/picture/(.*)')[1]
             res.sendFile(path.join(this.filepath, fileName));
         });
-
-        // app.get('/dropbox*', (req, res)=>{
-        //     console.log(req.query.code)
-        //     res.redirect('/home')
-        //     this.emitter.emit('server-dropboxToken', req.query.code)
-        // })
-
-
+        
         // Catch all other routes and return the index file
         app.get('*', (req, res) => {
             res.sendFile(path.join(__dirname, '../dist/index.html'));

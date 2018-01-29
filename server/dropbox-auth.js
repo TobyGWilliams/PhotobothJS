@@ -4,9 +4,8 @@ const moment = require('moment');
 
 const clientID = '4210jna60uh85i9'
 
-var Dropbox = function(emitter, file_path){
+var Dropbox = function(emitter){
   this.emitter = emitter;
-  this.file_path = file_path
 
   this.status = 'not-auth'
   this.name = ''
@@ -24,11 +23,24 @@ var Dropbox = function(emitter, file_path){
     })
   })
 
+  this.emitter.on('camera-new-picture',(e)=> {
+    console.log(e)
+    var file = fs.readFileSync(e)
+    this.dbx.filesUpload({path: '/testFOLDER/' + d, contents: file})
+    .then((r) => {
+      console.log('dropbox-upload-success')
+      this.emitter.emit('dropbox-upload-success')
+    })
+    this.dbx.usersGetCurrentAccount()
+    .then((r)=>{
+        console.log('dropbox-login-success',r.name.display_name,r.email)
+      })
+  })
+
   this.emitter.on('dropbox-token', (e) =>{
     const regexFileName = RegExp('access_token=(.*?)\&')
     if(e.match('access_token=(.*?)\&') != null) {
       const token = e.match('access_token=(.*?)\&')[1]
-      console.log('dropbox-token', token)
       this.dbx.setAccessToken(token)
       this.dbx.usersGetCurrentAccount()
       .then((r)=>{

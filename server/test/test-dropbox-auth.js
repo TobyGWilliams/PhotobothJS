@@ -6,7 +6,13 @@ const Socket = require('../socket.js')
 
 var emitter = new EventEmitter()
 
-var dropbox = new Dropbox(emitter, config.file_path)
+var dropbox = new Dropbox(emitter)
 var server = new Server(emitter, config.file_path)
 var serv = server.server
 var socket = new Socket(emitter, serv)
+
+emitter.on('dropbox-login-success',(e) => {
+    console.log('dropbox-login-success')
+    console.log('send picture to dropbox')
+    emitter.emit('camera-new-picture', 'C:/Users/Toby/Pictures/IMG_0004.JPG')
+})

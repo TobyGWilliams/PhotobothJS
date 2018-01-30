@@ -44,14 +44,20 @@ export class HomePageComponent implements OnInit {
         console.log('file-new', this)
       }, 5000)
     });
-    this.socket.fromEvent('dropbox-newURL').subscribe((f: String) => {
-      console.log('dropbox-newURL', f)
+    this.socket.fromEvent('dropbox-url').subscribe((f: String) => {
+      console.log('dropbox-url', f)
       this.qrCodeURL = f
       this.qrCodeVisible = true
     });
     this.socket.fromEvent('dropbox-login-success').subscribe((d) => {
-      console.log(d, 'dropbox-login-success')
+      console.log( 'dropbox-login-success', d)
       this.snackBar.open('Dropbox log in success', 'dismiss', {
+        duration: 5000,
+      });
+    })
+    this.socket.fromEvent('dropbox-upload-success').subscribe((d) => {
+      console.log( 'dropbox-upload-success', d)
+      this.snackBar.open('Dropbox upload success', 'dismiss', {
         duration: 5000,
       });
     })

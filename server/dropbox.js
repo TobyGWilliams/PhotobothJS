@@ -1,9 +1,14 @@
+/* eslint-env node */
 const Dbx = require('dropbox');
 const fs = require('fs');
 
 const clientID = '4210jna60uh85i9';
 
-let Dropbox = function(emitter) {
+/**
+ * Communicates with Dropbox.
+ * @param {emitter} emitter - emitter that the application communicates over.
+ */
+function Dropbox(emitter) {
   this.emitter = emitter;
 
   this.status = 'not-auth';
@@ -22,14 +27,17 @@ let Dropbox = function(emitter) {
     });
   });
 
-  this.emitter.on('camera-new-picture', (e)=> {
+  this.emitter.on('dropbox-new-picture', (e)=> {
     if (this.status == 'auth') {
       let file = fs.readFileSync(e);
       this.dbx.filesUpload({path: '/test_folder/filename.jpg', contents: file})
       .then((r) => {
         this.emitter.emit('dropbox-upload-success');
+        this.dbx.sharingCreateSharedLink({path: r.path_lower}).then((r) => {
+          this.emitter.emit('dropbox-url', r.url);
+        });
       }).catch((r)=>{
-        console.log('dropbox - unable to upload picture');
+        this.emitter.emit('dropbox-upload-failure');
       });
     } else {
       console.log('dropbox - unable to upload picture');
@@ -42,7 +50,6 @@ let Dropbox = function(emitter) {
       this.dbx.setAccessToken(token);
       this.dbx.usersGetCurrentAccount()
       .then((r)=>{
-          console.log('dropbox-login-success', r.name.display_name, r.email);
           this.status = 'auth';
           this.email = r.email;
           this.name = r.name.display_name;

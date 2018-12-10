@@ -1,18 +1,11 @@
-const config = require('./config.json')
+const Server = require('../server.js');
+const Socket = require('socket.io');
 
-const Dropbox = require('./dropbox.js')
-const EventEmitter = require('events')
-const Countdown = require('./countdown.js')
-const File = require('./file.js')
-const Server = require('./server.js')
-const JsonFile = require('jsonfile')
-const Socket = require('./socket.js')
+const config = {file_path: ''};
 
-var emitter = new EventEmitter()
-var server = new Server(config.file_path)
-var file = new File(emitter, config.file_path)
-var dropbox = new Dropbox(emitter, config.dropboxToken, config.file_path)
+const server = new Server(config.file_path);
 
+const serv = server.server;
+const socket = new Socket(serv);
 
-var serv = server.server
-var socket = new Socket(emitter, serv)
+socket.on('connection', function(socket) {});

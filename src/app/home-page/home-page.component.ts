@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-import { MatSnackBar } from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {Socket} from 'ngx-socket-io';
+import {MatSnackBar} from '@angular/material';
+
+class CountdownResponse {
+  count: number;
+  numberOfPhotos: number;
+}
 
 @Component({
   selector: 'app-home-page',
@@ -14,22 +19,33 @@ export class HomePageComponent implements OnInit {
   qrCodeURL: String = '';
   qrCodeVisible: Boolean = false;
   constructor(private socket: Socket, public snackBar: MatSnackBar) {
-    this.socket.fromEvent('tick').subscribe((m: number) => {
-      this.state = 'running';
-      this.number = m;
-      console.log('tick', m);
-    });
-    this.socket.fromEvent('tick-final').subscribe(() => {
-      this.state = 'final';
-      this.number = 10;
-      setTimeout(() => {
-        this.state = 'home';
-      }, 10000);
-    });
-    this.socket.fromEvent('tick-start').subscribe((m: number) => {
-      this.state = 'start';
-      console.log('tick-start', this);
-    });
+    this.socket
+      .fromEvent('countdown-start')
+      .subscribe((message: CountdownResponse) => {
+        this.state = 'start';
+        console.log('countdown-start', message);
+      });
+    this.socket
+      .fromEvent('countdown-tick')
+      .subscribe((message: CountdownResponse) => {
+        this.state = 'countdown';
+        this.number = message.count;
+        console.log('countdown-tick', message);
+      });
+    this.socket
+      .fromEvent('countdown-tick-final')
+      .subscribe((message: CountdownResponse) => {
+        this.state = 'flash';
+        console.log('countdown-tick-final', message);
+      });
+    this.socket
+      .fromEvent('countdown-finish')
+      .subscribe((message: CountdownResponse) => {
+        this.state = 'finish';
+        this.number = message.count;
+        console.log('countdown-finish', message);
+      });
+
     this.socket.fromEvent('file-new').subscribe((f: String) => {
       this.state = 'picture';
       this.pictureURL = f;

@@ -1,8 +1,16 @@
 <div class="qr" *ngIf="qrCodeVisible">
-    <qr-code [value]="qrCodeURL" [size]="150" ></qr-code>
-    <div class="whiteText">Scan to View</div>
+  <qr-code [value]="qrCodeURL" [size]="150"></qr-code>
+  <div class="whiteText">Scan to View</div>
 </div>
-<div class="title-picture" *ngIf="state=='home'"></div>
-<div class="picture" [style.background-image]="'url(../../assets/number-' + number + '.svg)'" *ngIf="state=='running'"></div>
-<div class="picture" [style.background-image]="'url(./picture/' + pictureURL + ')'" *ngIf="state=='picture'"></div>
-<div class="flash" *ngIf="state=='final'"></div>
+<div class="title-picture" *ngIf="state == 'home'"></div>
+<div
+  class="picture"
+  [style.background-image]="'url(../../assets/number-' + number + '.svg)'"
+  *ngIf="state == 'countdown'"
+></div>
+<div
+  class="picture"
+  [style.background-image]="'url(./picture/' + pictureURL + ')'"
+  *ngIf="state == 'picture'"
+></div>
+<div class="flash" *ngIf="state == 'flash'"></div>

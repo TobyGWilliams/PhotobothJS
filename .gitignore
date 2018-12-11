@@ -32,6 +32,9 @@ npm-debug.log
 testem.log
 /typings
 
+# lib
+/lib
+
 # e2e
 /e2e/*.js
 /e2e/*.map

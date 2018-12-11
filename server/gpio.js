@@ -1,24 +1,23 @@
-var gpio = require('rpi-gpio')
+import gpio from 'rpi-gpio';
+import EventEmitter from 'events';
 
-function Button(emitter, pin) {
-    this.emitter = emitter
-    this.pin = pin
-    this.listening = true
+export class Button {
+  constructor(pin) {
+    this.emitter = new EventEmitter();
+    this.pin = pin;
+    this.listening = true;
 
-    console.log('gpio.js', emitter, pin)
-
-    gpio.on('change', (c,v)=>{
-        if(v==true && this.listening == true){
-            this.emitter.emit('gpio-press', this.pin)
-            console.log('disable gpio listen')
-            this.listening = false
-            setTimeout(()=>{
-                console.log('re-enable gpio listen')
-                this.listening = true
-            },10000)
-        }
-    })
-    gpio.setup(this.pin, gpio.DIR_IN, gpio.EDGE_BOTH)
+    gpio.on('change', (c, v) => {
+      if (v == true && this.listening == true) {
+        this.emitter.emit('button-press');
+        this.listening = false;
+        setTimeout(() => {
+          this.listening = true;
+        }, 10000);
+      }
+    });
+    gpio.setup(this.pin, gpio.DIR_IN, gpio.EDGE_BOTH);
+  }
 }
 
-module.exports = Button
+module.exports = Button;

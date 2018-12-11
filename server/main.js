@@ -2,34 +2,59 @@ import Socket from 'socket.io';
 
 import Server from './server.js';
 import {Countdown} from './countdown';
-import {GPIO} from './gpio';
+// import {GPIO} from './gpio';
+import {File} from './file';
+import {Dropbox} from './dropbox';
 
-const config = {file_path: ''};
+const config = {file_path: '/Users/towillia/Documents/Photobooth'};
 
+const file = new File(config.file_path);
 const server = new Server(config.file_path);
 const socket = new Socket(server.server);
-const gpio = new GPIO(18);
+const dropbox = new Dropbox();
+// const gpio = new GPIO(18);
 
 const startCountdown = () => {
   const countdown = new Countdown(8, 4, 3);
-  countdown.emitter.on('countdown-start', (e) =>
-    socket.emit('countdown-start', e)
+  countdown.emitter.on('countdown-start', (countdown) =>
+    socket.emit('countdown-start', countdown)
   );
-  countdown.emitter.on('countdown-finish', (e) => {
-    socket.emit('countdown-finish', e);
+  countdown.emitter.on('countdown-finish', (countdown) => {
+    socket.emit('countdown-finish', countdown);
   });
-  countdown.emitter.on('countdown-tick', (e) => {
-    socket.emit('countdown-tick', e);
+  countdown.emitter.on('countdown-tick', (countdown) => {
+    socket.emit('countdown-tick', countdown);
   });
-  countdown.emitter.on('countdown-tick-final', (e) => {
-    socket.emit('countdown-tick-final', e);
+  countdown.emitter.on('countdown-tick-final', (countdown) => {
+    socket.emit('countdown-tick-final', countdown);
   });
   countdown.start();
 };
 
-gpio.emitter.on('button-press', startCountdown);
+// gpio.emitter.on('button-press', startCountdown);
 
-// socket.on('connection', () => {});
+file.emitter.on('file-new', (fileName) => {
+  socket.emit('file-new', fileName);
+});
+
+// when a new client connects setup up the listeners for that client.
+socket.on('connection', (client) => {
+  // when the new client sends the things, do the things.
+  client.on('config-get', () => {
+    socket.emit('file-path', config.file_path);
+    socket.emit('dropbox-authUrl', dropbox.getLoginUrl());
+    socket.emit('dropbox-authStatus', dropbox.getAuthStatus());
+  });
+  client.on('dropbox-token', (message) => {
+    console.log(message);
+    dropbox.setAccessToken(message);
+  });
+});
+
+dropbox.emitter.on('dropbox-login-success', (message) => {
+  console.log('dropbox-login-success');
+  socket.emit('dropbox-login-success', message);
+});
 
 // // change screen time out.
 // // exec('setterm -blank 0', (error, stdout, stderr) => {
@@ -39,22 +64,8 @@ gpio.emitter.on('button-press', startCountdown);
 // //     console.log('std err', stderr)
 // // })
 
-// const Dropbox = require('./dropbox.js');
-// const EventEmitter = require('events');
-// const Countdown = require('./countdown.js');
 // const Camera = require('./camera.js');
-// const File = require('./file.js');
-// const Server = require('./server.js');
 // const JsonFile = require('jsonfile');
-// const Socket = require('./socket.js');
-// const IO = require('./gpio.js');
 
-// let emitter = new EventEmitter();
-// let server = new Server(emitter, config.file_path);
-// let file = new File(emitter, config.file_path);
 // let camera = new Camera(emitter, config.file_path);
-// let gpio = new IO(emitter, config.watch_pin);
 // let dropbox = new Dropbox(emitter, config.dropboxToken, config.file_path);
-
-// let serv = server.server;
-// let socket = new Socket(emitter, serv);

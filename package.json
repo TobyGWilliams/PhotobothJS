@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:server": "babel server --out-dir lib && node ./lib/test/test-main.js",
+    "start:server": "babel server --out-dir lib && node ./lib/main.js",
     "test": "ng build && node ./server/test-file.js",
     "test:jest": "jest .spec.js --watch",
     "test:server": "karma start ./server/karma.conf.js",

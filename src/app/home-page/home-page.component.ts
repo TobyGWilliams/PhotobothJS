@@ -53,7 +53,7 @@ export class HomePageComponent implements OnInit {
       setTimeout(() => {
         this.state = 'home';
         console.log('file-new', this);
-      }, 5000);
+      }, 30000);
     });
     this.socket.fromEvent('dropbox-url').subscribe((f: String) => {
       console.log('dropbox-url', f);

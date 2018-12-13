@@ -22,8 +22,8 @@ if (config.dropboxAuthToken) {
 }
 
 const startCountdownMultiple = () => {
-  const numberOfPhotos = 1;
-  const countdown = new Countdown(8, numberOfPhotos, 3);
+  const numberOfPhotos = 3;
+  const countdown = new Countdown(8, numberOfPhotos, 5);
   countdown.emitter.on('countdown-start', (message) =>
     socket.emit('countdown-start', message)
   );
@@ -35,7 +35,7 @@ const startCountdownMultiple = () => {
   });
   countdown.emitter.on('countdown-tick-final', (message) => {
     const picture = camera.takePicture();
-    console.log(picture);
+    console.log(picture, message);
     socket.emit('countdown-tick-final', message);
   });
   countdown.start();
@@ -77,13 +77,8 @@ dropbox.emitter.on('dropbox-login-failure', (message) => {
   jsonfile.writeFile(configFile, config);
 });
 
-dropbox.emitter.on('dropbox-upload-success', (message) => {
-  console.log('dropbox-upload-success', message);
-});
-
 dropbox.emitter.on('dropbox-url', (message) => {
   socket.emit('dropbox-url', message);
-  console.log('dropbox-url', message);
 });
 
 // // change screen time out.
@@ -94,11 +89,6 @@ dropbox.emitter.on('dropbox-url', (message) => {
 // //     console.log('std err', stderr)
 // // })
 
-// const Camera = require('./camera.js');
-// const JsonFile = require('jsonfile');
-
-// let camera = new Camera(emitter, config.file_path);
-// let dropbox = new Dropbox(emitter, config.dropboxToken, config.file_path);
 // const gpio = new GPIO(18);
 // import {GPIO} from './gpio';
 // gpio.emitter.on('button-press', startCountdown);

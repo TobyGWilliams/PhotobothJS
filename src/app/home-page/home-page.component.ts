@@ -2,11 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {MatSnackBar} from '@angular/material';
 
-class CountdownResponse {
-  count: number;
-  numberOfPhotos: number;
-}
-
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -15,35 +10,47 @@ class CountdownResponse {
 export class HomePageComponent implements OnInit {
   state = 'home';
   number = 0;
+  numberofPhotos = 0;
   pictureURL: String = '';
   qrCodeURL: String = '';
   qrCodeVisible: Boolean = false;
+  multiple: Boolean;
+  multipleDisplay: Array<number> = [];
   constructor(private socket: Socket, public snackBar: MatSnackBar) {
     this.socket
       .fromEvent('countdown-start')
-      .subscribe((message: CountdownResponse) => {
+      .subscribe((message: Array<number>) => {
         this.state = 'start';
-        console.log('countdown-start', message);
+        this.qrCodeVisible = false;
+        this.multiple = message.length > 1;
+        this.multipleDisplay = message;
+        console.debug('countdown-start', message, this);
       });
     this.socket
       .fromEvent('countdown-tick')
-      .subscribe((message: CountdownResponse) => {
+      .subscribe((message: Array<number>) => {
         this.state = 'countdown';
-        this.number = message.count;
-        console.log('countdown-tick', message);
+        this.multiple = message.length > 1;
+        this.multipleDisplay = message;
+        console.debug('countdown-tick', message, this);
       });
     this.socket
       .fromEvent('countdown-tick-final')
-      .subscribe((message: CountdownResponse) => {
+      .subscribe((message: Array<number>) => {
         this.state = 'flash';
-        console.log('countdown-tick-final', message);
+        this.multiple = message.length > 1;
+        this.multipleDisplay = message;
+        console.debug('countdown-tick-final', message, this);
       });
     this.socket
       .fromEvent('countdown-finish')
-      .subscribe((message: CountdownResponse) => {
-        this.state = 'finish';
-        this.number = message.count;
-        console.log('countdown-finish', message);
+      .subscribe((message: Array<number>) => {
+        this.state = 'countdown';
+        setTimeout(() => {
+          this.state = 'home';
+          console.log('countdown finish timeout', this);
+        }, 10000);
+        console.debug('countdown-finish', message, this);
       });
 
     this.socket.fromEvent('file-new').subscribe((f: String) => {

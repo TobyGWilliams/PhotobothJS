@@ -1,30 +1,39 @@
 .title-picture {
-    background:url(../../assets/MagicMirror.svg);
-    width:100%;
-    height:95%;
-    background-size:contain;
-    background-repeat:no-repeat;
-    background-position:center;
+  background: url(../../assets/MagicMirror.svg);
+  width: 100%;
+  height: 95%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .picture {
-    width:100%;
-    height:95%;
-    background-size:contain;
-    background-repeat:no-repeat;
-    background-position:center;
+  width: 100%;
+  height: 95%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .flash {
-    width:100%;
-    height:95%;
-    background:url(../../assets/flash.png);
-    background-size:contain;
-    background-repeat:no-repeat;
-    background-position:center;
+  width: 100%;
+  height: 95%;
+  background: url(../../assets/flash.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .qr {
-    float: right;
+  float: right;
 }
 .whiteText {
-    color: white;
-    text-align: center;
+  color: white;
+  text-align: center;
+}
+.quarter {
+  width: 48%;
+  height: 48%;
+  margin: auto auto;
+  display: inline-block;
+}
+.fullHeight {
+  height: calc(100% - 30px);
 }

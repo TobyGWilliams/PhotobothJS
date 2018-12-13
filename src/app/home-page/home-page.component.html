@@ -5,9 +5,20 @@
 <div class="title-picture" *ngIf="state == 'home'"></div>
 <div
   class="picture"
-  [style.background-image]="'url(../../assets/number-' + number + '.svg)'"
-  *ngIf="state == 'countdown'"
+  [style.background-image]="
+    'url(../../assets/number-' + multipleDisplay[0] + '.svg)'
+  "
+  *ngIf="state == 'countdown' && multiple === false"
 ></div>
+<div *ngIf="state == 'countdown' && multiple === true" class="fullHeight">
+  <div
+    *ngFor="let display of multipleDisplay"
+    class="picture quarter"
+    [style.background-image]="
+      display ? 'url(../../assets/number-' + display + '.svg)' : null
+    "
+  ></div>
+</div>
 <div
   class="picture"
   [style.background-image]="'url(./picture/' + pictureURL + ')'"

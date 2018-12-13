@@ -1,78 +1,67 @@
-/* eslint-env node */
-import Dbx from 'dropbox';
+import fetch from 'isomorphic-fetch';
+import {Dropbox as Dbx} from 'dropbox';
 import fs from 'fs';
 import EventEmitter from 'events';
 
 const clientID = '4210jna60uh85i9';
 
 export class Dropbox {
-  constructor() {
+  constructor(filePath) {
+    this.filePath = filePath;
+
     this.emitter = new EventEmitter();
+    this.dbx = new Dbx({clientId: clientID, fetch: fetch});
 
     this.status = 'not-auth';
     this.name = '';
     this.email = '';
-
-    this.dbx = new Dbx();
-    this.dbx.setClientId(clientID);
-
-    this.emitter.on('config-get', () => {
-      this.emitter.emit(
-        'dropbox-authUrl',
-        this.dbx.getAuthenticationUrl(
-          'http://localhost:3000/dropbox',
-          'response_type=code'
-        )
-      );
-      this.emitter.emit('dropbox-authStatus', {
-        status: this.status,
-        name: this.name,
-        email: this.email,
-      });
-    });
-    // abstract this to a class function not emitter thingy
-    this.emitter.on('dropbox-new-picture', (e) => {});
   }
   setAccessToken(_token) {
-    if (_token.match('access_token=(.*?)&') != null) {
-      const token = _token.match('access_token=(.*?)&')[1];
-      this.dbx.setAccessToken(token);
-      this.dbx
-        .usersGetCurrentAccount()
-        .then((r) => {
-          this.status = 'auth';
-          this.email = r.email;
-          this.name = r.name.display_name;
+    this.dbx.setAccessToken(_token);
+    this.dbx
+      .usersGetCurrentAccount()
+      .then((r) => {
+        this.status = 'auth';
+        this.email = r.email;
+        this.name = r.name.display_name;
 
-          this.emitter.emit('dropbox-login-success', {
-            status: this.status,
-            name: this.name,
-            email: this.email,
-          });
-        })
-        .catch((r) => {
-          console.log('dropbox-login-failure');
+        this.emitter.emit('dropbox-login-success', {
+          status: this.status,
+          name: this.name,
+          email: this.email,
+          token: _token,
         });
-    } else {
-      console.log('no token found');
-    }
+      })
+      .catch((r) => {
+        this.emitter.emit('dropbox-login-failure');
+      });
   }
-  newPicture(filePath) {
+  newPicture(imgFile) {
     if (this.status == 'auth') {
-      let file = fs.readFileSync(e);
+      let file = fs.readFileSync(this.filePath + '/' + imgFile);
       this.dbx
-        .filesUpload({path: '/test_folder/filename.jpg', contents: file})
-        .then((r) => {
-          this.emitter.emit('dropbox-upload-success');
-          this.dbx.sharingCreateSharedLink({path: r.path_lower}).then((r) => {
-            this.emitter.emit('dropbox-url', r.url);
-          });
+        .filesUpload({path: `/test_folder/${imgFile}`, contents: file})
+        .then((response) => {
+          this.emitter.emit('dropbox-upload-success', response);
+          this.dbx
+            .sharingCreateSharedLinkWithSettings({path: response.path_lower})
+            .then(
+              (response) => {
+                this.emitter.emit('dropbox-url', response.url);
+              },
+              (reason) => {
+                console.log(
+                  'dropbox get sharing url fail',
+                  reason.error.error_summary
+                );
+              }
+            );
         })
         .catch((r) => {
-          this.emitter.emit('dropbox-upload-failure');
+          console.log('dropbox - upload error');
         });
     } else {
-      console.log('dropbox - unable to upload picture');
+      console.log('dropbox - unable to upload picture - not authenticated');
     }
   }
   getLoginUrl() {

@@ -1,59 +1,86 @@
 import Socket from 'socket.io';
+import jsonfile from 'jsonfile';
 
 import Server from './server.js';
 import {Countdown} from './countdown';
-// import {GPIO} from './gpio';
+
 import {File} from './file';
 import {Dropbox} from './dropbox';
 
-const config = {file_path: '/Users/towillia/Documents/Photobooth'};
+const configFile = './server/config.json';
+
+const config = jsonfile.readFileSync(configFile);
 
 const file = new File(config.file_path);
 const server = new Server(config.file_path);
 const socket = new Socket(server.server);
-const dropbox = new Dropbox();
-// const gpio = new GPIO(18);
+const dropbox = new Dropbox(config.file_path);
 
-const startCountdown = () => {
-  const countdown = new Countdown(8, 4, 3);
-  countdown.emitter.on('countdown-start', (countdown) =>
-    socket.emit('countdown-start', countdown)
+if (config.dropboxAuthToken) {
+  dropbox.setAccessToken(config.dropboxAuthToken);
+}
+
+const startCountdownMultiple = () => {
+  const numberOfPhotos = 4;
+  const countdown = new Countdown(8, numberOfPhotos, 3);
+  countdown.emitter.on('countdown-start', (message) =>
+    socket.emit('countdown-start', message)
   );
-  countdown.emitter.on('countdown-finish', (countdown) => {
-    socket.emit('countdown-finish', countdown);
+  countdown.emitter.on('countdown-finish', (message) => {
+    socket.emit('countdown-finish', message);
   });
-  countdown.emitter.on('countdown-tick', (countdown) => {
-    socket.emit('countdown-tick', countdown);
+  countdown.emitter.on('countdown-tick', (message) => {
+    socket.emit('countdown-tick', message);
   });
-  countdown.emitter.on('countdown-tick-final', (countdown) => {
-    socket.emit('countdown-tick-final', countdown);
+  countdown.emitter.on('countdown-tick-final', (message) => {
+    socket.emit('countdown-tick-final', message);
   });
   countdown.start();
 };
 
-// gpio.emitter.on('button-press', startCountdown);
-
-file.emitter.on('file-new', (fileName) => {
-  socket.emit('file-new', fileName);
-});
-
-// when a new client connects setup up the listeners for that client.
 socket.on('connection', (client) => {
-  // when the new client sends the things, do the things.
+  startCountdownMultiple();
+  // socket.emit('countdown-tick', [9, 1, 4, 4]);
   client.on('config-get', () => {
     socket.emit('file-path', config.file_path);
     socket.emit('dropbox-authUrl', dropbox.getLoginUrl());
     socket.emit('dropbox-authStatus', dropbox.getAuthStatus());
   });
   client.on('dropbox-token', (message) => {
-    console.log(message);
-    dropbox.setAccessToken(message);
+    if (message.match('access_token=(.*?)&') != null) {
+      dropbox.setAccessToken(message.match('access_token=(.*?)&')[1]);
+    } else {
+      console.log('dropbox token failed', message);
+    }
   });
 });
 
-dropbox.emitter.on('dropbox-login-success', (message) => {
-  console.log('dropbox-login-success');
-  socket.emit('dropbox-login-success', message);
+file.emitter.on('file-new', (fileName) => {
+  socket.emit('file-new', fileName);
+  dropbox.newPicture(fileName);
+});
+
+dropbox.emitter.on(
+  'dropbox-login-success',
+  ({status, name, email, token}) => {
+    socket.emit('dropbox-login-success', {status, name, email});
+    config.dropboxAuthToken = token;
+    jsonfile.writeFile(configFile, config);
+  }
+);
+
+dropbox.emitter.on('dropbox-login-failure', (message) => {
+  config.dropboxAuthToken = null;
+  jsonfile.writeFile(configFile, config);
+});
+
+dropbox.emitter.on('dropbox-upload-success', (message) => {
+  console.log('dropbox-upload-success', message);
+});
+
+dropbox.emitter.on('dropbox-url', (message) => {
+  socket.emit('dropbox-url', message);
+  console.log('dropbox-url', message);
 });
 
 // // change screen time out.
@@ -69,3 +96,6 @@ dropbox.emitter.on('dropbox-login-success', (message) => {
 
 // let camera = new Camera(emitter, config.file_path);
 // let dropbox = new Dropbox(emitter, config.dropboxToken, config.file_path);
+// const gpio = new GPIO(18);
+// import {GPIO} from './gpio';
+// gpio.emitter.on('button-press', startCountdown);

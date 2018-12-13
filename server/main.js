@@ -2,7 +2,7 @@ import Socket from 'socket.io';
 import jsonfile from 'jsonfile';
 
 import Server from './server';
-import {Camera} from '../camera';
+import {Camera} from './camera';
 import {Countdown} from './countdown';
 import {File} from './file';
 import {Dropbox} from './dropbox';

@@ -1,29 +1,19 @@
-// const path = require('path');
+import childProcess from 'child_process';
 
-let Camera = function(emitter, path) {
-    this.path = path;
-    this.emitter = emitter;
-    this.exec = require('child_process').exec;
+export class Camera {
+  constructor(_path) {
+    this.path = _path;
+  }
 
-    console.log('Camera.js init', emitter);
-
-    this.emitter.on('tick-final', (e)=>{
-        let outputFilePath = this.path + '/img' + new Date().toISOString().replace(/:/g, '_') + '.jpg';
-        console.log(outputFilePath);
-        this.exec(
-            'gphoto2 --capture-image-and-download --filename \'' + outputFilePath +'\'',
-            (error, stdout, stderr) => {
-                console.log('stdout: ', stdout);
-                console.log('stderr: ', stderr);
-                console.log('error', error);
-                if (error !== null) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        );
+  takePicture() {
+    const outputFilePath =
+      this.path + '/img' + new Date().toISOString().replace(/:/g, '_') + '.jpg';
+    const command = `gphoto2 --capture-image-and-download --filename '${outputFilePath}'`;
+    childProcess.exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.error('picture fail!');
+      }
     });
-};
-
-module.exports = Camera;
+    return outputFilePath;
+  }
+}

@@ -1,9 +1,9 @@
 import Socket from 'socket.io';
 import jsonfile from 'jsonfile';
 
-import Server from './server.js';
+import Server from './server';
+import {Camera} from '../camera';
 import {Countdown} from './countdown';
-
 import {File} from './file';
 import {Dropbox} from './dropbox';
 
@@ -15,13 +15,14 @@ const file = new File(config.file_path);
 const server = new Server(config.file_path);
 const socket = new Socket(server.server);
 const dropbox = new Dropbox(config.file_path);
+const camera = new Camera(config.file_path);
 
 if (config.dropboxAuthToken) {
   dropbox.setAccessToken(config.dropboxAuthToken);
 }
 
 const startCountdownMultiple = () => {
-  const numberOfPhotos = 4;
+  const numberOfPhotos = 1;
   const countdown = new Countdown(8, numberOfPhotos, 3);
   countdown.emitter.on('countdown-start', (message) =>
     socket.emit('countdown-start', message)
@@ -33,6 +34,8 @@ const startCountdownMultiple = () => {
     socket.emit('countdown-tick', message);
   });
   countdown.emitter.on('countdown-tick-final', (message) => {
+    const picture = camera.takePicture();
+    console.log(picture);
     socket.emit('countdown-tick-final', message);
   });
   countdown.start();

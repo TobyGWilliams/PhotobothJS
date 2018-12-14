@@ -11,7 +11,9 @@ export class Camera {
     const command = `gphoto2 --capture-image-and-download --filename '${outputFilePath}'`;
     childProcess.exec(command, (error, stdout, stderr) => {
       if (error) {
-        console.error('picture fail!');
+        console.error('picture-fail', command, outputFilePath);
+      } else {
+        console.log(Date.now());
       }
     });
     return outputFilePath;

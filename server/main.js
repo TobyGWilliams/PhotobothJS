@@ -39,8 +39,8 @@ const startCountdownMultiple = () => {
 };
 
 socket.on('connection', (client) => {
-  startCountdownMultiple();
-  // socket.emit('countdown-tick', [9, 1, 4, 4]);
+   startCountdownMultiple();
+  //socket.emit('countdown-tick', [9, 1, 4, 4]);
   client.on('config-get', () => {
     socket.emit('file-path', config.file_path);
     socket.emit('dropbox-authUrl', dropbox.getLoginUrl());

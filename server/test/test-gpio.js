@@ -1,10 +1,7 @@
-const io = require('./gpio.js')
-const EventEmitter = require('events')
+const io = require('../gpio.js')
 
-var emitter = new EventEmitter()
+var gpio = new io( 12) //pin 12, GPIO18
 
-var gpio = new G(emitter, 18) //pin 18, GPIO24
-
-emitter.on('gpio-press', (x)=>{
-	console.log('gpio-press')
+gpio.emitter.on('button-press', ()=>{ 
+console.log('button press')
 })

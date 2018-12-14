@@ -5,7 +5,7 @@ import Server from './server';
 import {Camera} from './camera';
 import {Countdown} from './countdown';
 import {Dropbox} from './dropbox';
-import {Button} from '../gpio';
+import {Button} from './gpio';
 
 const configFile = './server/config.json';
 

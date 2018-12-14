@@ -35,8 +35,7 @@ const startCountdownMultiple = () => {
   });
   countdown.emitter.on('countdown-tick-final', (message) => {
     const picture = camera.takePicture();
-    console.log(picture, message);
-    socket.emit('countdown-tick-final', message);
+    socket.emit('countdown-tick-final', {message, picture});
   });
   countdown.start();
 };
@@ -58,8 +57,8 @@ socket.on('connection', (client) => {
   });
 });
 
-file.emitter.on('file-new', (fileName) => {
-  socket.emit('file-new', fileName);
+camera.emittter.on('camera-picture-ready', (message) => {
+  socket.emit('camera-picture-taken', message);
   dropbox.newPicture(fileName);
 });
 

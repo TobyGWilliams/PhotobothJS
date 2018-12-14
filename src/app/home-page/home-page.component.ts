@@ -16,6 +16,7 @@ export class HomePageComponent implements OnInit {
   qrCodeVisible: Boolean = false;
   multiple: Boolean;
   multipleDisplay: Array<number> = [];
+  pictures: Array<string> = [];
   constructor(private socket: Socket, public snackBar: MatSnackBar) {
     this.socket
       .fromEvent('countdown-start')
@@ -36,10 +37,12 @@ export class HomePageComponent implements OnInit {
       });
     this.socket
       .fromEvent('countdown-tick-final')
-      .subscribe((message: Array<number>) => {
+      .subscribe(({message, picture}) => {
+        console.log(picture);
         this.state = 'flash';
         this.multiple = message.length > 1;
         this.multipleDisplay = message;
+        console.log(message.filter((x) => !x));
         console.debug('countdown-tick-final', message, this);
       });
     this.socket

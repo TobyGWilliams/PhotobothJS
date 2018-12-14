@@ -54,9 +54,9 @@ export class HomePageComponent implements OnInit {
       .fromEvent('countdown-finish')
       .subscribe((message: Array<number>) => {
         this.state = 'countdown';
-        setTimeout(() => {
-          this.state = 'home';
-        }, 10000);
+        //setTimeout(() => {
+        //  this.state = 'home';
+        //}, 10000);
         console.debug('countdown-finish', message, this);
       });
     this.socket

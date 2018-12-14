@@ -10,9 +10,9 @@
   "
   *ngIf="state == 'countdown' && multiple === false"
 ></div>
-<div *ngIf="state == 'countdown' && multiple === true" class="fullHeight">
+<div *ngIf="state == 'countdown' && multiple === true" class="fullHeightBody">
   <div *ngFor="let display of multipleDisplay; index as i" class="quarter">
-    <div *ngIf="display">
+    <div *ngIf="display" class="fullHeight">
       <div
         class="picture"
         [style.background-image]="
@@ -20,7 +20,7 @@
         "
       ></div>
     </div>
-    <div *ngIf="(pictures[i] || {}).display">
+    <div *ngIf="(pictures[i] || {}).display" class="fullHeight">
       <div
         class="picture"
         [style.background-image]="

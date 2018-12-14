@@ -34,6 +34,10 @@
   margin: auto auto;
   display: inline-block;
 }
-.fullHeight {
+.fullHeightBody {
   height: calc(100% - 30px);
+}
+
+.fullHeight {
+  height: 100%;
 }

@@ -22,7 +22,7 @@
     ></div>
     <div
       [style.background-image]="
-        pictures[i].display
+        (pictures[i] || {}).display
           ? 'url(../../assets/' + pictures[i].fileName + ')'
           : null
       "

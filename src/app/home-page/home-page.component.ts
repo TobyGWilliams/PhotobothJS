@@ -64,6 +64,7 @@ export class HomePageComponent implements OnInit {
       .fromEvent('camera-picture-ready')
       .subscribe((fileName: String) => {
         const index = this.pictures.findIndex((e) => e.fileName === fileName);
+        console.log(this.pictures, index);
         this.pictures[index].display = true;
       });
     this.socket.fromEvent('dropbox-url').subscribe((f: String) => {

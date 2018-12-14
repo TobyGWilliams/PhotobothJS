@@ -71,6 +71,7 @@ export class HomePageComponent implements OnInit {
           this.state = 'picture';
           this.pictureUrl = fileName;
         }
+        console.debug('camera-picture-ready', fileName, this);
       });
     this.socket.fromEvent('dropbox-url').subscribe((f: String) => {
       console.log('dropbox-url', f);

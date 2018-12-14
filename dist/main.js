@@ -492,6 +492,7 @@ var HomePageComponent = /** @class */ (function () {
                 _this.state = 'picture';
                 _this.pictureUrl = fileName;
             }
+            console.debug('camera-picture-ready', fileName, _this);
         });
         this.socket.fromEvent('dropbox-url').subscribe(function (f) {
             console.log('dropbox-url', f);

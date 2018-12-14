@@ -5,13 +5,13 @@ import Server from './server';
 import {Camera} from './camera';
 import {Countdown} from './countdown';
 import {Dropbox} from './dropbox';
-import {Button} from './gpio';
+const IO = require('../gpio.js');
 
 const configFile = './server/config.json';
 
 const config = jsonfile.readFileSync(configFile);
 
-const gpio = new Button(12);
+const gpio = new IO(12); // pin 12, GPIO18
 const server = new Server(config.file_path);
 const socket = new Socket(server.server);
 const dropbox = new Dropbox(config.file_path);

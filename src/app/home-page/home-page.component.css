@@ -23,6 +23,8 @@
 }
 .qr {
   float: right;
+  position: fixed;
+  left: calc(99%-150px);
 }
 .whiteText {
   color: white;

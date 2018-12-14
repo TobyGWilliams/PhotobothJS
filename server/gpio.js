@@ -19,5 +19,3 @@ export class Button {
     gpio.setup(this.pin, gpio.DIR_IN, gpio.EDGE_BOTH);
   }
 }
-
-module.exports = Button;

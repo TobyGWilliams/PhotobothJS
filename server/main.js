@@ -5,7 +5,7 @@ import Server from './server';
 import {Camera} from './camera';
 import {Countdown} from './countdown';
 import {Dropbox} from './dropbox';
-const IO = require('../gpio.js');
+const IO = require('./gpio.js');
 
 const configFile = './server/config.json';
 

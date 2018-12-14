@@ -35,6 +35,6 @@
 <div
   class="picture"
   [style.background-image]="'url(/picture/' + pictureURL + ')'"
-  *ngIf="state == 'picture'"
+  *ngIf="state === 'picture'"
 ></div>
 <div class="flash" *ngIf="state == 'flash'"></div>

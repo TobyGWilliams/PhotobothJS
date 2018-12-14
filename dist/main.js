@@ -397,7 +397,7 @@ module.exports = ".title-picture {\n  background: url('MagicMirror.svg');\n  wid
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"qr\" *ngIf=\"qrCodeVisible\">\n  <qr-code [value]=\"qrCodeURL\" [size]=\"150\"></qr-code>\n  <div class=\"whiteText\">Scan to View</div>\n</div>\n<div class=\"title-picture\" *ngIf=\"state == 'home'\"></div>\n<div\n  class=\"picture\"\n  [style.background-image]=\"\n    'url(../../assets/number-' + multipleDisplay[0] + '.svg)'\n  \"\n  *ngIf=\"state == 'countdown' && multiple === false\"\n></div>\n<div *ngIf=\"state == 'countdown' && multiple === true\" class=\"fullHeightBody\">\n  <div *ngFor=\"let display of multipleDisplay; index as i\" class=\"quarter\">\n    <div *ngIf=\"display\" class=\"fullHeight\">\n      <div\n        class=\"picture\"\n        [style.background-image]=\"\n          display ? 'url(../../assets/number-' + display + '.svg)' : null\n        \"\n      ></div>\n    </div>\n    <div *ngIf=\"(pictures[i] || {}).display\" class=\"fullHeight\">\n      <div\n        class=\"picture\"\n        [style.background-image]=\"\n          (pictures[i] || {}).display\n            ? 'url(/picture/' + pictures[i].fileName + ')'\n            : null\n        \"\n      ></div>\n    </div>\n  </div>\n</div>\n<div\n  class=\"picture\"\n  [style.background-image]=\"'url(/picture/' + pictureURL + ')'\"\n  *ngIf=\"state == 'picture'\"\n></div>\n<div class=\"flash\" *ngIf=\"state == 'flash'\"></div>\n"
+module.exports = "<div class=\"qr\" *ngIf=\"qrCodeVisible\">\n  <qr-code [value]=\"qrCodeURL\" [size]=\"150\"></qr-code>\n  <div class=\"whiteText\">Scan to View</div>\n</div>\n<div class=\"title-picture\" *ngIf=\"state == 'home'\"></div>\n<div\n  class=\"picture\"\n  [style.background-image]=\"\n    'url(../../assets/number-' + multipleDisplay[0] + '.svg)'\n  \"\n  *ngIf=\"state == 'countdown' && multiple === false\"\n></div>\n<div *ngIf=\"state == 'countdown' && multiple === true\" class=\"fullHeightBody\">\n  <div *ngFor=\"let display of multipleDisplay; index as i\" class=\"quarter\">\n    <div *ngIf=\"display\" class=\"fullHeight\">\n      <div\n        class=\"picture\"\n        [style.background-image]=\"\n          display ? 'url(../../assets/number-' + display + '.svg)' : null\n        \"\n      ></div>\n    </div>\n    <div *ngIf=\"(pictures[i] || {}).display\" class=\"fullHeight\">\n      <div\n        class=\"picture\"\n        [style.background-image]=\"\n          (pictures[i] || {}).display\n            ? 'url(/picture/' + pictures[i].fileName + ')'\n            : null\n        \"\n      ></div>\n    </div>\n  </div>\n</div>\n<div\n  class=\"picture\"\n  [style.background-image]=\"'url(/picture/' + pictureURL + ')'\"\n  *ngIf=\"state === 'picture'\"\n></div>\n<div class=\"flash\" *ngIf=\"state == 'flash'\"></div>\n"
 
 /***/ }),
 
@@ -443,7 +443,7 @@ var HomePageComponent = /** @class */ (function () {
         this.qrCodeVisible = false;
         this.multipleDisplay = [];
         this.pictures = [];
-        this.pictureUrl = '';
+        this.pictureURL = '';
         this.socket
             .fromEvent('countdown-start')
             .subscribe(function (message) {
@@ -490,7 +490,7 @@ var HomePageComponent = /** @class */ (function () {
             }
             else {
                 _this.state = 'picture';
-                _this.pictureUrl = fileName;
+                _this.pictureURL = fileName;
             }
             console.debug('camera-picture-ready', fileName, _this);
         });

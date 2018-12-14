@@ -21,10 +21,10 @@ export class HomePageComponent implements OnInit {
   multiple: Boolean;
   multipleDisplay: Array<number> = [];
   pictures: Array<Picture> = [];
-  pictureUrl: string;
+  pictureURL: string;
 
   constructor(private socket: Socket, public snackBar: MatSnackBar) {
-    this.pictureUrl = '';
+    this.pictureURL = '';
     this.socket
       .fromEvent('countdown-start')
       .subscribe((message: Array<number>) => {
@@ -69,7 +69,7 @@ export class HomePageComponent implements OnInit {
           this.pictures[index].display = true;
         } else {
           this.state = 'picture';
-          this.pictureUrl = fileName;
+          this.pictureURL = fileName;
         }
         console.debug('camera-picture-ready', fileName, this);
       });

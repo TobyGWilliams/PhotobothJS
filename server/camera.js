@@ -14,7 +14,7 @@ export class Camera {
     }/${fileName}'`;
     childProcess.exec(command, (error, stdout, stderr) => {
       if (error) {
-        console.error('picture-fail', command, fileName);
+        console.error('picture-fail', command, fileName, error);
       } else {
         this.emittter.emit('camera-picture-ready', fileName);
       }

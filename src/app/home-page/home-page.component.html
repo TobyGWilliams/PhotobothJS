@@ -11,16 +11,15 @@
   *ngIf="state == 'countdown' && multiple === false"
 ></div>
 <div *ngIf="state == 'countdown' && multiple === true" class="fullHeight">
-  <div
-    *ngFor="let display of multipleDisplay; index as i"
-    class="picture quarter"
-  >
+  <div *ngFor="let display of multipleDisplay; index as i" class="quarter">
     <div
+      class="picture"
       [style.background-image]="
         display ? 'url(../../assets/number-' + display + '.svg)' : null
       "
     ></div>
     <div
+      class="picture"
       [style.background-image]="
         (pictures[i] || {}).display
           ? 'url(.picture/' + pictures[i].fileName + ')'

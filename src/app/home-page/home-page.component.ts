@@ -49,7 +49,6 @@ export class HomePageComponent implements OnInit {
         this.multipleDisplay = message;
         const pictureIndex = message.filter((x) => !x).length - 1;
         this.pictures[pictureIndex] = {display: false, fileName: picture};
-        console.log(this.pictures);
       });
     this.socket
       .fromEvent('countdown-finish')
@@ -57,7 +56,6 @@ export class HomePageComponent implements OnInit {
         this.state = 'countdown';
         setTimeout(() => {
           this.state = 'home';
-          console.log('countdown finish timeout', this);
         }, 10000);
         console.debug('countdown-finish', message, this);
       });
@@ -67,7 +65,6 @@ export class HomePageComponent implements OnInit {
       .subscribe((fileName: String) => {
         const index = this.pictures.findIndex((e) => e.fileName === fileName);
         this.pictures[index].display = true;
-        console.log(this.pictures, index, fileName);
       });
     this.socket.fromEvent('dropbox-url').subscribe((f: String) => {
       console.log('dropbox-url', f);

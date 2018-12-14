@@ -4,14 +4,12 @@ import jsonfile from 'jsonfile';
 import Server from './server';
 import {Camera} from './camera';
 import {Countdown} from './countdown';
-import {File} from './file';
 import {Dropbox} from './dropbox';
 
 const configFile = './server/config.json';
 
 const config = jsonfile.readFileSync(configFile);
 
-const file = new File(config.file_path);
 const server = new Server(config.file_path);
 const socket = new Socket(server.server);
 const dropbox = new Dropbox(config.file_path);

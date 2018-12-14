@@ -1,7 +1,7 @@
 import {Camera} from '../camera';
 import fs from 'fs';
 
-const camera = new Camera('');
+const camera = new Camera('/home/pi/Pictures/Photobooth');
 camera.emittter.on('camera-picture-ready', (message) => {
   console.log(message);
   fs.readFile(message, function read(err, data) {

@@ -59,7 +59,6 @@ export class HomePageComponent implements OnInit {
         }, 10000);
         console.debug('countdown-finish', message, this);
       });
-
     this.socket
       .fromEvent('camera-picture-ready')
       .subscribe((fileName: String) => {

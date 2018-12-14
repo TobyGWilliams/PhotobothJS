@@ -40,7 +40,7 @@ const startCountdownMultiple = () => {
   countdown.start();
 };
 
-gpio.emitter.on('button-press', startCountdownMultiple());
+gpio.emitter.on('button-press', startCountdownMultiple);
 
 socket.on('connection', (client) => {
   client.on('config-get', () => {

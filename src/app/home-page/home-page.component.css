@@ -22,9 +22,8 @@
   background-position: center;
 }
 .qr {
-  float: right;
   position: fixed;
-  left: calc(99%-150px);
+  right: 0;
 }
 .whiteText {
   color: white;

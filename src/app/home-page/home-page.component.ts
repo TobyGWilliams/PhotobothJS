@@ -42,8 +42,8 @@ export class HomePageComponent implements OnInit {
         this.state = 'flash';
         this.multiple = message.length > 1;
         this.multipleDisplay = message;
-        console.log(message.filter((x) => !x).length - 1);
-        console.debug('countdown-tick-final', message, this);
+        const currentPictureIndex = message.filter((x) => !x).length - 1;
+        console.log(currentPictureIndex);
       });
     this.socket
       .fromEvent('countdown-finish')

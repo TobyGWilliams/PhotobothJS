@@ -8,10 +8,10 @@ export class Camera {
   }
 
   takePicture() {
-    const outputFilePath = `${this.path}/img${new Date()
-      .toISOString()
-      .replace(/:/g, '_')}.jpg`;
-    const command = `gphoto2 --capture-image-and-download --filename '${outputFilePath}'`;
+    const fileName = `img${new Date().toISOString().replace(/:/g, '_')}.jpg`;
+    const command = `gphoto2 --capture-image-and-download --filename '${
+      this.path
+    }/${outputFilePath}'`;
     childProcess.exec(command, (error, stdout, stderr) => {
       if (error) {
         console.error('picture-fail', command, outputFilePath);
@@ -19,6 +19,6 @@ export class Camera {
         this.emittter.emit('camera-picture-ready', outputFilePath);
       }
     });
-    return outputFilePath;
+    return fileName;
   }
 }

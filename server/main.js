@@ -59,7 +59,7 @@ socket.on('connection', (client) => {
 
 camera.emittter.on('camera-picture-ready', (message) => {
   socket.emit('camera-picture-taken', message);
-  dropbox.newPicture(fileName);
+  dropbox.newPicture(message);
 });
 
 dropbox.emitter.on(

@@ -5,11 +5,13 @@ import Server from './server';
 import {Camera} from './camera';
 import {Countdown} from './countdown';
 import {Dropbox} from './dropbox';
+import {GPIO} from './gpio';
 
 const configFile = './server/config.json';
 
 const config = jsonfile.readFileSync(configFile);
 
+const gpio = new GPIO(12);
 const server = new Server(config.file_path);
 const socket = new Socket(server.server);
 const dropbox = new Dropbox(config.file_path);
@@ -38,9 +40,9 @@ const startCountdownMultiple = () => {
   countdown.start();
 };
 
+gpio.emitter.on('button-press', startCountdownMultiple());
+
 socket.on('connection', (client) => {
-  startCountdownMultiple();
-  // socket.emit('countdown-tick', [9, 1, 4, 4]);
   client.on('config-get', () => {
     socket.emit('file-path', config.file_path);
     socket.emit('dropbox-authUrl', dropbox.getLoginUrl());

@@ -2,6 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {MatSnackBar} from '@angular/material';
 
+class Picture {
+  display: boolean;
+  fileName: string;
+}
+
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -11,17 +16,18 @@ export class HomePageComponent implements OnInit {
   state = 'home';
   number = 0;
   numberofPhotos = 0;
-  pictureURL: String = '';
   qrCodeURL: String = '';
   qrCodeVisible: Boolean = false;
   multiple: Boolean;
   multipleDisplay: Array<number> = [];
-  pictures: Array<string> = [];
+  pictures: Array<Picture> = [];
+
   constructor(private socket: Socket, public snackBar: MatSnackBar) {
     this.socket
       .fromEvent('countdown-start')
       .subscribe((message: Array<number>) => {
         this.state = 'start';
+        this.pictures = [];
         this.qrCodeVisible = false;
         this.multiple = message.length > 1;
         this.multipleDisplay = message;
@@ -38,12 +44,12 @@ export class HomePageComponent implements OnInit {
     this.socket
       .fromEvent('countdown-tick-final')
       .subscribe(({message, picture}) => {
-        console.log(picture);
         this.state = 'flash';
         this.multiple = message.length > 1;
         this.multipleDisplay = message;
-        const currentPictureIndex = message.filter((x) => !x).length - 1;
-        console.log(currentPictureIndex);
+        const pictureIndex = message.filter((x) => !x).length - 1;
+        this.pictures[pictureIndex] = {display: false, fileName: picture};
+        console.log(this.pictures);
       });
     this.socket
       .fromEvent('countdown-finish')
@@ -56,15 +62,9 @@ export class HomePageComponent implements OnInit {
         console.debug('countdown-finish', message, this);
       });
 
-    this.socket.fromEvent('file-new').subscribe((f: String) => {
-      this.state = 'picture';
-      this.pictureURL = f;
-      console.log('file-new', this.pictureURL, this.state);
-      setTimeout(() => {
-        this.state = 'home';
-        console.log('file-new', this);
-      }, 30000);
-    });
+    this.socket
+      .fromEvent('camera-picture-ready')
+      .subscribe((fileName: String) => {});
     this.socket.fromEvent('dropbox-url').subscribe((f: String) => {
       console.log('dropbox-url', f);
       this.qrCodeURL = f;

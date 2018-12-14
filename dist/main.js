@@ -443,6 +443,7 @@ var HomePageComponent = /** @class */ (function () {
         this.qrCodeVisible = false;
         this.multipleDisplay = [];
         this.pictures = [];
+        this.pictureUrl = '';
         this.socket
             .fromEvent('countdown-start')
             .subscribe(function (message) {
@@ -475,17 +476,22 @@ var HomePageComponent = /** @class */ (function () {
             .fromEvent('countdown-finish')
             .subscribe(function (message) {
             _this.state = 'countdown';
-            //setTimeout(() => {
-            //  this.state = 'home';
-            //}, 10000);
+            setTimeout(function () {
+                _this.state = 'home';
+            }, 30000);
             console.debug('countdown-finish', message, _this);
         });
         this.socket
             .fromEvent('camera-picture-ready')
             .subscribe(function (fileName) {
-            var index = _this.pictures.findIndex(function (e) { return e.fileName === fileName; });
-            console.log(_this.pictures, index);
-            _this.pictures[index].display = true;
+            if (_this.multipleDisplay.length > 1) {
+                var index = _this.pictures.findIndex(function (e) { return e.fileName === fileName; });
+                _this.pictures[index].display = true;
+            }
+            else {
+                _this.state = 'picture';
+                _this.pictureUrl = fileName;
+            }
         });
         this.socket.fromEvent('dropbox-url').subscribe(function (f) {
             console.log('dropbox-url', f);

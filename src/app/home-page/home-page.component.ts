@@ -21,8 +21,10 @@ export class HomePageComponent implements OnInit {
   multiple: Boolean;
   multipleDisplay: Array<number> = [];
   pictures: Array<Picture> = [];
+  pictureUrl: string;
 
   constructor(private socket: Socket, public snackBar: MatSnackBar) {
+    this.pictureUrl = '';
     this.socket
       .fromEvent('countdown-start')
       .subscribe((message: Array<number>) => {
@@ -54,17 +56,21 @@ export class HomePageComponent implements OnInit {
       .fromEvent('countdown-finish')
       .subscribe((message: Array<number>) => {
         this.state = 'countdown';
-        //setTimeout(() => {
-        //  this.state = 'home';
-        //}, 10000);
+        setTimeout(() => {
+          this.state = 'home';
+        }, 30000);
         console.debug('countdown-finish', message, this);
       });
     this.socket
       .fromEvent('camera-picture-ready')
-      .subscribe((fileName: String) => {
-        const index = this.pictures.findIndex((e) => e.fileName === fileName);
-        console.log(this.pictures, index);
-        this.pictures[index].display = true;
+      .subscribe((fileName: string) => {
+        if (this.multipleDisplay.length > 1) {
+          const index = this.pictures.findIndex((e) => e.fileName === fileName);
+          this.pictures[index].display = true;
+        } else {
+          this.state = 'picture';
+          this.pictureUrl = fileName;
+        }
       });
     this.socket.fromEvent('dropbox-url').subscribe((f: String) => {
       console.log('dropbox-url', f);

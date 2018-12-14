@@ -64,7 +64,11 @@ export class HomePageComponent implements OnInit {
 
     this.socket
       .fromEvent('camera-picture-ready')
-      .subscribe((fileName: String) => {});
+      .subscribe((fileName: String) => {
+        const index = this.pictures.findIndex((e) => e.fileName === fileName);
+        this.pictures[index].display = true;
+        console.log(this.pictures, index, fileName);
+      });
     this.socket.fromEvent('dropbox-url').subscribe((f: String) => {
       console.log('dropbox-url', f);
       this.qrCodeURL = f;

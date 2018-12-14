@@ -22,8 +22,8 @@ if (config.dropboxAuthToken) {
 }
 
 const startCountdownMultiple = () => {
-  const numberOfPhotos = 3;
-  const countdown = new Countdown(8, numberOfPhotos, 5);
+  const numberOfPhotos = 1;
+  const countdown = new Countdown(10, numberOfPhotos, 5);
   countdown.emitter.on('countdown-start', (message) =>
     socket.emit('countdown-start', message)
   );

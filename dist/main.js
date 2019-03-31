@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "router-outlet{\n    background-color: black;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSx3QkFBd0I7Q0FDM0IiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInJvdXRlci1vdXRsZXR7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogYmxhY2s7XG59Il19 */"
+module.exports = "router-outlet{\n    background-color: black;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSx1QkFBdUI7QUFDM0IiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInJvdXRlci1vdXRsZXR7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogYmxhY2s7XG59Il19 */"
 
 /***/ }),
 
@@ -120,8 +120,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./home-page/home-page.component */ "./src/app/home-page/home-page.component.ts");
 /* harmony import */ var _config_config_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./config/config.component */ "./src/app/config/config.component.ts");
-/* harmony import */ var _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./dropbox/dropbox.component */ "./src/app/dropbox/dropbox.component.ts");
-/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+/* harmony import */ var _config_new_serialport_new_serialport_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./config/new-serialport/new-serialport.component */ "./src/app/config/new-serialport/new-serialport.component.ts");
+/* harmony import */ var _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./dropbox/dropbox.component */ "./src/app/dropbox/dropbox.component.ts");
+/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+/* harmony import */ var _config_modify_serialport_modify_serialport_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./config/modify-serialport/modify-serialport.component */ "./src/app/config/modify-serialport/modify-serialport.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -143,21 +145,23 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-var config = { url: 'http://localhost:3000', options: {} };
+
+
+var config = { url: "http://localhost:3000", options: {} };
 var ROUTES = [
     {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full',
+        path: "",
+        redirectTo: "home",
+        pathMatch: "full"
     },
     {
-        path: 'home',
-        component: _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_9__["HomePageComponent"],
+        path: "home",
+        component: _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_9__["HomePageComponent"]
     },
     {
-        path: 'dropbox',
-        component: _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_11__["DropboxComponent"],
-    },
+        path: "dropbox",
+        component: _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_12__["DropboxComponent"]
+    }
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -166,9 +170,11 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
-                _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_9__["HomePageComponent"],
                 _config_config_component__WEBPACK_IMPORTED_MODULE_10__["ConfigComponent"],
-                _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_11__["DropboxComponent"],
+                _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_12__["DropboxComponent"],
+                _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_9__["HomePageComponent"],
+                _config_modify_serialport_modify_serialport_component__WEBPACK_IMPORTED_MODULE_14__["ModifySerialPort"],
+                _config_new_serialport_new_serialport_component__WEBPACK_IMPORTED_MODULE_11__["NewSerialPort"]
             ],
             entryComponents: [_config_config_component__WEBPACK_IMPORTED_MODULE_10__["ConfigComponent"]],
             imports: [
@@ -176,7 +182,7 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _angular_http__WEBPACK_IMPORTED_MODULE_3__["HttpModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"].forRoot(ROUTES),
-                ngx_socket_io__WEBPACK_IMPORTED_MODULE_12__["SocketIoModule"].forRoot(config),
+                ngx_socket_io__WEBPACK_IMPORTED_MODULE_13__["SocketIoModule"].forRoot(config),
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatToolbarModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatListModule"],
@@ -189,10 +195,11 @@ var AppModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatGridListModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSnackBarModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatDialogModule"],
-                angular2_qrcode__WEBPACK_IMPORTED_MODULE_4__["QRCodeModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSelectModule"],
+                angular2_qrcode__WEBPACK_IMPORTED_MODULE_4__["QRCodeModule"]
             ],
             providers: [],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -209,7 +216,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".filePathWrapper {\n  width: 100%;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29uZmlnL2NvbmZpZy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBWTtDQUNiIiwiZmlsZSI6InNyYy9hcHAvY29uZmlnL2NvbmZpZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmZpbGVQYXRoV3JhcHBlciB7XG4gIHdpZHRoOiAxMDAlO1xufVxuIl19 */"
+module.exports = ".fullWidth {\n  width: 100%;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29uZmlnL2NvbmZpZy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBVztBQUNiIiwiZmlsZSI6InNyYy9hcHAvY29uZmlnL2NvbmZpZy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmZ1bGxXaWR0aCB7XG4gIHdpZHRoOiAxMDAlO1xufVxuIl19 */"
 
 /***/ }),
 
@@ -220,7 +227,7 @@ module.exports = ".filePathWrapper {\n  width: 100%;\n}\n\n/*# sourceMappingURL=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-dialog-content>\n  <h3>Dropbox</h3>\n  <p>\n    Connecting to dropbox will allow the automatic offloading of pictures to a\n    PhotoboothJS specific folder. No access to other files or folders is\n    requested\n  </p>\n  <div *ngIf=\"dropbox.authStatus == 'not-auth'\">\n    <a mat-raised-button color=\"primary\" href=\"{{dropbox.authUrl}}\"\n      >Connect to Dropbox</a\n    >\n  </div>\n  <div *ngIf=\"dropbox.authStatus != 'not-auth'\">\n    <p>\n      You are connected to dropbox as: <b>{{ dropbox.name }}</b> with email:\n      <b>{{ dropbox.email }}</b>\n    </p>\n    <p>\n      To deactivate the permissions, navigate to settings in dropbox and\n      de-authorised the app.\n    </p>\n  </div>\n\n  <h3>Folder Configuration</h3>\n  <p>\n    Specify and enable the target folder to capture the pictures to and monitor.\n  </p>\n  <form>\n    <mat-form-field class=\"filePathWrapper\">\n      <input matInput placeholder=\"Watch Folder\" [value]=\"filePath\" />\n    </mat-form-field>\n  </form>\n  <h3>Hardware Trigger</h3>\n  <p>Pick a GPIO pin suitable for wiring the trigger button to.</p>\n  <form>\n    <mat-form-field>\n      <input matInput placeholder=\"Pin Number\" />\n    </mat-form-field>\n  </form>\n  <h3>Countdown</h3>\n  <p>Select the countdown length.</p>\n  <form>\n    <mat-form-field>\n      <input matInput placeholder=\"Countdown length\" />\n    </mat-form-field>\n  </form>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <span class=\"fill-space\"></span>\n  <button mat-button mat-dialog-close>Close</button>\n</mat-dialog-actions>\n"
+module.exports = "<mat-dialog-content>\n  <h3>Dropbox</h3>\n  <p>\n    Connecting to dropbox will allow the automatic offloading of pictures to a\n    PhotoboothJS specific folder. No access to other files or folders is\n    requested\n  </p>\n  <div *ngIf=\"dropbox.authStatus == 'not-auth'\">\n    <a mat-raised-button color=\"primary\" href=\"{{ dropbox.authUrl }}\"\n      >Connect to Dropbox</a\n    >\n  </div>\n  <div *ngIf=\"dropbox.authStatus != 'not-auth'\">\n    <p>\n      You are connected to dropbox as: <b>{{ dropbox.name }}</b> with email:\n      <b>{{ dropbox.email }}</b>\n    </p>\n    <p>\n      To deactivate the permissions, navigate to settings in dropbox and\n      de-authorised the app.\n    </p>\n  </div>\n\n  <h3>Folder Configuration</h3>\n  <p>\n    Specify and enable the target folder to capture the pictures to and monitor.\n  </p>\n\n  <form>\n    <mat-form-field class=\"fullWidth\">\n      <input matInput placeholder=\"Watch Folder\" [value]=\"filePath\" readonly />\n    </mat-form-field>\n  </form>\n\n  <h3>Serial Port</h3>\n  <div *ngIf=\"currentSerialPort$ | async as serialPort\">\n    <modify-serialport\n      [serialPort]=\"serialPort\" (disconnectSerialPort)=\"disconnectSerialPort()\"\n    ></modify-serialport>\n  </div>\n  <div *ngIf=\"!(currentSerialPort$ | async)\">\n    <new-serialport></new-serialport>\n  </div>\n\n  <h3>Countdown</h3>\n  <p>Select the countdown length.</p>\n  <form>\n    <mat-form-field>\n      <input matInput placeholder=\"Countdown length\" />\n    </mat-form-field>\n  </form>\n</mat-dialog-content>\n\n<mat-dialog-actions>\n  <span class=\"fill-space\"></span>\n  <button mat-button mat-dialog-close>Close</button>\n</mat-dialog-actions>\n"
 
 /***/ }),
 
@@ -250,49 +257,137 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var ConfigComponent = /** @class */ (function () {
     function ConfigComponent(socket) {
         this.socket = socket;
+        this.serialPorts = [];
         this.dropbox = {
-            authUrl: '',
-            authStatus: 'not-auth',
-            name: '',
-            email: '',
+            authUrl: "",
+            authStatus: "not-auth",
+            name: "",
+            email: ""
         };
-        this.filePath = '/file/to/something';
+        this.filePath = "/file/to/something";
     }
     ConfigComponent.prototype.ngOnInit = function () {
         var _this = this;
-        console.log('config component');
-        this.socket.fromEvent('dropbox-authUrl').subscribe(function (m) {
+        this.socket.fromEvent("dropbox-authUrl").subscribe(function (m) {
             _this.dropbox.authUrl = m;
-            console.log('dropbox-authUrl', m);
+            console.log("dropbox-authUrl", m);
         });
         this.socket
-            .fromEvent('dropbox-authStatus')
+            .fromEvent("dropbox-authStatus")
             .subscribe(function (message) {
             _this.dropbox.authStatus = message.status;
             _this.dropbox.name = message.name;
             _this.dropbox.email = message.email;
-            console.log('dropbox-authStatus', message, _this.dropbox);
+            console.log("dropbox-authStatus", message, _this.dropbox);
         });
-        this.socket.fromEvent('file-path').subscribe(function (message) {
+        this.socket.fromEvent("file-path").subscribe(function (message) {
             _this.filePath = message;
-            console.log('file-path', _this.filePath);
+            console.log("file-path", _this.filePath);
         });
-        this.socket.emit('config-get');
+        this.currentSerialPort$ = this.socket.fromEvent("serial-ports-current");
+        this.socket.emit("config-get");
     };
     ConfigComponent.prototype.ngOnDestroy = function () {
-        this.socket.removeListener('dropbox-authStatus');
-        this.socket.removeListener('dropbox-authUrl');
-        this.socket.removeListener('file-path');
+        this.socket.removeListener("dropbox-authStatus");
+        this.socket.removeListener("dropbox-authUrl");
+        this.socket.removeListener("file-path");
+        this.socket.removeListener("serial-ports-list");
+        this.socket.removeListener("serial-ports-current");
+    };
+    ConfigComponent.prototype.disconnectSerialPort = function () {
+        this.socket.emit("serial-port-disconnect");
     };
     ConfigComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-config',
+            selector: "app-config",
             template: __webpack_require__(/*! ./config.component.html */ "./src/app/config/config.component.html"),
             styles: [__webpack_require__(/*! ./config.component.css */ "./src/app/config/config.component.css")]
         }),
         __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__["Socket"]])
     ], ConfigComponent);
     return ConfigComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/config/modify-serialport/modify-serialport.component.ts":
+/*!*************************************************************************!*\
+  !*** ./src/app/config/modify-serialport/modify-serialport.component.ts ***!
+  \*************************************************************************/
+/*! exports provided: ModifySerialPort */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModifySerialPort", function() { return ModifySerialPort; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var ModifySerialPort = /** @class */ (function () {
+    function ModifySerialPort() {
+        this.disconnectSerialPort = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+    }
+    ModifySerialPort = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            inputs: ["serialPort"],
+            outputs: ["disconnectSerialPort"],
+            selector: "modify-serialport",
+            template: "\n    <p>\n      The current serial port is: <b>{{ serialPort?.path }}</b>\n    </p>\n    <div>\n      <button\n        mat-raised-button\n        color=\"primary\"\n        (click)=\"disconnectSerialPort.emit()\"\n      >\n        Disconnect\n      </button>\n    </div>\n  "
+        })
+    ], ModifySerialPort);
+    return ModifySerialPort;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/config/new-serialport/new-serialport.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/config/new-serialport/new-serialport.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: NewSerialPort */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewSerialPort", function() { return NewSerialPort; });
+/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var NewSerialPort = /** @class */ (function () {
+    function NewSerialPort(socket) {
+        this.socket = socket;
+        this.serialPortList$ = socket.fromEvent("serial-ports-list");
+    }
+    NewSerialPort.prototype.connectSerialPort = function () {
+        this.socket.emit("serial-port-connect", this.selectedSerialPort);
+    };
+    NewSerialPort = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: "new-serialport",
+            template: "\n    <p>Pick the serial port that the serial button is connected to.</p>\n    <form>\n      <mat-form-field class=\"fullWidth\">\n        <mat-select\n          placeholder=\"Select\"\n          [(ngModel)]=\"selectedSerialPort\"\n          name=\"serialPort\"\n        >\n          <mat-option\n            [value]=\"port\"\n            *ngFor=\"let port of (serialPortList$ | async)\"\n            >{{ port.comName }}</mat-option\n          >\n        </mat-select>\n      </mat-form-field>\n      <div>\n        <button\n          mat-raised-button\n          color=\"primary\"\n          *ngIf=\"selectedSerialPort\"\n          (click)=\"connectSerialPort()\"\n        >\n          Connect\n        </button>\n      </div>\n    </form>\n  "
+        }),
+        __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_0__["Socket"]])
+    ], NewSerialPort);
+    return NewSerialPort;
 }());
 
 
@@ -386,7 +481,7 @@ var DropboxComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".title-picture {\n  background: url('MagicMirror.svg');\n  width: 100%;\n  height: 95%;\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n}\n.picture {\n  width: 100%;\n  height: 95%;\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n}\n.flash {\n  width: 100%;\n  height: 95%;\n  background: url('flash.png');\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n}\n.qr {\n  position: fixed;\n  right: 0;\n}\n.whiteText {\n  color: white;\n  text-align: center;\n}\n.quarter {\n  width: 48%;\n  height: 48%;\n  margin: auto auto;\n  display: inline-block;\n}\n.fullHeightBody {\n  height: calc(100% - 30px);\n}\n.fullHeight {\n  height: 100%;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS1wYWdlL2hvbWUtcGFnZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsbUNBQThDO0VBQzlDLFlBQVk7RUFDWixZQUFZO0VBQ1oseUJBQXlCO0VBQ3pCLDZCQUE2QjtFQUM3Qiw0QkFBNEI7Q0FDN0I7QUFDRDtFQUNFLFlBQVk7RUFDWixZQUFZO0VBQ1oseUJBQXlCO0VBQ3pCLDZCQUE2QjtFQUM3Qiw0QkFBNEI7Q0FDN0I7QUFDRDtFQUNFLFlBQVk7RUFDWixZQUFZO0VBQ1osNkJBQXdDO0VBQ3hDLHlCQUF5QjtFQUN6Qiw2QkFBNkI7RUFDN0IsNEJBQTRCO0NBQzdCO0FBQ0Q7RUFDRSxnQkFBZ0I7RUFDaEIsU0FBUztDQUNWO0FBQ0Q7RUFDRSxhQUFhO0VBQ2IsbUJBQW1CO0NBQ3BCO0FBQ0Q7RUFDRSxXQUFXO0VBQ1gsWUFBWTtFQUNaLGtCQUFrQjtFQUNsQixzQkFBc0I7Q0FDdkI7QUFDRDtFQUNFLDBCQUEwQjtDQUMzQjtBQUVEO0VBQ0UsYUFBYTtDQUNkIiwiZmlsZSI6InNyYy9hcHAvaG9tZS1wYWdlL2hvbWUtcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRpdGxlLXBpY3R1cmUge1xuICBiYWNrZ3JvdW5kOiB1cmwoLi4vLi4vYXNzZXRzL01hZ2ljTWlycm9yLnN2Zyk7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDk1JTtcbiAgYmFja2dyb3VuZC1zaXplOiBjb250YWluO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG59XG4ucGljdHVyZSB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDk1JTtcbiAgYmFja2dyb3VuZC1zaXplOiBjb250YWluO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG59XG4uZmxhc2gge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiA5NSU7XG4gIGJhY2tncm91bmQ6IHVybCguLi8uLi9hc3NldHMvZmxhc2gucG5nKTtcbiAgYmFja2dyb3VuZC1zaXplOiBjb250YWluO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG59XG4ucXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHJpZ2h0OiAwO1xufVxuLndoaXRlVGV4dCB7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuLnF1YXJ0ZXIge1xuICB3aWR0aDogNDglO1xuICBoZWlnaHQ6IDQ4JTtcbiAgbWFyZ2luOiBhdXRvIGF1dG87XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbn1cbi5mdWxsSGVpZ2h0Qm9keSB7XG4gIGhlaWdodDogY2FsYygxMDAlIC0gMzBweCk7XG59XG5cbi5mdWxsSGVpZ2h0IHtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuIl19 */"
+module.exports = ".title-picture {\n  background: url('MagicMirror.svg');\n  width: 100%;\n  height: 95%;\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n}\n.picture {\n  width: 100%;\n  height: 95%;\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n}\n.flash {\n  width: 100%;\n  height: 95%;\n  background: url('flash.png');\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n}\n.qr {\n  position: fixed;\n  right: 0;\n}\n.whiteText {\n  color: white;\n  text-align: center;\n}\n.quarter {\n  width: 48%;\n  height: 48%;\n  margin: auto auto;\n  display: inline-block;\n}\n.fullHeightBody {\n  height: calc(100% - 30px);\n}\n.fullHeight {\n  height: 100%;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS1wYWdlL2hvbWUtcGFnZS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0Usa0NBQTZDO0VBQzdDLFdBQVc7RUFDWCxXQUFXO0VBQ1gsd0JBQXdCO0VBQ3hCLDRCQUE0QjtFQUM1QiwyQkFBMkI7QUFDN0I7QUFDQTtFQUNFLFdBQVc7RUFDWCxXQUFXO0VBQ1gsd0JBQXdCO0VBQ3hCLDRCQUE0QjtFQUM1QiwyQkFBMkI7QUFDN0I7QUFDQTtFQUNFLFdBQVc7RUFDWCxXQUFXO0VBQ1gsNEJBQXVDO0VBQ3ZDLHdCQUF3QjtFQUN4Qiw0QkFBNEI7RUFDNUIsMkJBQTJCO0FBQzdCO0FBQ0E7RUFDRSxlQUFlO0VBQ2YsUUFBUTtBQUNWO0FBQ0E7RUFDRSxZQUFZO0VBQ1osa0JBQWtCO0FBQ3BCO0FBQ0E7RUFDRSxVQUFVO0VBQ1YsV0FBVztFQUNYLGlCQUFpQjtFQUNqQixxQkFBcUI7QUFDdkI7QUFDQTtFQUNFLHlCQUF5QjtBQUMzQjtBQUVBO0VBQ0UsWUFBWTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvaG9tZS1wYWdlL2hvbWUtcGFnZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRpdGxlLXBpY3R1cmUge1xuICBiYWNrZ3JvdW5kOiB1cmwoLi4vLi4vYXNzZXRzL01hZ2ljTWlycm9yLnN2Zyk7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDk1JTtcbiAgYmFja2dyb3VuZC1zaXplOiBjb250YWluO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG59XG4ucGljdHVyZSB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDk1JTtcbiAgYmFja2dyb3VuZC1zaXplOiBjb250YWluO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG59XG4uZmxhc2gge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiA5NSU7XG4gIGJhY2tncm91bmQ6IHVybCguLi8uLi9hc3NldHMvZmxhc2gucG5nKTtcbiAgYmFja2dyb3VuZC1zaXplOiBjb250YWluO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG59XG4ucXIge1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHJpZ2h0OiAwO1xufVxuLndoaXRlVGV4dCB7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuLnF1YXJ0ZXIge1xuICB3aWR0aDogNDglO1xuICBoZWlnaHQ6IDQ4JTtcbiAgbWFyZ2luOiBhdXRvIGF1dG87XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbn1cbi5mdWxsSGVpZ2h0Qm9keSB7XG4gIGhlaWdodDogY2FsYygxMDAlIC0gMzBweCk7XG59XG5cbi5mdWxsSGVpZ2h0IHtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuIl19 */"
 
 /***/ }),
 
@@ -436,86 +531,92 @@ var HomePageComponent = /** @class */ (function () {
         var _this = this;
         this.socket = socket;
         this.snackBar = snackBar;
-        this.state = 'home';
+        this.state = "home";
         this.number = 0;
         this.numberofPhotos = 0;
-        this.qrCodeURL = '';
+        this.qrCodeURL = "";
         this.qrCodeVisible = false;
         this.multipleDisplay = [];
         this.pictures = [];
-        this.pictureURL = '';
+        this.pictureURL = "";
         this.socket
-            .fromEvent('countdown-start')
+            .fromEvent("countdown-start")
             .subscribe(function (message) {
-            _this.state = 'start';
+            _this.state = "start";
             _this.pictures = [];
             _this.qrCodeVisible = false;
             _this.multiple = message.length > 1;
             _this.multipleDisplay = message;
-            console.debug('countdown-start', message, _this);
+            console.debug("countdown-start", message, _this);
         });
         this.socket
-            .fromEvent('countdown-tick')
+            .fromEvent("countdown-tick")
             .subscribe(function (message) {
-            _this.state = 'countdown';
+            _this.state = "countdown";
             _this.multiple = message.length > 1;
             _this.multipleDisplay = message;
-            console.debug('countdown-tick', message, _this);
+            console.debug("countdown-tick", message, _this);
         });
         this.socket
-            .fromEvent('countdown-tick-final')
+            .fromEvent("countdown-tick-final")
             .subscribe(function (_a) {
             var message = _a.message, picture = _a.picture;
-            _this.state = 'flash';
+            _this.state = "flash";
             _this.multiple = message.length > 1;
             _this.multipleDisplay = message;
             var pictureIndex = message.filter(function (x) { return !x; }).length - 1;
             _this.pictures[pictureIndex] = { display: false, fileName: picture };
         });
-        this.socket
-            .fromEvent('countdown-finish')
-            .subscribe(function (message) {
-            _this.state = 'countdown';
-            setTimeout(function () {
-                _this.state = 'home';
-            }, 30000);
-            console.debug('countdown-finish', message, _this);
+        this.socket.fromEvent("camera-picture-fail").subscribe(function () {
+            _this.state = "home";
+            console.error("camera-picture-fail");
+            _this.snackBar.open("Camera fail", "dismiss", {
+                duration: 5000
+            });
         });
         this.socket
-            .fromEvent('camera-picture-ready')
+            .fromEvent("countdown-finish")
+            .subscribe(function (message) {
+            setTimeout(function () {
+                _this.state = "home";
+            }, 30000);
+            console.debug("countdown-finish", message, _this);
+        });
+        this.socket
+            .fromEvent("camera-picture-ready")
             .subscribe(function (fileName) {
             if (_this.multipleDisplay.length > 1) {
                 var index = _this.pictures.findIndex(function (e) { return e.fileName === fileName; });
                 _this.pictures[index].display = true;
             }
             else {
-                _this.state = 'picture';
+                _this.state = "picture";
                 _this.pictureURL = fileName;
             }
-            console.debug('camera-picture-ready', fileName, _this);
+            console.debug("camera-picture-ready", fileName, _this);
         });
-        this.socket.fromEvent('dropbox-url').subscribe(function (f) {
-            console.log('dropbox-url', f);
+        this.socket.fromEvent("dropbox-url").subscribe(function (f) {
+            console.log("dropbox-url", f);
             _this.qrCodeURL = f;
             _this.qrCodeVisible = true;
         });
-        this.socket.fromEvent('dropbox-login-success').subscribe(function (d) {
-            console.log('dropbox-login-success', d);
-            _this.snackBar.open('Dropbox log in success', 'dismiss', {
-                duration: 5000,
+        this.socket.fromEvent("dropbox-login-success").subscribe(function (d) {
+            console.log("dropbox-login-success", d);
+            _this.snackBar.open("Dropbox log in success", "dismiss", {
+                duration: 5000
             });
         });
-        this.socket.fromEvent('dropbox-upload-success').subscribe(function (d) {
-            console.log('dropbox-upload-success', d);
-            _this.snackBar.open('Dropbox upload success', 'dismiss', {
-                duration: 5000,
+        this.socket.fromEvent("dropbox-upload-success").subscribe(function (d) {
+            console.log("dropbox-upload-success", d);
+            _this.snackBar.open("Dropbox upload success", "dismiss", {
+                duration: 5000
             });
         });
     }
     HomePageComponent.prototype.ngOnInit = function () { };
     HomePageComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-home-page',
+            selector: "app-home-page",
             template: __webpack_require__(/*! ./home-page.component.html */ "./src/app/home-page/home-page.component.html"),
             styles: [__webpack_require__(/*! ./home-page.component.css */ "./src/app/home-page/home-page.component.css")]
         }),

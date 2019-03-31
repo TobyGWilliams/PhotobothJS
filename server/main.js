@@ -1,93 +1,140 @@
-import Socket from 'socket.io';
-import jsonfile from 'jsonfile';
+import Socket from "socket.io";
+import jsonfile from "jsonfile";
 
-import Server from './server';
-import {Camera} from './camera';
-import {Countdown} from './countdown';
-import {Dropbox} from './dropbox';
-import {Button} from './gpio';
+import { serialPortsList, SerialPort } from "./serial-port";
+import Server from "./server";
+import { Camera } from "./camera";
+import { Countdown } from "./countdown";
+import { Dropbox } from "./dropbox";
 
-const configFile = './server/config.json';
-
+const configFile = "./server/config.json";
 const config = jsonfile.readFileSync(configFile);
 
-const gpio = new Button(12); // pin 12, GPIO18
 const server = new Server(config.file_path);
 const socket = new Socket(server.server);
 const dropbox = new Dropbox(config.file_path);
 const camera = new Camera(config.file_path);
 
+// state
+const state = {
+  serialPort: null,
+  countdown: {
+    numberOfPhotos: 1,
+    initialCountdown: 5,
+    subsequentCountdown: 5
+  }
+};
+
 if (config.dropboxAuthToken) {
   dropbox.setAccessToken(config.dropboxAuthToken);
 }
 
-const startCountdownMultiple = () => {
-  const numberOfPhotos = 4;
-  const countdown = new Countdown(10, numberOfPhotos, 5);
-  countdown.emitter.on('countdown-start', (message) =>
-    socket.emit('countdown-start', message)
+const startCountdown = () => {
+  const {
+    numberOfPhotos,
+    initialCountdown,
+    subsequentCountdown
+  } = state.countdown;
+
+  const countdown = new Countdown(
+    initialCountdown,
+    numberOfPhotos,
+    subsequentCountdown
   );
-  countdown.emitter.on('countdown-finish', (message) => {
-    socket.emit('countdown-finish', message);
+
+  countdown.emitter.on("countdown-start", message =>
+    socket.emit("countdown-start", message)
+  );
+
+  countdown.emitter.on("countdown-finish", message => {
+    socket.emit("countdown-finish", message);
   });
-  countdown.emitter.on('countdown-tick', (message) => {
-    socket.emit('countdown-tick', message);
+
+  countdown.emitter.on("countdown-tick", message => {
+    socket.emit("countdown-tick", message);
   });
-  countdown.emitter.on('countdown-tick-final', (message) => {
+
+  countdown.emitter.on("countdown-tick-final", message => {
     const picture = camera.takePicture();
-    socket.emit('countdown-tick-final', {message, picture});
+    if (picture) socket.emit("countdown-tick-final", { message, picture });
   });
+
   countdown.start();
 };
 
-gpio.emitter.on('button-press', startCountdownMultiple);
-
-socket.on('connection', (client) => {
-  client.on('config-get', () => {
-    socket.emit('file-path', config.file_path);
-    socket.emit('dropbox-authUrl', dropbox.getLoginUrl());
-    socket.emit('dropbox-authStatus', dropbox.getAuthStatus());
+socket.on("connection", client => {
+  client.on("config-get", () => {
+    socket.emit("file-path", config.file_path);
+    socket.emit("dropbox-authUrl", dropbox.getLoginUrl());
+    socket.emit("dropbox-authStatus", dropbox.getAuthStatus());
+    socket.emit(
+      "serial-ports-current",
+      state.serialPort ? state.serialPort.port : null
+    );
+    serialPortsList().then(serialPorts => {
+      socket.emit("serial-ports-list", serialPorts);
+    });
   });
-  client.on('dropbox-token', (message) => {
-    if (message.match('access_token=(.*?)&') != null) {
-      dropbox.setAccessToken(message.match('access_token=(.*?)&')[1]);
+  client.on("dropbox-token", message => {
+    if (message.match("access_token=(.*?)&") != null) {
+      dropbox.setAccessToken(message.match("access_token=(.*?)&")[1]);
     } else {
-      console.log('dropbox token failed', message);
+      console.error("dropbox token failed", message);
     }
+  });
+  client.on("serial-port-connect", message => {
+    if (state.serialPort) {
+      console.error("serial port already connected");
+    } else {
+      state.serialPort = new SerialPort(message.comName);
+      state.serialPort.emitter.on("press", () => {
+        startCountdown();
+      });
+      state.serialPort.emitter.on("serial-port-connected", () => {
+        socket.emit(
+          "serial-ports-current",
+          state.serialPort ? state.serialPort.port : null
+        );
+      });
+    }
+  });
+  client.on("serial-port-disconnect", () => {
+    state.serialPort.port.close();
+    state.serialPort = null;
+    socket.emit(
+      "serial-ports-current",
+      state.serialPort ? state.serialPort.port : null
+    );
+    serialPortsList().then(serialPorts => {
+      socket.emit("serial-ports-list", serialPorts);
+    });
   });
 });
 
-camera.emittter.on('camera-picture-ready', (message) => {
-  socket.emit('camera-picture-ready', message);
+camera.emitter.on("camera-picture-ready", message => {
+  socket.emit("camera-picture-ready", message);
   dropbox.newPicture(message);
 });
 
+camera.emitter.on("camera-picture-fail", () => {
+  console.error("camera-picture-fail");
+  socket.emit("camera-picture-fail");
+});
+
 dropbox.emitter.on(
-  'dropbox-login-success',
-  ({status, name, email, token}) => {
-    socket.emit('dropbox-login-success', {status, name, email});
+  "dropbox-login-success",
+  ({ status, name, email, token }) => {
+    socket.emit("dropbox-login-success", { status, name, email });
     config.dropboxAuthToken = token;
     jsonfile.writeFile(configFile, config);
   }
 );
 
-dropbox.emitter.on('dropbox-login-failure', (message) => {
+dropbox.emitter.on("dropbox-login-failure", () => {
   config.dropboxAuthToken = null;
   jsonfile.writeFile(configFile, config);
 });
 
-dropbox.emitter.on('dropbox-url', (message) => {
-  socket.emit('dropbox-url', message);
+dropbox.emitter.on("dropbox-url", message => {
+  socket.emit("dropbox-url", message);
 });
-
-// // change screen time out.
-// // exec('setterm -blank 0', (error, stdout, stderr) => {
-// //     console.log('set screen time out')
-// //     console.log('error', error)
-// //     console.log('std out', stdout)
-// //     console.log('std err', stderr)
-// // })
-
-// const gpio = new GPIO(18);
-// import {GPIO} from './gpio';
-// gpio.emitter.on('button-press', startCountdown);

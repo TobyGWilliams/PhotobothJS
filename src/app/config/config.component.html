@@ -6,7 +6,7 @@
     requested
   </p>
   <div *ngIf="dropbox.authStatus == 'not-auth'">
-    <a mat-raised-button color="primary" href="{{dropbox.authUrl}}"
+    <a mat-raised-button color="primary" href="{{ dropbox.authUrl }}"
       >Connect to Dropbox</a
     >
   </div>
@@ -25,18 +25,23 @@
   <p>
     Specify and enable the target folder to capture the pictures to and monitor.
   </p>
+
   <form>
-    <mat-form-field class="filePathWrapper">
-      <input matInput placeholder="Watch Folder" [value]="filePath" />
+    <mat-form-field class="fullWidth">
+      <input matInput placeholder="Watch Folder" [value]="filePath" readonly />
     </mat-form-field>
   </form>
-  <h3>Hardware Trigger</h3>
-  <p>Pick a GPIO pin suitable for wiring the trigger button to.</p>
-  <form>
-    <mat-form-field>
-      <input matInput placeholder="Pin Number" />
-    </mat-form-field>
-  </form>
+
+  <h3>Serial Port</h3>
+  <div *ngIf="currentSerialPort$ | async as serialPort">
+    <modify-serialport
+      [serialPort]="serialPort" (disconnectSerialPort)="disconnectSerialPort()"
+    ></modify-serialport>
+  </div>
+  <div *ngIf="!(currentSerialPort$ | async)">
+    <new-serialport></new-serialport>
+  </div>
+
   <h3>Countdown</h3>
   <p>Select the countdown length.</p>
   <form>
@@ -45,6 +50,7 @@
     </mat-form-field>
   </form>
 </mat-dialog-content>
+
 <mat-dialog-actions>
   <span class="fill-space"></span>
   <button mat-button mat-dialog-close>Close</button>

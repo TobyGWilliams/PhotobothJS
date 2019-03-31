@@ -1,10 +1,12 @@
 {
-  "extends": "./node_modules/eslint-config-google/index.js",
+  "extends": ["prettier"],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module"
   },
+  "plugins": ["prettier"],
   "rules": {
+    "prettier/prettier": "error",
     "max-len": 0,
     "valid-jsdoc": "off",
     "require-jsdoc": "off"

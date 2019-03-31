@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Socket} from 'ngx-socket-io';
-import {MatSnackBar} from '@angular/material';
+import { Component, OnInit } from "@angular/core";
+import { Socket } from "ngx-socket-io";
+import { MatSnackBar } from "@angular/material";
 
 class Picture {
   display: boolean;
@@ -8,15 +8,15 @@ class Picture {
 }
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css'],
+  selector: "app-home-page",
+  templateUrl: "./home-page.component.html",
+  styleUrls: ["./home-page.component.css"]
 })
 export class HomePageComponent implements OnInit {
-  state = 'home';
+  state = "home";
   number = 0;
   numberofPhotos = 0;
-  qrCodeURL: String = '';
+  qrCodeURL: String = "";
   qrCodeVisible: Boolean = false;
   multiple: Boolean;
   multipleDisplay: Array<number> = [];
@@ -24,70 +24,84 @@ export class HomePageComponent implements OnInit {
   pictureURL: string;
 
   constructor(private socket: Socket, public snackBar: MatSnackBar) {
-    this.pictureURL = '';
+    this.pictureURL = "";
     this.socket
-      .fromEvent('countdown-start')
+      .fromEvent("countdown-start")
       .subscribe((message: Array<number>) => {
-        this.state = 'start';
+        this.state = "start";
         this.pictures = [];
         this.qrCodeVisible = false;
         this.multiple = message.length > 1;
         this.multipleDisplay = message;
-        console.debug('countdown-start', message, this);
+        console.debug("countdown-start", message, this);
       });
+
     this.socket
-      .fromEvent('countdown-tick')
+      .fromEvent("countdown-tick")
       .subscribe((message: Array<number>) => {
-        this.state = 'countdown';
+        this.state = "countdown";
         this.multiple = message.length > 1;
         this.multipleDisplay = message;
-        console.debug('countdown-tick', message, this);
+        console.debug("countdown-tick", message, this);
       });
+
     this.socket
-      .fromEvent('countdown-tick-final')
-      .subscribe(({message, picture}) => {
-        this.state = 'flash';
+      .fromEvent("countdown-tick-final")
+      .subscribe(({ message, picture }) => {
+        this.state = "flash";
         this.multiple = message.length > 1;
         this.multipleDisplay = message;
-        const pictureIndex = message.filter((x) => !x).length - 1;
-        this.pictures[pictureIndex] = {display: false, fileName: picture};
+        const pictureIndex = message.filter(x => !x).length - 1;
+        this.pictures[pictureIndex] = { display: false, fileName: picture };
       });
+
+    this.socket.fromEvent("camera-picture-fail").subscribe(() => {
+      this.state = "home";
+      console.error("camera-picture-fail");
+      this.snackBar.open("Camera fail", "dismiss", {
+        duration: 5000
+      });
+    });
+
     this.socket
-      .fromEvent('countdown-finish')
+      .fromEvent("countdown-finish")
       .subscribe((message: Array<number>) => {
-        this.state = 'countdown';
         setTimeout(() => {
-          this.state = 'home';
+          this.state = "home";
         }, 30000);
-        console.debug('countdown-finish', message, this);
+        console.debug("countdown-finish", message, this);
       });
+
     this.socket
-      .fromEvent('camera-picture-ready')
+      .fromEvent("camera-picture-ready")
       .subscribe((fileName: string) => {
         if (this.multipleDisplay.length > 1) {
-          const index = this.pictures.findIndex((e) => e.fileName === fileName);
+          const index = this.pictures.findIndex(e => e.fileName === fileName);
           this.pictures[index].display = true;
         } else {
-          this.state = 'picture';
+          this.state = "picture";
           this.pictureURL = fileName;
         }
-        console.debug('camera-picture-ready', fileName, this);
+        console.debug("camera-picture-ready", fileName, this);
       });
-    this.socket.fromEvent('dropbox-url').subscribe((f: String) => {
-      console.log('dropbox-url', f);
+
+    this.socket.fromEvent("dropbox-url").subscribe((f: String) => {
+      console.log("dropbox-url", f);
       this.qrCodeURL = f;
       this.qrCodeVisible = true;
     });
-    this.socket.fromEvent('dropbox-login-success').subscribe((d) => {
-      console.log('dropbox-login-success', d);
-      this.snackBar.open('Dropbox log in success', 'dismiss', {
-        duration: 5000,
+
+    this.socket.fromEvent("dropbox-login-success").subscribe(d => {
+      console.log("dropbox-login-success", d);
+      this.snackBar.open("Dropbox log in success", "dismiss", {
+        duration: 5000
       });
     });
-    this.socket.fromEvent('dropbox-upload-success').subscribe((d) => {
-      console.log('dropbox-upload-success', d);
-      this.snackBar.open('Dropbox upload success', 'dismiss', {
-        duration: 5000,
+
+    this.socket.fromEvent("dropbox-upload-success").subscribe(d => {
+      console.log("dropbox-upload-success", d);
+      this.snackBar.open("Dropbox upload success", "dismiss", {
+        duration: 5000
       });
     });
   }

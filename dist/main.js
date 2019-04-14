@@ -648,7 +648,7 @@ var HomePageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3dlYmNhbS93ZWJjYW0uY29tcG9uZW50LmNzcyJ9 */"
+module.exports = ".webcamContainer {\n  display: flex;\n  align-content: center;\n  justify-content: center;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvd2ViY2FtL3dlYmNhbS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsYUFBYTtFQUNiLHFCQUFxQjtFQUNyQix1QkFBdUI7QUFDekIiLCJmaWxlIjoic3JjL2FwcC93ZWJjYW0vd2ViY2FtLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud2ViY2FtQ29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cbiJdfQ== */"
 
 /***/ }),
 
@@ -659,7 +659,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div width=\"100vw\">\n  <webcam></webcam>\n</div>\n"
+module.exports = "<div class=\"webcamContainer\">\n  <webcam [width]=\"screenWidth\" [height]=\"screenHeight\"></webcam>\n</div>\n"
 
 /***/ }),
 
@@ -688,7 +688,19 @@ var WebcamComponent = /** @class */ (function () {
     function WebcamComponent() {
     }
     WebcamComponent.prototype.ngOnInit = function () {
+        this.getScreenSize();
     };
+    WebcamComponent.prototype.getScreenSize = function (event) {
+        this.screenHeight = window.innerHeight - 50;
+        this.screenWidth = window.innerWidth;
+        console.log(this.screenHeight, this.screenWidth);
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])('window:resize', ['$event']),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", void 0)
+    ], WebcamComponent.prototype, "getScreenSize", null);
     WebcamComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-webcam',

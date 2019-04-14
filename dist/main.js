@@ -109,21 +109,23 @@ var AppComponent = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
-/* harmony import */ var angular2_qrcode__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular2-qrcode */ "./node_modules/angular2-qrcode/lib/angular2-qrcode.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./home-page/home-page.component */ "./src/app/home-page/home-page.component.ts");
-/* harmony import */ var _config_config_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./config/config.component */ "./src/app/config/config.component.ts");
-/* harmony import */ var _config_new_serialport_new_serialport_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./config/new-serialport/new-serialport.component */ "./src/app/config/new-serialport/new-serialport.component.ts");
-/* harmony import */ var _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./dropbox/dropbox.component */ "./src/app/dropbox/dropbox.component.ts");
-/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var ngx_webcam__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-webcam */ "./node_modules/ngx-webcam/fesm5/ngx-webcam.js");
+/* harmony import */ var angular2_qrcode__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! angular2-qrcode */ "./node_modules/angular2-qrcode/lib/angular2-qrcode.js");
+/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./home-page/home-page.component */ "./src/app/home-page/home-page.component.ts");
+/* harmony import */ var _config_config_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./config/config.component */ "./src/app/config/config.component.ts");
+/* harmony import */ var _config_new_serialport_new_serialport_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./config/new-serialport/new-serialport.component */ "./src/app/config/new-serialport/new-serialport.component.ts");
 /* harmony import */ var _config_modify_serialport_modify_serialport_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./config/modify-serialport/modify-serialport.component */ "./src/app/config/modify-serialport/modify-serialport.component.ts");
+/* harmony import */ var _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./dropbox/dropbox.component */ "./src/app/dropbox/dropbox.component.ts");
+/* harmony import */ var _webcam_webcam_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./webcam/webcam.component */ "./src/app/webcam/webcam.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -137,6 +139,11 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+// Libraries
+
+
+
+// Components
 
 
 
@@ -144,10 +151,9 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-
-
-
+// Sockets
 var config = { url: "http://localhost:3000", options: {} };
+// Routes
 var ROUTES = [
     {
         path: "",
@@ -155,51 +161,57 @@ var ROUTES = [
         pathMatch: "full"
     },
     {
+        path: "webcam",
+        component: _webcam_webcam_component__WEBPACK_IMPORTED_MODULE_16__["WebcamComponent"]
+    },
+    {
         path: "home",
-        component: _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_9__["HomePageComponent"]
+        component: _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_11__["HomePageComponent"]
     },
     {
         path: "dropbox",
-        component: _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_12__["DropboxComponent"]
+        component: _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_15__["DropboxComponent"]
     }
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
-                _config_config_component__WEBPACK_IMPORTED_MODULE_10__["ConfigComponent"],
-                _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_12__["DropboxComponent"],
-                _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_9__["HomePageComponent"],
+                _app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"],
+                _config_config_component__WEBPACK_IMPORTED_MODULE_12__["ConfigComponent"],
+                _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_15__["DropboxComponent"],
+                _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_11__["HomePageComponent"],
                 _config_modify_serialport_modify_serialport_component__WEBPACK_IMPORTED_MODULE_14__["ModifySerialPort"],
-                _config_new_serialport_new_serialport_component__WEBPACK_IMPORTED_MODULE_11__["NewSerialPort"]
+                _config_new_serialport_new_serialport_component__WEBPACK_IMPORTED_MODULE_13__["NewSerialPort"],
+                _webcam_webcam_component__WEBPACK_IMPORTED_MODULE_16__["WebcamComponent"]
             ],
-            entryComponents: [_config_config_component__WEBPACK_IMPORTED_MODULE_10__["ConfigComponent"]],
+            entryComponents: [_config_config_component__WEBPACK_IMPORTED_MODULE_12__["ConfigComponent"]],
             imports: [
-                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__["BrowserAnimationsModule"],
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
-                _angular_http__WEBPACK_IMPORTED_MODULE_3__["HttpModule"],
+                _angular_http__WEBPACK_IMPORTED_MODULE_1__["HttpModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatToolbarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatIconModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatSlideToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatFormFieldModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatCardModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatSnackBarModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatSelectModule"],
+                angular2_qrcode__WEBPACK_IMPORTED_MODULE_8__["QRCodeModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"].forRoot(ROUTES),
-                ngx_socket_io__WEBPACK_IMPORTED_MODULE_13__["SocketIoModule"].forRoot(config),
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatToolbarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatButtonModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatIconModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSlideToggleModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatFormFieldModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatInputModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatCardModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatGridListModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSnackBarModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatDialogModule"],
-                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSelectModule"],
-                angular2_qrcode__WEBPACK_IMPORTED_MODULE_4__["QRCodeModule"]
+                ngx_socket_io__WEBPACK_IMPORTED_MODULE_9__["SocketIoModule"].forRoot(config),
+                ngx_webcam__WEBPACK_IMPORTED_MODULE_7__["WebcamModule"]
             ],
             providers: [],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -623,6 +635,69 @@ var HomePageComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__["Socket"], _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"]])
     ], HomePageComponent);
     return HomePageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/webcam/webcam.component.css":
+/*!*********************************************!*\
+  !*** ./src/app/webcam/webcam.component.css ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3dlYmNhbS93ZWJjYW0uY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/webcam/webcam.component.html":
+/*!**********************************************!*\
+  !*** ./src/app/webcam/webcam.component.html ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div width=\"100vw\">\n  <webcam></webcam>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/webcam/webcam.component.ts":
+/*!********************************************!*\
+  !*** ./src/app/webcam/webcam.component.ts ***!
+  \********************************************/
+/*! exports provided: WebcamComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebcamComponent", function() { return WebcamComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var WebcamComponent = /** @class */ (function () {
+    function WebcamComponent() {
+    }
+    WebcamComponent.prototype.ngOnInit = function () {
+    };
+    WebcamComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-webcam',
+            template: __webpack_require__(/*! ./webcam.component.html */ "./src/app/webcam/webcam.component.html"),
+            styles: [__webpack_require__(/*! ./webcam.component.css */ "./src/app/webcam/webcam.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], WebcamComponent);
+    return WebcamComponent;
 }());
 
 

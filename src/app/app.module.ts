@@ -17,7 +17,8 @@ import {
   MatSelectModule,
   MatSlideToggleModule,
   MatSnackBarModule,
-  MatToolbarModule
+  MatTabsModule,
+  MatToolbarModule,
 } from "@angular/material";
 
 // Libraries
@@ -36,6 +37,7 @@ import { ModifySerialPort } from "./config/modify-serialport/modify-serialport.c
 
 import { DropboxComponent } from "./dropbox/dropbox.component";
 import { WebcamComponent } from './webcam/webcam.component';
+import { NewWebcamComponent } from './config/new-webcam/new-webcam.component';
 
 // Sockets
 const config: SocketIoConfig = { url: "http://localhost:3000", options: {} };
@@ -69,7 +71,8 @@ const ROUTES = [
     HomePageComponent,
     ModifySerialPort,
     NewSerialPort,
-    WebcamComponent
+    WebcamComponent,
+    NewWebcamComponent
   ],
   entryComponents: [ConfigComponent],
   imports: [
@@ -77,6 +80,7 @@ const ROUTES = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    MatTabsModule,
     MatToolbarModule,
     MatListModule,
     MatButtonModule,
@@ -97,4 +101,4 @@ const ROUTES = [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -22,6 +22,9 @@ const state = {
     numberOfPhotos: 1,
     initialCountdown: 5,
     subsequentCountdown: 5
+  },
+  webcam: {
+    enabled: false
   }
 };
 
@@ -63,6 +66,7 @@ const startCountdown = () => {
 };
 
 socket.on("connection", client => {
+  // console.log('client connection')
   client.on("config-get", () => {
     socket.emit("file-path", config.file_path);
     socket.emit("dropbox-authUrl", dropbox.getLoginUrl());
@@ -71,10 +75,17 @@ socket.on("connection", client => {
       "serial-ports-current",
       state.serialPort ? state.serialPort.port : null
     );
+    socket.emit("webcam-status", state.webcam.enabled);
     serialPortsList().then(serialPorts => {
       socket.emit("serial-ports-list", serialPorts);
     });
   });
+
+  client.on("webcam-enabled-toggle", () => {
+    state.webcam.enabled = !state.webcam.enabled;
+    socket.emit("webcam-status", state.webcam.enabled);
+  });
+
   client.on("dropbox-token", message => {
     if (message.match("access_token=(.*?)&") != null) {
       dropbox.setAccessToken(message.match("access_token=(.*?)&")[1]);
@@ -82,6 +93,7 @@ socket.on("connection", client => {
       console.error("dropbox token failed", message);
     }
   });
+
   client.on("serial-port-connect", message => {
     if (state.serialPort) {
       console.error("serial port already connected");
@@ -98,6 +110,7 @@ socket.on("connection", client => {
       });
     }
   });
+
   client.on("serial-port-disconnect", () => {
     state.serialPort.port.close();
     state.serialPort = null;

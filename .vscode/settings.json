@@ -1,0 +1,5 @@
+{
+    "debug.node.autoAttach": "on",
+    "debug.internalConsoleOptions": "neverOpen",
+    "debug.openDebug": "neverOpen"
+}

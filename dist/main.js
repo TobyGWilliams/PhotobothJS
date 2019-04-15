@@ -82,7 +82,7 @@ var AppComponent = /** @class */ (function () {
         console.log('app component initiated');
     };
     AppComponent.prototype.openConfig = function () {
-        this.dialog.open(_config_config_component__WEBPACK_IMPORTED_MODULE_2__["ConfigComponent"], {});
+        this.dialog.open(_config_config_component__WEBPACK_IMPORTED_MODULE_2__["ConfigComponent"], { width: '80vw' });
     };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -126,6 +126,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config_modify_serialport_modify_serialport_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./config/modify-serialport/modify-serialport.component */ "./src/app/config/modify-serialport/modify-serialport.component.ts");
 /* harmony import */ var _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./dropbox/dropbox.component */ "./src/app/dropbox/dropbox.component.ts");
 /* harmony import */ var _webcam_webcam_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./webcam/webcam.component */ "./src/app/webcam/webcam.component.ts");
+/* harmony import */ var _config_new_webcam_new_webcam_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./config/new-webcam/new-webcam.component */ "./src/app/config/new-webcam/new-webcam.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -144,6 +145,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 // Components
+
 
 
 
@@ -185,7 +187,8 @@ var AppModule = /** @class */ (function () {
                 _home_page_home_page_component__WEBPACK_IMPORTED_MODULE_11__["HomePageComponent"],
                 _config_modify_serialport_modify_serialport_component__WEBPACK_IMPORTED_MODULE_14__["ModifySerialPort"],
                 _config_new_serialport_new_serialport_component__WEBPACK_IMPORTED_MODULE_13__["NewSerialPort"],
-                _webcam_webcam_component__WEBPACK_IMPORTED_MODULE_16__["WebcamComponent"]
+                _webcam_webcam_component__WEBPACK_IMPORTED_MODULE_16__["WebcamComponent"],
+                _config_new_webcam_new_webcam_component__WEBPACK_IMPORTED_MODULE_17__["NewWebcamComponent"]
             ],
             entryComponents: [_config_config_component__WEBPACK_IMPORTED_MODULE_12__["ConfigComponent"]],
             imports: [
@@ -193,6 +196,7 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _angular_http__WEBPACK_IMPORTED_MODULE_1__["HttpModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatTabsModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatToolbarModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatListModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatButtonModule"],
@@ -239,7 +243,7 @@ module.exports = ".fullWidth {\n  width: 100%;\n}\n\n/*# sourceMappingURL=data:a
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-dialog-content>\n  <h3>Dropbox</h3>\n  <p>\n    Connecting to dropbox will allow the automatic offloading of pictures to a\n    PhotoboothJS specific folder. No access to other files or folders is\n    requested\n  </p>\n  <div *ngIf=\"dropbox.authStatus == 'not-auth'\">\n    <a mat-raised-button color=\"primary\" href=\"{{ dropbox.authUrl }}\"\n      >Connect to Dropbox</a\n    >\n  </div>\n  <div *ngIf=\"dropbox.authStatus != 'not-auth'\">\n    <p>\n      You are connected to dropbox as: <b>{{ dropbox.name }}</b> with email:\n      <b>{{ dropbox.email }}</b>\n    </p>\n    <p>\n      To deactivate the permissions, navigate to settings in dropbox and\n      de-authorised the app.\n    </p>\n  </div>\n\n  <h3>Folder Configuration</h3>\n  <p>\n    Specify and enable the target folder to capture the pictures to and monitor.\n  </p>\n\n  <form>\n    <mat-form-field class=\"fullWidth\">\n      <input matInput placeholder=\"Watch Folder\" [value]=\"filePath\" readonly />\n    </mat-form-field>\n  </form>\n\n  <h3>Serial Port</h3>\n  <div *ngIf=\"currentSerialPort$ | async as serialPort\">\n    <modify-serialport\n      [serialPort]=\"serialPort\" (disconnectSerialPort)=\"disconnectSerialPort()\"\n    ></modify-serialport>\n  </div>\n  <div *ngIf=\"!(currentSerialPort$ | async)\">\n    <new-serialport></new-serialport>\n  </div>\n\n  <h3>Countdown</h3>\n  <p>Select the countdown length.</p>\n  <form>\n    <mat-form-field>\n      <input matInput placeholder=\"Countdown length\" />\n    </mat-form-field>\n  </form>\n</mat-dialog-content>\n\n<mat-dialog-actions>\n  <span class=\"fill-space\"></span>\n  <button mat-button mat-dialog-close>Close</button>\n</mat-dialog-actions>\n"
+module.exports = "<h2 mat-dialog-title>PhotoboothJS Configuration</h2>\n<mat-dialog-content width=\"800px\">\n  <h3></h3>\n  <mat-tab-group>\n    <mat-tab label=\"Dropbox\">\n      <p>\n        Connecting to dropbox will allow the automatic offloading of pictures to\n        a PhotoboothJS specific folder. No access to other files or folders is\n        requested\n      </p>\n      <div *ngIf=\"dropbox.authStatus == 'not-auth'\">\n        <a mat-raised-button color=\"primary\" href=\"{{ dropbox.authUrl }}\"\n          >Connect to Dropbox</a\n        >\n      </div>\n      <div *ngIf=\"dropbox.authStatus != 'not-auth'\">\n        <p>\n          You are connected to dropbox as: <b>{{ dropbox.name }}</b> with email:\n          <b>{{ dropbox.email }}</b>\n        </p>\n        <p>\n          To deactivate the permissions, navigate to settings in dropbox and\n          de-authorised the app.\n        </p>\n      </div>\n    </mat-tab>\n    <mat-tab label=\"Folder\">\n      <p>\n        Specify and enable the target folder to capture the pictures to and\n        monitor.\n      </p>\n\n      <form>\n        <mat-form-field class=\"fullWidth\">\n          <input\n            matInput\n            placeholder=\"Watch Folder\"\n            [value]=\"filePath\"\n            readonly\n          />\n        </mat-form-field>\n      </form>\n    </mat-tab>\n    <mat-tab label=\"Serial Port\">\n      <div *ngIf=\"(currentSerialPort$ | async) as serialPort\">\n        <modify-serialport\n          [serialPort]=\"serialPort\"\n          (disconnectSerialPort)=\"disconnectSerialPort()\"\n        ></modify-serialport>\n      </div>\n      <div *ngIf=\"!(currentSerialPort$ | async)\">\n        <new-serialport></new-serialport>\n      </div>\n    </mat-tab>\n    <mat-tab label=\"Countdown\">\n      <p>Select the countdown length.</p>\n      <form>\n        <mat-form-field>\n          <input matInput placeholder=\"Countdown length\" />\n        </mat-form-field>\n      </form>\n    </mat-tab>\n    <mat-tab label=\"Webcam\">\n      <new-webcam></new-webcam>\n    </mat-tab>\n  </mat-tab-group>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <span class=\"fill-space\"></span>\n  <button mat-button mat-dialog-close>Close</button>\n</mat-dialog-actions>\n"
 
 /***/ }),
 
@@ -400,6 +404,73 @@ var NewSerialPort = /** @class */ (function () {
         __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_0__["Socket"]])
     ], NewSerialPort);
     return NewSerialPort;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/config/new-webcam/new-webcam.component.css":
+/*!************************************************************!*\
+  !*** ./src/app/config/new-webcam/new-webcam.component.css ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".webcamContainer {\n  display: flex;\n  align-content: center;\n  justify-content: center;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29uZmlnL25ldy13ZWJjYW0vbmV3LXdlYmNhbS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsYUFBYTtFQUNiLHFCQUFxQjtFQUNyQix1QkFBdUI7QUFDekIiLCJmaWxlIjoic3JjL2FwcC9jb25maWcvbmV3LXdlYmNhbS9uZXctd2ViY2FtLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIud2ViY2FtQ29udGFpbmVyIHtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cbiJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/config/new-webcam/new-webcam.component.html":
+/*!*************************************************************!*\
+  !*** ./src/app/config/new-webcam/new-webcam.component.html ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  Display webcam:\n  <mat-slide-toggle\n    class=\"webcamToggle\"\n    [checked]=\"webcamStatus$ | async\"\n    (change)=\"socket.emit('webcam-enabled-toggle')\"\n  ></mat-slide-toggle>\n</p>\n<p *ngIf=\"(webcamStatus$ | async)\">Webcam preview:</p>\n<div *ngIf=\"(webcamStatus$ | async)\" class=\"webcamContainer\">\n  <webcam [width]=\"640\" [height]=\"320\"></webcam>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/config/new-webcam/new-webcam.component.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/config/new-webcam/new-webcam.component.ts ***!
+  \***********************************************************/
+/*! exports provided: NewWebcamComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewWebcamComponent", function() { return NewWebcamComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var NewWebcamComponent = /** @class */ (function () {
+    function NewWebcamComponent(socket) {
+        this.socket = socket;
+    }
+    NewWebcamComponent.prototype.ngOnInit = function () {
+        this.webcamStatus$ = this.socket.fromEvent('webcam-status');
+    };
+    NewWebcamComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'new-webcam',
+            template: __webpack_require__(/*! ./new-webcam.component.html */ "./src/app/config/new-webcam/new-webcam.component.html"),
+            styles: [__webpack_require__(/*! ./new-webcam.component.css */ "./src/app/config/new-webcam/new-webcam.component.css")]
+        }),
+        __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__["Socket"]])
+    ], NewWebcamComponent);
+    return NewWebcamComponent;
 }());
 
 

@@ -11,11 +11,11 @@ import { MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private socket: Socket, public dialog: MatDialog) {}
+  constructor(private socket: Socket, public dialog: MatDialog) { }
   ngOnInit() {
     console.log('app component initiated');
   }
   openConfig() {
-    this.dialog.open(ConfigComponent, {});
+    this.dialog.open(ConfigComponent, { width: '80vw' });
   }
 }

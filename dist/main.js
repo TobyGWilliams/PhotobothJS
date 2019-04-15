@@ -428,7 +428,7 @@ module.exports = ".webcamContainer {\n  display: flex;\n  align-content: center;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  Display webcam:\n  <mat-slide-toggle\n    class=\"webcamToggle\"\n    [checked]=\"webcamStatus$ | async\"\n    (change)=\"socket.emit('webcam-enabled-toggle')\"\n  ></mat-slide-toggle>\n</p>\n<p *ngIf=\"(webcamStatus$ | async)\">Webcam preview:</p>\n<div *ngIf=\"(webcamStatus$ | async)\" class=\"webcamContainer\">\n  <webcam [width]=\"640\" [height]=\"320\"></webcam>\n</div>\n"
+module.exports = "<p>\n  Display webcam:\n  <mat-slide-toggle\n    class=\"webcamToggle\"\n    [checked]=\"state.webcam$ | async\"\n    (change)=\"state.toggleWebcam()\"\n  ></mat-slide-toggle>\n</p>\n<p *ngIf=\"(state.webcam$ | async)\">Webcam preview:</p>\n<div *ngIf=\"(state.webcam$ | async)\" class=\"webcamContainer\">\n  <webcam [width]=\"640\" [height]=\"320\"></webcam>\n</div>\n"
 
 /***/ }),
 
@@ -442,8 +442,8 @@ module.exports = "<p>\n  Display webcam:\n  <mat-slide-toggle\n    class=\"webca
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewWebcamComponent", function() { return NewWebcamComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+/* harmony import */ var _state_state_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../state/state.service */ "./src/app/state/state.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -456,19 +456,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var NewWebcamComponent = /** @class */ (function () {
-    function NewWebcamComponent(socket) {
-        this.socket = socket;
+    function NewWebcamComponent(state) {
+        this.state = state;
     }
-    NewWebcamComponent.prototype.ngOnInit = function () {
-        this.webcamStatus$ = this.socket.fromEvent('webcam-status');
-    };
+    NewWebcamComponent.prototype.ngOnInit = function () { };
     NewWebcamComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'new-webcam',
             template: __webpack_require__(/*! ./new-webcam.component.html */ "./src/app/config/new-webcam/new-webcam.component.html"),
             styles: [__webpack_require__(/*! ./new-webcam.component.css */ "./src/app/config/new-webcam/new-webcam.component.css")]
         }),
-        __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__["Socket"]])
+        __metadata("design:paramtypes", [_state_state_service__WEBPACK_IMPORTED_MODULE_0__["StateService"]])
     ], NewWebcamComponent);
     return NewWebcamComponent;
 }());
@@ -706,6 +704,54 @@ var HomePageComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__["Socket"], _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"]])
     ], HomePageComponent);
     return HomePageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/state/state.service.ts":
+/*!****************************************!*\
+  !*** ./src/app/state/state.service.ts ***!
+  \****************************************/
+/*! exports provided: StateService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StateService", function() { return StateService; });
+/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var StateService = /** @class */ (function () {
+    function StateService(socket) {
+        var _this = this;
+        this.socket = socket;
+        this.webcam$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
+        this.socket.on('webcam-status', function (d) { return _this.webcam$.next(d); });
+    }
+    StateService.prototype.toggleWebcam = function () {
+        this.socket.emit('webcam-enabled-toggle');
+    };
+    StateService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_0__["Socket"]])
+    ], StateService);
+    return StateService;
 }());
 
 

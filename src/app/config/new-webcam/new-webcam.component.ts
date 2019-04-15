@@ -1,5 +1,5 @@
+import { StateService } from './../../state/state.service';
 import { Component, OnInit } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -8,14 +8,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./new-webcam.component.css']
 })
 export class NewWebcamComponent implements OnInit {
-  webcamStatus$: Observable<boolean>
-  constructor(private socket: Socket) { }
-
-  ngOnInit() {
-    this.webcamStatus$ = this.socket.fromEvent('webcam-status')
-  }
-
-
+  constructor(private state: StateService) { }
+  ngOnInit() { }
 }
 
 

@@ -2,11 +2,11 @@
   Display webcam:
   <mat-slide-toggle
     class="webcamToggle"
-    [checked]="webcamStatus$ | async"
-    (change)="socket.emit('webcam-enabled-toggle')"
+    [checked]="state.webcam$ | async"
+    (change)="state.toggleWebcam()"
   ></mat-slide-toggle>
 </p>
-<p *ngIf="(webcamStatus$ | async)">Webcam preview:</p>
-<div *ngIf="(webcamStatus$ | async)" class="webcamContainer">
+<p *ngIf="(state.webcam$ | async)">Webcam preview:</p>
+<div *ngIf="(state.webcam$ | async)" class="webcamContainer">
   <webcam [width]="640" [height]="320"></webcam>
 </div>

@@ -6,9 +6,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "babel": "babel server --out-dir lib",
     "start:server": "babel server --out-dir lib && node --inspect ./lib/main.js",
     "start:server:watch": "nodemon -V --watch server --ignore server/config.json --exec npm run start:server",
-    "test": "ng build && node ./server/test-file.js",
+    "test": "babel server --out-dir lib && node --inspect ./lib/test/test-main.js",
     "test:jest": "jest .spec.js --watch",
     "test:server": "karma start ./server/karma.conf.js",
     "test:camera": "babel server --out-dir lib && node ./lib/test/test-camera.js",
@@ -67,7 +68,6 @@
     "@babel/preset-env": "^7.4.3",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.14.4",
-    "babel": "^6.23.0",
     "codelyzer": "^4.5.0",
     "eslint-config-google": "^0.9.1",
     "jasmine-core": "^2.99.1",
@@ -85,5 +85,10 @@
     "ts-node": "1.2.1",
     "tslint": "^5.15.0",
     "typescript": "3.1.6"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }

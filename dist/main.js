@@ -55,8 +55,8 @@ module.exports = "<i class=\"material-icons grey-text\" (click)=\"openConfig()\"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+/* harmony import */ var _state_state_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state/state.service */ "./src/app/state/state.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _config_config_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config/config.component */ "./src/app/config/config.component.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -72,25 +72,22 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-// import { MatSidenav } from '@angular/material';
 var AppComponent = /** @class */ (function () {
-    function AppComponent(socket, dialog) {
-        this.socket = socket;
+    function AppComponent(dialog, state) {
         this.dialog = dialog;
+        this.state = state;
     }
-    AppComponent.prototype.ngOnInit = function () {
-        console.log('app component initiated');
-    };
+    AppComponent.prototype.ngOnInit = function () { };
     AppComponent.prototype.openConfig = function () {
         this.dialog.open(_config_config_component__WEBPACK_IMPORTED_MODULE_2__["ConfigComponent"], { width: '80vw' });
     };
     AppComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__["Socket"], _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"]])
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"], _state_state_service__WEBPACK_IMPORTED_MODULE_0__["StateService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -127,6 +124,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dropbox_dropbox_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./dropbox/dropbox.component */ "./src/app/dropbox/dropbox.component.ts");
 /* harmony import */ var _webcam_webcam_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./webcam/webcam.component */ "./src/app/webcam/webcam.component.ts");
 /* harmony import */ var _config_new_webcam_new_webcam_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./config/new-webcam/new-webcam.component */ "./src/app/config/new-webcam/new-webcam.component.ts");
+/* harmony import */ var _countdown_countdown_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./countdown/countdown.component */ "./src/app/countdown/countdown.component.ts");
+/* harmony import */ var _flash_flash_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./flash/flash.component */ "./src/app/flash/flash.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -145,6 +144,8 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 // Components
+
+
 
 
 
@@ -188,7 +189,9 @@ var AppModule = /** @class */ (function () {
                 _config_modify_serialport_modify_serialport_component__WEBPACK_IMPORTED_MODULE_14__["ModifySerialPort"],
                 _config_new_serialport_new_serialport_component__WEBPACK_IMPORTED_MODULE_13__["NewSerialPort"],
                 _webcam_webcam_component__WEBPACK_IMPORTED_MODULE_16__["WebcamComponent"],
-                _config_new_webcam_new_webcam_component__WEBPACK_IMPORTED_MODULE_17__["NewWebcamComponent"]
+                _config_new_webcam_new_webcam_component__WEBPACK_IMPORTED_MODULE_17__["NewWebcamComponent"],
+                _countdown_countdown_component__WEBPACK_IMPORTED_MODULE_18__["CountdownComponent"],
+                _flash_flash_component__WEBPACK_IMPORTED_MODULE_19__["FlashComponent"]
             ],
             entryComponents: [_config_config_component__WEBPACK_IMPORTED_MODULE_12__["ConfigComponent"]],
             imports: [
@@ -243,7 +246,7 @@ module.exports = ".fullWidth {\n  width: 100%;\n}\n\n/*# sourceMappingURL=data:a
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 mat-dialog-title>PhotoboothJS Configuration</h2>\n<mat-dialog-content width=\"800px\">\n  <h3></h3>\n  <mat-tab-group>\n    <mat-tab label=\"Dropbox\">\n      <p>\n        Connecting to dropbox will allow the automatic offloading of pictures to\n        a PhotoboothJS specific folder. No access to other files or folders is\n        requested\n      </p>\n      <div *ngIf=\"dropbox.authStatus == 'not-auth'\">\n        <a mat-raised-button color=\"primary\" href=\"{{ dropbox.authUrl }}\"\n          >Connect to Dropbox</a\n        >\n      </div>\n      <div *ngIf=\"dropbox.authStatus != 'not-auth'\">\n        <p>\n          You are connected to dropbox as: <b>{{ dropbox.name }}</b> with email:\n          <b>{{ dropbox.email }}</b>\n        </p>\n        <p>\n          To deactivate the permissions, navigate to settings in dropbox and\n          de-authorised the app.\n        </p>\n      </div>\n    </mat-tab>\n    <mat-tab label=\"Folder\">\n      <p>\n        Specify and enable the target folder to capture the pictures to and\n        monitor.\n      </p>\n\n      <form>\n        <mat-form-field class=\"fullWidth\">\n          <input\n            matInput\n            placeholder=\"Watch Folder\"\n            [value]=\"filePath\"\n            readonly\n          />\n        </mat-form-field>\n      </form>\n    </mat-tab>\n    <mat-tab label=\"Serial Port\">\n      <div *ngIf=\"(currentSerialPort$ | async) as serialPort\">\n        <modify-serialport\n          [serialPort]=\"serialPort\"\n          (disconnectSerialPort)=\"disconnectSerialPort()\"\n        ></modify-serialport>\n      </div>\n      <div *ngIf=\"!(currentSerialPort$ | async)\">\n        <new-serialport></new-serialport>\n      </div>\n    </mat-tab>\n    <mat-tab label=\"Countdown\">\n      <p>Select the countdown length.</p>\n      <form>\n        <mat-form-field>\n          <input matInput placeholder=\"Countdown length\" />\n        </mat-form-field>\n      </form>\n    </mat-tab>\n    <mat-tab label=\"Webcam\">\n      <new-webcam></new-webcam>\n    </mat-tab>\n  </mat-tab-group>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <span class=\"fill-space\"></span>\n  <button mat-button mat-dialog-close>Close</button>\n</mat-dialog-actions>\n"
+module.exports = "<h2 mat-dialog-title>PhotoboothJS Configuration</h2>\n<mat-dialog-content width=\"800px\">\n  <h3></h3>\n  <mat-tab-group>\n    <mat-tab label=\"Dropbox\">\n      <p>\n        Connecting to dropbox will allow the automatic offloading of pictures to\n        a PhotoboothJS specific folder. No access to other files or folders is\n        requested\n      </p>\n      <div *ngIf=\"dropbox.authStatus == 'not-auth'\">\n        <a mat-raised-button color=\"primary\" href=\"{{ dropbox.authUrl }}\"\n          >Connect to Dropbox</a\n        >\n      </div>\n      <div *ngIf=\"dropbox.authStatus != 'not-auth'\">\n        <p>\n          You are connected to dropbox as: <b>{{ dropbox.name }}</b> with email:\n          <b>{{ dropbox.email }}</b>\n        </p>\n        <p>\n          To deactivate the permissions, navigate to settings in dropbox and\n          de-authorised the app.\n        </p>\n      </div>\n    </mat-tab>\n    <mat-tab label=\"Folder\">\n      <p>\n        Specify and enable the target folder to capture the pictures to and\n        monitor.\n      </p>\n\n      <form>\n        <mat-form-field class=\"fullWidth\">\n          <input\n            matInput\n            placeholder=\"Watch Folder\"\n            [value]=\"filePath\"\n            readonly\n          />\n        </mat-form-field>\n      </form>\n    </mat-tab>\n    <mat-tab label=\"Serial Port\">\n      <div *ngIf=\"(currentSerialPort$ | async) as serialPort\">\n        <modify-serialport\n          [serialPort]=\"serialPort\"\n          (disconnectSerialPort)=\"disconnectSerialPort()\"\n        ></modify-serialport>\n      </div>\n      <div *ngIf=\"!(currentSerialPort$ | async)\">\n        <new-serialport></new-serialport>\n      </div>\n    </mat-tab>\n    <mat-tab label=\"Countdown\">\n      <p>To Do: add controls over the countdowns here.</p>\n    </mat-tab>\n    <mat-tab label=\"Webcam\">\n      <new-webcam></new-webcam>\n    </mat-tab>\n  </mat-tab-group>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <span class=\"fill-space\"></span>\n  <button mat-button mat-dialog-close>Close</button>\n</mat-dialog-actions>\n"
 
 /***/ }),
 
@@ -475,6 +478,73 @@ var NewWebcamComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/countdown/countdown.component.css":
+/*!***************************************************!*\
+  !*** ./src/app/countdown/countdown.component.css ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".picture {\n  width: 100%;\n  height: 95%;\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n}\n\n.pictureWrapper {\n  height: 95vh;\n  width: 100vw;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY291bnRkb3duL2NvdW50ZG93bi5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBVztFQUNYLFdBQVc7RUFDWCx3QkFBd0I7RUFDeEIsNEJBQTRCO0VBQzVCLDJCQUEyQjtBQUM3Qjs7QUFFQTtFQUNFLFlBQVk7RUFDWixZQUFZO0FBQ2QiLCJmaWxlIjoic3JjL2FwcC9jb3VudGRvd24vY291bnRkb3duLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucGljdHVyZSB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDk1JTtcbiAgYmFja2dyb3VuZC1zaXplOiBjb250YWluO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG59XG5cbi5waWN0dXJlV3JhcHBlciB7XG4gIGhlaWdodDogOTV2aDtcbiAgd2lkdGg6IDEwMHZ3O1xufVxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/countdown/countdown.component.html":
+/*!****************************************************!*\
+  !*** ./src/app/countdown/countdown.component.html ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"pictureWrapper\">\n  <div\n    class=\"picture\"\n    [style.background-image]=\"(state.countdown$ | async).numberUrl\"\n  ></div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/countdown/countdown.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/countdown/countdown.component.ts ***!
+  \**************************************************/
+/*! exports provided: CountdownComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountdownComponent", function() { return CountdownComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_state_state_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/state/state.service */ "./src/app/state/state.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CountdownComponent = /** @class */ (function () {
+    function CountdownComponent(state) {
+        this.state = state;
+    }
+    CountdownComponent.prototype.ngOnInit = function () {
+        this.state.countdown$.subscribe(function (d) { return console.log(d); });
+    };
+    CountdownComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'countdown',
+            template: __webpack_require__(/*! ./countdown.component.html */ "./src/app/countdown/countdown.component.html"),
+            styles: [__webpack_require__(/*! ./countdown.component.css */ "./src/app/countdown/countdown.component.css")]
+        }),
+        __metadata("design:paramtypes", [app_state_state_service__WEBPACK_IMPORTED_MODULE_1__["StateService"]])
+    ], CountdownComponent);
+    return CountdownComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/dropbox/dropbox.component.css":
 /*!***********************************************!*\
   !*** ./src/app/dropbox/dropbox.component.css ***!
@@ -555,6 +625,70 @@ var DropboxComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/flash/flash.component.css":
+/*!*******************************************!*\
+  !*** ./src/app/flash/flash.component.css ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".flash {\n  width: 100%;\n  height: 95%;\n  background: url('flash.png');\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: center;\n}\n\n.pictureWrapper {\n  height: 95vh;\n  width: 100vw;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZmxhc2gvZmxhc2guY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQVc7RUFDWCxXQUFXO0VBQ1gsNEJBQXVDO0VBQ3ZDLHdCQUF3QjtFQUN4Qiw0QkFBNEI7RUFDNUIsMkJBQTJCO0FBQzdCOztBQUVBO0VBQ0UsWUFBWTtFQUNaLFlBQVk7QUFDZCIsImZpbGUiOiJzcmMvYXBwL2ZsYXNoL2ZsYXNoLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZmxhc2gge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiA5NSU7XG4gIGJhY2tncm91bmQ6IHVybCguLi8uLi9hc3NldHMvZmxhc2gucG5nKTtcbiAgYmFja2dyb3VuZC1zaXplOiBjb250YWluO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG59XG5cbi5waWN0dXJlV3JhcHBlciB7XG4gIGhlaWdodDogOTV2aDtcbiAgd2lkdGg6IDEwMHZ3O1xufVxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/flash/flash.component.html":
+/*!********************************************!*\
+  !*** ./src/app/flash/flash.component.html ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"pictureWrapper\">\n  <div class=\"flash\"></div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/flash/flash.component.ts":
+/*!******************************************!*\
+  !*** ./src/app/flash/flash.component.ts ***!
+  \******************************************/
+/*! exports provided: FlashComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FlashComponent", function() { return FlashComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var FlashComponent = /** @class */ (function () {
+    function FlashComponent() {
+        console.log('show flash');
+    }
+    FlashComponent.prototype.ngOnInit = function () {
+    };
+    FlashComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'flash',
+            template: __webpack_require__(/*! ./flash.component.html */ "./src/app/flash/flash.component.html"),
+            styles: [__webpack_require__(/*! ./flash.component.css */ "./src/app/flash/flash.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], FlashComponent);
+    return FlashComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/home-page/home-page.component.css":
 /*!***************************************************!*\
   !*** ./src/app/home-page/home-page.component.css ***!
@@ -573,7 +707,7 @@ module.exports = ".title-picture {\n  background: url('MagicMirror.svg');\n  wid
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"qr\" *ngIf=\"qrCodeVisible\">\n  <qr-code [value]=\"qrCodeURL\" [size]=\"150\"></qr-code>\n  <div class=\"whiteText\">Scan to View</div>\n</div>\n<div class=\"title-picture\" *ngIf=\"state == 'home'\"></div>\n<div\n  class=\"picture\"\n  [style.background-image]=\"\n    'url(../../assets/number-' + multipleDisplay[0] + '.svg)'\n  \"\n  *ngIf=\"state == 'countdown' && multiple === false\"\n></div>\n<div *ngIf=\"state == 'countdown' && multiple === true\" class=\"fullHeightBody\">\n  <div *ngFor=\"let display of multipleDisplay; index as i\" class=\"quarter\">\n    <div *ngIf=\"display\" class=\"fullHeight\">\n      <div\n        class=\"picture\"\n        [style.background-image]=\"\n          display ? 'url(../../assets/number-' + display + '.svg)' : null\n        \"\n      ></div>\n    </div>\n    <div *ngIf=\"(pictures[i] || {}).display\" class=\"fullHeight\">\n      <div\n        class=\"picture\"\n        [style.background-image]=\"\n          (pictures[i] || {}).display\n            ? 'url(/picture/' + pictures[i].fileName + ')'\n            : null\n        \"\n      ></div>\n    </div>\n  </div>\n</div>\n<div\n  class=\"picture\"\n  [style.background-image]=\"'url(/picture/' + pictureURL + ')'\"\n  *ngIf=\"state === 'picture'\"\n></div>\n<div class=\"flash\" *ngIf=\"state == 'flash'\"></div>\n"
+module.exports = "<countdown *ngIf=\"(state.view$ | async) === View.COUNTDOWN\"></countdown>\n<flash *ngIf=\"(state.view$ | async) === View.FLASH\"></flash>\n<div class=\"qr\" *ngIf=\"qrCodeVisible\">\n  <qr-code [value]=\"qrCodeURL\" [size]=\"150\"></qr-code>\n  <div class=\"whiteText\">Scan to View</div>\n</div>\n<div class=\"title-picture\" *ngIf=\"state == 'home'\"></div>\n<div\n  class=\"picture\"\n  [style.background-image]=\"\n    'url(../../assets/number-' + multipleDisplay[0] + '.svg)'\n  \"\n  *ngIf=\"state == 'countdown' && multiple === false\"\n></div>\n<div *ngIf=\"state == 'countdown' && multiple === true\" class=\"fullHeightBody\">\n  <div *ngFor=\"let display of multipleDisplay; index as i\" class=\"quarter\">\n    <div *ngIf=\"display\" class=\"fullHeight\">\n      <div\n        class=\"picture\"\n        [style.background-image]=\"\n          display ? 'url(../../assets/number-' + display + '.svg)' : null\n        \"\n      ></div>\n    </div>\n    <div *ngIf=\"(pictures[i] || {}).display\" class=\"fullHeight\">\n      <div\n        class=\"picture\"\n        [style.background-image]=\"\n          (pictures[i] || {}).display\n            ? 'url(/picture/' + pictures[i].fileName + ')'\n            : null\n        \"\n      ></div>\n    </div>\n  </div>\n</div>\n<div\n  class=\"picture\"\n  [style.background-image]=\"'url(/picture/' + pictureURL + ')'\"\n  *ngIf=\"state === 'picture'\"\n></div>\n<div class=\"flash\" *ngIf=\"state == 'flash'\"></div>\n"
 
 /***/ }),
 
@@ -590,6 +724,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_state_state_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/state/state.service */ "./src/app/state/state.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -602,110 +737,113 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var Picture = /** @class */ (function () {
     function Picture() {
     }
     return Picture;
 }());
 var HomePageComponent = /** @class */ (function () {
-    function HomePageComponent(socket, snackBar) {
-        var _this = this;
+    // number = 0;
+    // numberofPhotos = 0;
+    // qrCodeURL: String = "";
+    // qrCodeVisible: Boolean = false;
+    // multiple: Boolean;
+    // multipleDisplay: Array<number> = [];
+    // pictures: Array<Picture> = [];
+    // pictureURL: string;
+    function HomePageComponent(socket, snackBar, state) {
         this.socket = socket;
         this.snackBar = snackBar;
-        this.state = "home";
-        this.number = 0;
-        this.numberofPhotos = 0;
-        this.qrCodeURL = "";
-        this.qrCodeVisible = false;
-        this.multipleDisplay = [];
-        this.pictures = [];
-        this.pictureURL = "";
-        this.socket
-            .fromEvent("countdown-start")
-            .subscribe(function (message) {
-            _this.state = "start";
-            _this.pictures = [];
-            _this.qrCodeVisible = false;
-            _this.multiple = message.length > 1;
-            _this.multipleDisplay = message;
-            console.debug("countdown-start", message, _this);
-        });
-        this.socket
-            .fromEvent("countdown-tick")
-            .subscribe(function (message) {
-            _this.state = "countdown";
-            _this.multiple = message.length > 1;
-            _this.multipleDisplay = message;
-            console.debug("countdown-tick", message, _this);
-        });
-        this.socket
-            .fromEvent("countdown-tick-final")
-            .subscribe(function (_a) {
-            var message = _a.message, picture = _a.picture;
-            _this.state = "flash";
-            _this.multiple = message.length > 1;
-            _this.multipleDisplay = message;
-            var pictureIndex = message.filter(function (x) { return !x; }).length - 1;
-            _this.pictures[pictureIndex] = { display: false, fileName: picture };
-        });
-        this.socket.fromEvent("camera-picture-fail").subscribe(function () {
-            _this.state = "home";
-            console.error("camera-picture-fail");
-            _this.snackBar.open("Camera fail", "dismiss", {
-                duration: 5000
-            });
-        });
-        this.socket
-            .fromEvent("countdown-finish")
-            .subscribe(function (message) {
-            setTimeout(function () {
-                _this.state = "home";
-            }, 30000);
-            console.debug("countdown-finish", message, _this);
-        });
-        this.socket
-            .fromEvent("camera-picture-ready")
-            .subscribe(function (fileName) {
-            if (_this.multipleDisplay.length > 1) {
-                var index = _this.pictures.findIndex(function (e) { return e.fileName === fileName; });
-                _this.pictures[index].display = true;
-            }
-            else {
-                _this.state = "picture";
-                _this.pictureURL = fileName;
-            }
-            console.debug("camera-picture-ready", fileName, _this);
-        });
-        this.socket.fromEvent("dropbox-url").subscribe(function (f) {
-            console.log("dropbox-url", f);
-            _this.qrCodeURL = f;
-            _this.qrCodeVisible = true;
-        });
-        this.socket.fromEvent("dropbox-login-success").subscribe(function (d) {
-            console.log("dropbox-login-success", d);
-            _this.snackBar.open("Dropbox log in success", "dismiss", {
-                duration: 5000
-            });
-        });
-        this.socket.fromEvent("dropbox-upload-success").subscribe(function (d) {
-            console.log("dropbox-upload-success", d);
-            _this.snackBar.open("Dropbox upload success", "dismiss", {
-                duration: 5000
-            });
-        });
+        this.state = state;
+        this.View = app_state_state_service__WEBPACK_IMPORTED_MODULE_3__["View"]; // expose the constants into the template
     }
-    HomePageComponent.prototype.ngOnInit = function () { };
+    HomePageComponent.prototype.ngOnInit = function () {
+        this.state.view$.subscribe(function (d) { return console.log(d); });
+    };
     HomePageComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: "app-home-page",
             template: __webpack_require__(/*! ./home-page.component.html */ "./src/app/home-page/home-page.component.html"),
             styles: [__webpack_require__(/*! ./home-page.component.css */ "./src/app/home-page/home-page.component.css")]
         }),
-        __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__["Socket"], _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"]])
+        __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__["Socket"], _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"], app_state_state_service__WEBPACK_IMPORTED_MODULE_3__["StateService"]])
     ], HomePageComponent);
     return HomePageComponent;
 }());
 
+//     this.pictureURL = "";
+// this.socket
+// .fromEvent("countdown-start")
+// .subscribe((message: Array<number>) => {
+//   this.state = "start";
+//   this.pictures = [];
+//   this.qrCodeVisible = false;
+//   this.multiple = message.length > 1;
+//   this.multipleDisplay = message;
+//   console.debug("countdown-start", message, this);
+// });
+// this.socket
+// .fromEvent("countdown-tick")
+// .subscribe((message: Array<number>) => {
+//   this.state = "countdown";
+//   this.multiple = message.length > 1;
+//   this.multipleDisplay = message;
+//   console.debug("countdown-tick", message, this);
+// });
+// this.socket
+// .fromEvent("countdown-tick-final")
+// .subscribe(({ message, picture }) => {
+//   this.state = "flash";
+//   this.multiple = message.length > 1;
+//   this.multipleDisplay = message;
+//   const pictureIndex = message.filter(x => !x).length - 1;
+//   this.pictures[pictureIndex] = { display: false, fileName: picture };
+// });
+// this.socket.fromEvent("camera-picture-fail").subscribe(() => {
+// this.state = "home";
+// console.error("camera-picture-fail");
+// this.snackBar.open("Camera fail", "dismiss", {
+//   duration: 5000
+// });
+// });
+// this.socket
+// .fromEvent("countdown-finish")
+// .subscribe((message: Array<number>) => {
+//   setTimeout(() => {
+//     this.state = "home";
+//   }, 30000);
+//   console.debug("countdown-finish", message, this);
+// });
+// this.socket
+// .fromEvent("camera-picture-ready")
+// .subscribe((fileName: string) => {
+//   if (this.multipleDisplay.length > 1) {
+//     const index = this.pictures.findIndex(e => e.fileName === fileName);
+//     this.pictures[index].display = true;
+//   } else {
+//     this.state = "picture";
+//     this.pictureURL = fileName;
+//   }
+//   console.debug("camera-picture-ready", fileName, this);
+// });
+// this.socket.fromEvent("dropbox-url").subscribe((f: String) => {
+// console.log("dropbox-url", f);
+// this.qrCodeURL = f;
+// this.qrCodeVisible = true;
+// });
+// this.socket.fromEvent("dropbox-login-success").subscribe(d => {
+// console.log("dropbox-login-success", d);
+// this.snackBar.open("Dropbox log in success", "dismiss", {
+//   duration: 5000
+// });
+// });
+// this.socket.fromEvent("dropbox-upload-success").subscribe(d => {
+// console.log("dropbox-upload-success", d);
+// this.snackBar.open("Dropbox upload success", "dismiss", {
+//   duration: 5000
+// });
+// });
 
 
 /***/ }),
@@ -714,11 +852,12 @@ var HomePageComponent = /** @class */ (function () {
 /*!****************************************!*\
   !*** ./src/app/state/state.service.ts ***!
   \****************************************/
-/*! exports provided: StateService */
+/*! exports provided: View, StateService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "View", function() { return View; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StateService", function() { return StateService; });
 /* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
@@ -735,12 +874,57 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+var View;
+(function (View) {
+    View[View["HOME"] = 1] = "HOME";
+    View[View["COUNTDOWN"] = 2] = "COUNTDOWN";
+    View[View["FLASH"] = 3] = "FLASH";
+})(View || (View = {}));
+var initialCountdownState = {
+    number: null,
+    numberUrl: '',
+};
 var StateService = /** @class */ (function () {
     function StateService(socket) {
         var _this = this;
         this.socket = socket;
+        this.view$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](View.HOME);
         this.webcam$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
-        this.socket.on('webcam-status', function (d) { return _this.webcam$.next(d); });
+        this.countdown$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](initialCountdownState);
+        this.socket.on('webcam-status', function (enable) { return _this.webcam$.next(enable); });
+        this.socket.on('countdown-start', function (count) {
+            _this.view$.next(View.COUNTDOWN);
+            _this.countdown$.next({
+                number: null,
+                numberUrl: '',
+            });
+        });
+        this.socket.on('countdown-tick', function (count) { return _this.countdown$.next({
+            number: count[0],
+            numberUrl: "url(../../assets/number-" + count[0] + ".svg)",
+        }); });
+        this.socket.on('countdown-tick-final', function () {
+            _this.view$.next(View.FLASH);
+            setTimeout(function () { _this.view$.next(View.HOME); }, 1000);
+        });
+        this.socket.on("countdown-finish", function () {
+            console.log('countdown finish');
+        });
+        this.socket.on("camera-picture-fail", function () {
+            console.error('camera picture fail');
+        });
+        this.socket.on("camera-picture-ready", function () {
+            console.log('camera picture ready');
+        });
+        this.socket.on('dropbox-url', function (f) {
+            console.log("dropbox-url", f);
+        });
+        this.socket.on('dropbox-login-success', function () {
+            console.log("dropbox-login-success");
+        });
+        this.socket.on('dropbox-upload-success', function () {
+            console.log("dropbox-upload-success");
+        });
     }
     StateService.prototype.toggleWebcam = function () {
         this.socket.emit('webcam-enabled-toggle');

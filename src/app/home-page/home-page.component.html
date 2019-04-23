@@ -1,3 +1,5 @@
+<countdown *ngIf="(state.view$ | async) === View.COUNTDOWN"></countdown>
+<flash *ngIf="(state.view$ | async) === View.FLASH"></flash>
 <div class="qr" *ngIf="qrCodeVisible">
   <qr-code [value]="qrCodeURL" [size]="150"></qr-code>
   <div class="whiteText">Scan to View</div>

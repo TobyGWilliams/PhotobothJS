@@ -38,6 +38,8 @@ import { ModifySerialPort } from "./config/modify-serialport/modify-serialport.c
 import { DropboxComponent } from "./dropbox/dropbox.component";
 import { WebcamComponent } from './webcam/webcam.component';
 import { NewWebcamComponent } from './config/new-webcam/new-webcam.component';
+import { CountdownComponent } from './countdown/countdown.component';
+import { FlashComponent } from './flash/flash.component';
 
 // Sockets
 const config: SocketIoConfig = { url: "http://localhost:3000", options: {} };
@@ -72,7 +74,9 @@ const ROUTES = [
     ModifySerialPort,
     NewSerialPort,
     WebcamComponent,
-    NewWebcamComponent
+    NewWebcamComponent,
+    CountdownComponent,
+    FlashComponent
   ],
   entryComponents: [ConfigComponent],
   imports: [

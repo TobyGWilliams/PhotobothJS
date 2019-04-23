@@ -1,9 +1,8 @@
-import { Component, Injectable } from '@angular/core';
+import { StateService } from './state/state.service';
+import { Component, } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { ConfigComponent } from './config/config.component';
-import { MatDialog, MatDialogRef } from '@angular/material';
-
-// import { MatSidenav } from '@angular/material';
+import { MatDialog, } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +10,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private socket: Socket, public dialog: MatDialog) { }
-  ngOnInit() {
-    console.log('app component initiated');
-  }
+  constructor(public dialog: MatDialog, public state: StateService) { }
+  ngOnInit() { }
   openConfig() {
     this.dialog.open(ConfigComponent, { width: '80vw' });
   }

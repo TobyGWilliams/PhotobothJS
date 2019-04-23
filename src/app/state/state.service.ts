@@ -30,7 +30,7 @@ export class StateService {
   constructor(private socket: Socket) {
     this.socket.on('webcam-status', (enable: boolean) => this.webcam$.next(enable))
 
-    this.socket.on('countdown-start', (count: Array<number>) => {
+    this.socket.on('countdown-start', () => {
       this.view$.next(View.COUNTDOWN);
       this.countdown$.next({
         number: null,

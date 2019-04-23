@@ -1,5 +1,6 @@
 {
-    "debug.node.autoAttach": "on",
-    "debug.internalConsoleOptions": "neverOpen",
-    "debug.openDebug": "neverOpen"
+  "debug.node.autoAttach": "on",
+  "debug.internalConsoleOptions": "neverOpen",
+  "debug.openDebug": "neverOpen",
+  "debug.toolBarLocation": "docked"
 }

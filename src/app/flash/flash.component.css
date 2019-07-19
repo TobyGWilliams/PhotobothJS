@@ -1,0 +1,13 @@
+.flash {
+  width: 100%;
+  height: 95%;
+  background: url(../../assets/flash.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pictureWrapper {
+  height: 95vh;
+  width: 100vw;
+}

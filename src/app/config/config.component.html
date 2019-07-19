@@ -1,56 +1,65 @@
-<mat-dialog-content>
-  <h3>Dropbox</h3>
-  <p>
-    Connecting to dropbox will allow the automatic offloading of pictures to a
-    PhotoboothJS specific folder. No access to other files or folders is
-    requested
-  </p>
-  <div *ngIf="dropbox.authStatus == 'not-auth'">
-    <a mat-raised-button color="primary" href="{{ dropbox.authUrl }}"
-      >Connect to Dropbox</a
-    >
-  </div>
-  <div *ngIf="dropbox.authStatus != 'not-auth'">
-    <p>
-      You are connected to dropbox as: <b>{{ dropbox.name }}</b> with email:
-      <b>{{ dropbox.email }}</b>
-    </p>
-    <p>
-      To deactivate the permissions, navigate to settings in dropbox and
-      de-authorised the app.
-    </p>
-  </div>
+<h2 mat-dialog-title>PhotoboothJS Configuration</h2>
+<mat-dialog-content width="800px">
+  <h3></h3>
+  <mat-tab-group>
+    <mat-tab label="Dropbox">
+      <p>
+        Connecting to dropbox will allow the automatic offloading of pictures to
+        a PhotoboothJS specific folder. No access to other files or folders is
+        requested
+      </p>
+      <div *ngIf="dropbox.authStatus == 'not-auth'">
+        <a mat-raised-button color="primary" href="{{ dropbox.authUrl }}"
+          >Connect to Dropbox</a
+        >
+      </div>
+      <div *ngIf="dropbox.authStatus != 'not-auth'">
+        <p>
+          You are connected to dropbox as: <b>{{ dropbox.name }}</b> with email:
+          <b>{{ dropbox.email }}</b>
+        </p>
+        <p>
+          To deactivate the permissions, navigate to settings in dropbox and
+          de-authorised the app.
+        </p>
+      </div>
+    </mat-tab>
+    <mat-tab label="Folder">
+      <p>
+        Specify and enable the target folder to capture the pictures to and
+        monitor.
+      </p>
 
-  <h3>Folder Configuration</h3>
-  <p>
-    Specify and enable the target folder to capture the pictures to and monitor.
-  </p>
-
-  <form>
-    <mat-form-field class="fullWidth">
-      <input matInput placeholder="Watch Folder" [value]="filePath" readonly />
-    </mat-form-field>
-  </form>
-
-  <h3>Serial Port</h3>
-  <div *ngIf="currentSerialPort$ | async as serialPort">
-    <modify-serialport
-      [serialPort]="serialPort" (disconnectSerialPort)="disconnectSerialPort()"
-    ></modify-serialport>
-  </div>
-  <div *ngIf="!(currentSerialPort$ | async)">
-    <new-serialport></new-serialport>
-  </div>
-
-  <h3>Countdown</h3>
-  <p>Select the countdown length.</p>
-  <form>
-    <mat-form-field>
-      <input matInput placeholder="Countdown length" />
-    </mat-form-field>
-  </form>
+      <form>
+        <mat-form-field class="fullWidth">
+          <input
+            matInput
+            placeholder="Watch Folder"
+            [value]="filePath"
+            readonly
+          />
+        </mat-form-field>
+      </form>
+    </mat-tab>
+    <mat-tab label="Serial Port">
+      <div *ngIf="(currentSerialPort$ | async) as serialPort">
+        <modify-serialport
+          [serialPort]="serialPort"
+          (disconnectSerialPort)="disconnectSerialPort()"
+        ></modify-serialport>
+      </div>
+      <div *ngIf="!(currentSerialPort$ | async)">
+        <new-serialport></new-serialport>
+      </div>
+    </mat-tab>
+    <mat-tab label="Countdown">
+      <p>To Do: add controls over the countdowns here.</p>
+    </mat-tab>
+    <mat-tab label="Webcam">
+      <new-webcam></new-webcam>
+    </mat-tab>
+  </mat-tab-group>
 </mat-dialog-content>
-
 <mat-dialog-actions>
   <span class="fill-space"></span>
   <button mat-button mat-dialog-close>Close</button>

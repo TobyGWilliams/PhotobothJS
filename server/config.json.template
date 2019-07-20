@@ -1,4 +1,4 @@
 {
-    "file_path": "insert directory here",
+    "filePath": "insert directory here",
     "dropboxAuthToken": "insert token from dropbox"
 }

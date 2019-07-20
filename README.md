@@ -1,6 +1,6 @@
 # Photoboothjs
 
-An application to operate a photobooth a party. Writen using nodeJS, Angular, gphoto2 and some other stuff probably.
+An application to operate a photobooth a party. Writen using nodeJS, Angular, gphoto2, Ardunio and some other stuff probably.
 
 # Setup
 

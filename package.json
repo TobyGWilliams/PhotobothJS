@@ -4,23 +4,13 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "start:server": "babel server --out-dir lib && node --inspect ./lib/main.js",
-    "start:server:watch": "nodemon -V --watch server --ignore server/config.json --exec npm run start:server",
-    "test": "babel server --out-dir lib && node --inspect ./lib/test/test-main.js",
-    "test:jest": "jest .spec.js --watch",
-    "test:server": "karma start ./server/karma.conf.js",
-    "test:camera": "babel server --out-dir lib && node ./lib/test/test-camera.js",
-    "test:gpio": "babel server --out-dir lib && node ./lib/test/test-gpio.js",
-    "test:serial": "babel server --out-dir lib && node --inspect ./lib/test/test-serialport.js",
-    "pree2e": "webdriver-manager update --standalone false --gecko false",
-    "e2e": "protractor",
     "build": "ng build",
     "build:watch": "ng build --watch",
     "create:config": "cp ./server/config.json.template ./server/config.json",
-    "docker:start": "docker-compose -f ./photobooth-compose.yml up",
-    "docker:buildImage": "docker build . -t photoboothjs"
+    "start:server": "babel server --out-dir lib && node --inspect ./lib/main.js",
+    "start:server:watch": "nodemon -V --watch server --ignore server/config.json --exec npm run start:server",
+    "test": "babel server --out-dir lib && node --inspect ./lib/test/test-main.js",
+    "test:jest": "jest .spec.js --watch"
   },
   "private": true,
   "dependencies": {

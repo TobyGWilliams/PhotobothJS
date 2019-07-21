@@ -19,46 +19,12 @@ const dropbox = new Dropbox(state.getFilePath());
 const camera = new Camera(state.getFilePath());
 
 state.emitter.on("state", state => {
-  console.log("new state", state);
   socket.emit("state", state);
 });
 
 if (config.dropboxAuthToken) {
   dropbox.setAccessToken(config.dropboxAuthToken);
 }
-
-const startCountdown = () => {
-  const {
-    numberOfPhotos,
-    initialCountdown,
-    subsequentCountdown
-  } = state.countdown;
-
-  const countdown = new Countdown(
-    initialCountdown,
-    numberOfPhotos,
-    subsequentCountdown
-  );
-
-  countdown.emitter.on("countdown-start", message =>
-    socket.emit("countdown-start", message)
-  );
-
-  countdown.emitter.on("countdown-finish", message => {
-    socket.emit("countdown-finish", message);
-  });
-
-  countdown.emitter.on("countdown-tick", message => {
-    socket.emit("countdown-tick", message);
-  });
-
-  countdown.emitter.on("countdown-tick-final", message => {
-    const picture = camera.takePicture();
-    if (picture) socket.emit("countdown-tick-final", { message, picture });
-  });
-
-  countdown.start();
-};
 
 socket.on("connection", client => {
   client.on("webcam-enabled-toggle", () => {
@@ -79,7 +45,7 @@ socket.on("connection", client => {
     } else {
       state.serialPort = new SerialPort(message.comName);
       state.serialPort.emitter.on("press", () => {
-        startCountdown();
+        // startCountdown();
       });
       state.serialPort.emitter.on("serial-port-connected", () => {
         socket.emit(
@@ -101,8 +67,6 @@ socket.on("connection", client => {
       socket.emit("serial-ports-list", serialPorts);
     });
   });
-
-  state.setFilePath("update file path");
 
   socket.emit("state", state.state);
 });

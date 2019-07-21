@@ -17,9 +17,8 @@ export default class {
     };
   }
 
-  setState(newState) {
-    console.log(newState);
-    this.state = newState;
+  setState(state) {
+    this.state = state;
     this.emitter.emit("state", this.state);
   }
 

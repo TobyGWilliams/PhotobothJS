@@ -7,13 +7,16 @@ export default class {
       filePath: filePath,
       serialPort: null,
       countdown: {
-        numberOfPhotos: 1,
-        initialCountdown: 5,
-        subsequentCountdown: 5
+        config: {
+          number: 1,
+          initial: 5,
+          subsequent: 5
+        }
       },
       webcam: {
         enabled: false
-      }
+      },
+      dropbox: {}
     };
   }
 
@@ -23,11 +26,14 @@ export default class {
   }
 
   setFilePath(filePath) {
-    console.log("update file");
     this.setState({
       ...this.state,
       filePath: filePath
     });
+  }
+
+  setDropbox({ status, name, email }) {
+    this.setState({ ...this.state, dropbox: { status, name, email } });
   }
 
   getFilePath() {

@@ -22,6 +22,10 @@ state.emitter.on("state", state => {
   socket.emit("state", state);
 });
 
+dropbox.emitter.on("dropbox-token-valid", dropboxDetails => {
+  state.setDropbox(dropboxDetails);
+});
+
 if (config.dropboxAuthToken) {
   dropbox.setAccessToken(config.dropboxAuthToken);
 }

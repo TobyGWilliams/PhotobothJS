@@ -10,7 +10,7 @@ export default class {
         config: {
           number: 1,
           initial: 5,
-          subsequent: 5
+          subsequent: 3
         }
       },
       webcam: {

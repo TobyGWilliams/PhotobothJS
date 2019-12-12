@@ -246,7 +246,7 @@ module.exports = ".fullWidth {\n  width: 100%;\n}\n\n/*# sourceMappingURL=data:a
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 mat-dialog-title>PhotoboothJS Configuration</h2>\n<mat-dialog-content width=\"800px\">\n  <h3></h3>\n  <mat-tab-group>\n    <mat-tab label=\"Dropbox\">\n      <p>\n        Connecting to dropbox will allow the automatic offloading of pictures to\n        a PhotoboothJS specific folder. No access to other files or folders is\n        requested\n      </p>\n      <div *ngIf=\"dropbox.authStatus == 'not-auth'\">\n        <a mat-raised-button color=\"primary\" href=\"{{ dropbox.authUrl }}\"\n          >Connect to Dropbox</a\n        >\n      </div>\n      <div *ngIf=\"dropbox.authStatus != 'not-auth'\">\n        <p>\n          You are connected to dropbox as: <b>{{ dropbox.name }}</b> with email:\n          <b>{{ dropbox.email }}</b>\n        </p>\n        <p>\n          To deactivate the permissions, navigate to settings in dropbox and\n          de-authorised the app.\n        </p>\n      </div>\n    </mat-tab>\n    <mat-tab label=\"Folder\">\n      <p>\n        Specify and enable the target folder to capture the pictures to and\n        monitor.\n      </p>\n\n      <form>\n        <mat-form-field class=\"fullWidth\">\n          <input\n            matInput\n            placeholder=\"Watch Folder\"\n            [value]=\"filePath\"\n            readonly\n          />\n        </mat-form-field>\n      </form>\n    </mat-tab>\n    <mat-tab label=\"Serial Port\">\n      <div *ngIf=\"(currentSerialPort$ | async) as serialPort\">\n        <modify-serialport\n          [serialPort]=\"serialPort\"\n          (disconnectSerialPort)=\"disconnectSerialPort()\"\n        ></modify-serialport>\n      </div>\n      <div *ngIf=\"!(currentSerialPort$ | async)\">\n        <new-serialport></new-serialport>\n      </div>\n    </mat-tab>\n    <mat-tab label=\"Countdown\">\n      <p>To Do: add controls over the countdowns here.</p>\n    </mat-tab>\n    <mat-tab label=\"Webcam\">\n      <new-webcam></new-webcam>\n    </mat-tab>\n  </mat-tab-group>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <span class=\"fill-space\"></span>\n  <button mat-button mat-dialog-close>Close</button>\n</mat-dialog-actions>\n"
+module.exports = "<h2 mat-dialog-title>PhotoboothJS Configuration</h2>\n<mat-dialog-content width=\"800px\">\n  <h3></h3>\n  <mat-tab-group>\n    <!-- <mat-tab label=\"Dropbox\">\n      <p>\n        Connecting to dropbox will allow the automatic offloading of pictures to\n        a PhotoboothJS specific folder. No access to other files or folders is\n        requested\n      </p>\n      <div *ngIf=\"dropbox.authStatus == 'not-auth'\">\n        <a mat-raised-button color=\"primary\" href=\"{{ dropbox.authUrl }}\"\n          >Connect to Dropbox</a\n        >\n      </div>\n      <div *ngIf=\"dropbox.authStatus != 'not-auth'\">\n        <p>\n          You are connected to dropbox as: <b>{{ dropbox.name }}</b> with email:\n          <b>{{ dropbox.email }}</b>\n        </p>\n        <p>\n          To deactivate the permissions, navigate to settings in dropbox and\n          de-authorised the app.\n        </p>\n      </div>\n    </mat-tab> -->\n    <mat-tab label=\"Folder\">\n      <p>\n        Specify and enable the target folder to capture the pictures to and\n        monitor.\n      </p>\n\n      <form>\n        <mat-form-field class=\"fullWidth\">\n          <input\n            matInput\n            placeholder=\"Watch Folder\"\n            [value]=\"state.filePath$ | async\"\n            readonly\n          />\n        </mat-form-field>\n      </form>\n    </mat-tab>\n    <!-- <mat-tab label=\"Serial Port\">\n      <div *ngIf=\"(currentSerialPort$ | async) as serialPort\">\n        <modify-serialport\n          [serialPort]=\"serialPort\"\n          (disconnectSerialPort)=\"disconnectSerialPort()\"\n        ></modify-serialport>\n      </div>\n      <div *ngIf=\"!(currentSerialPort$ | async)\">\n        <new-serialport></new-serialport>\n      </div>\n    </mat-tab>\n    <mat-tab label=\"Countdown\">\n      <p>To Do: add controls over the countdowns here.</p>\n    </mat-tab>\n    <mat-tab label=\"Webcam\">\n      <new-webcam></new-webcam>\n    </mat-tab> -->\n  </mat-tab-group>\n</mat-dialog-content>\n<mat-dialog-actions>\n  <span class=\"fill-space\"></span>\n  <button mat-button mat-dialog-close>Close</button>\n</mat-dialog-actions>\n"
 
 /***/ }),
 
@@ -261,7 +261,7 @@ module.exports = "<h2 mat-dialog-title>PhotoboothJS Configuration</h2>\n<mat-dia
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfigComponent", function() { return ConfigComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
+/* harmony import */ var app_state_state_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/state/state.service */ "./src/app/state/state.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -274,47 +274,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var ConfigComponent = /** @class */ (function () {
-    function ConfigComponent(socket) {
-        this.socket = socket;
-        this.serialPorts = [];
-        this.dropbox = {
-            authUrl: "",
-            authStatus: "not-auth",
-            name: "",
-            email: ""
-        };
-        this.filePath = "/file/to/something";
+    function ConfigComponent(state) {
+        this.state = state;
     }
-    ConfigComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.socket.fromEvent("dropbox-authUrl").subscribe(function (m) {
-            _this.dropbox.authUrl = m;
-            console.log("dropbox-authUrl", m);
-        });
-        this.socket
-            .fromEvent("dropbox-authStatus")
-            .subscribe(function (message) {
-            _this.dropbox.authStatus = message.status;
-            _this.dropbox.name = message.name;
-            _this.dropbox.email = message.email;
-            console.log("dropbox-authStatus", message, _this.dropbox);
-        });
-        this.socket.fromEvent("file-path").subscribe(function (message) {
-            _this.filePath = message;
-            console.log("file-path", _this.filePath);
-        });
-        this.currentSerialPort$ = this.socket.fromEvent("serial-ports-current");
-        this.socket.emit("config-get");
-    };
-    ConfigComponent.prototype.ngOnDestroy = function () {
-        this.socket.removeListener("dropbox-authStatus");
-        this.socket.removeListener("dropbox-authUrl");
-        this.socket.removeListener("file-path");
-        this.socket.removeListener("serial-ports-list");
-        this.socket.removeListener("serial-ports-current");
-    };
+    ConfigComponent.prototype.ngOnInit = function () { };
     ConfigComponent.prototype.disconnectSerialPort = function () {
-        this.socket.emit("serial-port-disconnect");
+        console.log('send message to server to disconnect serial port');
     };
     ConfigComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -322,7 +287,7 @@ var ConfigComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./config.component.html */ "./src/app/config/config.component.html"),
             styles: [__webpack_require__(/*! ./config.component.css */ "./src/app/config/config.component.css")]
         }),
-        __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__["Socket"]])
+        __metadata("design:paramtypes", [app_state_state_service__WEBPACK_IMPORTED_MODULE_1__["StateService"]])
     ], ConfigComponent);
     return ConfigComponent;
 }());
@@ -431,7 +396,7 @@ module.exports = ".webcamContainer {\n  display: flex;\n  align-content: center;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  Display webcam:\n  <mat-slide-toggle\n    class=\"webcamToggle\"\n    [checked]=\"state.webcam$ | async\"\n    (change)=\"state.toggleWebcam()\"\n  ></mat-slide-toggle>\n</p>\n<p *ngIf=\"(state.webcam$ | async)\">Webcam preview:</p>\n<div *ngIf=\"(state.webcam$ | async)\" class=\"webcamContainer\">\n  <webcam [width]=\"640\" [height]=\"320\"></webcam>\n</div>\n"
+module.exports = "<p>\n  Use Webcam during countdown:\n  <mat-slide-toggle\n    class=\"webcamToggle\"\n    [checked]=\"state.webcam$ | async\"\n    (change)=\"state.toggleWebcam()\"\n  ></mat-slide-toggle>\n</p>\n<p *ngIf=\"(state.webcam$ | async)\">Webcam preview:</p>\n<div *ngIf=\"(state.webcam$ | async)\" class=\"webcamContainer\">\n  <webcam [width]=\"640\" [height]=\"320\"></webcam>\n</div>\n"
 
 /***/ }),
 
@@ -563,7 +528,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  dropbox works!\n</p>\n"
+module.exports = ""
 
 /***/ }),
 
@@ -599,20 +564,20 @@ var DropboxComponent = /** @class */ (function () {
     }
     DropboxComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.socket.on('connect', function () {
+        this.socket.on("connect", function () {
             console.log(window.location.hash);
             if (window.location.hash != null) {
-                _this.socket.emit('dropbox-token', window.location.hash);
-                _this.router.navigateByUrl('/home');
+                _this.socket.emit("dropbox-token", window.location.hash);
+                _this.router.navigateByUrl("/home");
             }
         });
     };
     DropboxComponent.prototype.ngOnDestroy = function () {
-        this.socket.removeListener('connect');
+        this.socket.removeListener("connect");
     };
     DropboxComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-dropbox',
+            selector: "app-dropbox",
             template: __webpack_require__(/*! ./dropbox.component.html */ "./src/app/dropbox/dropbox.component.html"),
             styles: [__webpack_require__(/*! ./dropbox.component.css */ "./src/app/dropbox/dropbox.component.css")]
         }),
@@ -706,7 +671,7 @@ module.exports = ".title-picture {\n  background: url('MagicMirror.svg');\n  wid
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<countdown *ngIf=\"(state.view$ | async) === View.COUNTDOWN\"></countdown>\n<flash *ngIf=\"(state.view$ | async) === View.FLASH\"></flash>\n<div class=\"qr\" *ngIf=\"qrCodeVisible\">\n  <qr-code [value]=\"qrCodeURL\" [size]=\"150\"></qr-code>\n  <div class=\"whiteText\">Scan to View</div>\n</div>\n<!-- resultant picture -->\n<!-- homepage -->\n"
+module.exports = "<div *ngIf=\"(state.view$ | async) === View.HOME\" class=\"title-picture\"></div>\n<countdown *ngIf=\"(state.view$ | async) === View.COUNTDOWN\"></countdown>\n<flash *ngIf=\"(state.view$ | async) === View.FLASH\"></flash>\n<div class=\"qr\" *ngIf=\"qrCodeVisible\">\n  <qr-code [value]=\"qrCodeURL\" [size]=\"150\"></qr-code>\n  <div class=\"whiteText\">Scan to View</div>\n</div>\n<!-- resultant picture -->\n<!-- homepage -->\n"
 
 /***/ }),
 
@@ -721,9 +686,8 @@ module.exports = "<countdown *ngIf=\"(state.view$ | async) === View.COUNTDOWN\">
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomePageComponent", function() { return HomePageComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-socket-io */ "./node_modules/ngx-socket-io/index.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var app_state_state_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/state/state.service */ "./src/app/state/state.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_state_state_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/state/state.service */ "./src/app/state/state.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -736,113 +700,24 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
-var Picture = /** @class */ (function () {
-    function Picture() {
-    }
-    return Picture;
-}());
 var HomePageComponent = /** @class */ (function () {
-    // number = 0;
-    // numberofPhotos = 0;
-    // qrCodeURL: String = "";
-    // qrCodeVisible: Boolean = false;
-    // multiple: Boolean;
-    // multipleDisplay: Array<number> = [];
-    // pictures: Array<Picture> = [];
-    // pictureURL: string;
-    function HomePageComponent(socket, snackBar, state) {
-        this.socket = socket;
+    function HomePageComponent(snackBar, state) {
         this.snackBar = snackBar;
         this.state = state;
-        this.View = app_state_state_service__WEBPACK_IMPORTED_MODULE_3__["View"]; // expose the constants into the template
+        this.View = app_state_state_service__WEBPACK_IMPORTED_MODULE_2__["View"]; // expose the constants into the template
     }
-    HomePageComponent.prototype.ngOnInit = function () {
-        this.state.view$.subscribe(function (d) { return console.log(d); });
-    };
+    HomePageComponent.prototype.ngOnInit = function () { };
     HomePageComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: "app-home-page",
             template: __webpack_require__(/*! ./home-page.component.html */ "./src/app/home-page/home-page.component.html"),
             styles: [__webpack_require__(/*! ./home-page.component.css */ "./src/app/home-page/home-page.component.css")]
         }),
-        __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_1__["Socket"], _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"], app_state_state_service__WEBPACK_IMPORTED_MODULE_3__["StateService"]])
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"], app_state_state_service__WEBPACK_IMPORTED_MODULE_2__["StateService"]])
     ], HomePageComponent);
     return HomePageComponent;
 }());
 
-//     this.pictureURL = "";
-// this.socket
-// .fromEvent("countdown-start")
-// .subscribe((message: Array<number>) => {
-//   this.state = "start";
-//   this.pictures = [];
-//   this.qrCodeVisible = false;
-//   this.multiple = message.length > 1;
-//   this.multipleDisplay = message;
-//   console.debug("countdown-start", message, this);
-// });
-// this.socket
-// .fromEvent("countdown-tick")
-// .subscribe((message: Array<number>) => {
-//   this.state = "countdown";
-//   this.multiple = message.length > 1;
-//   this.multipleDisplay = message;
-//   console.debug("countdown-tick", message, this);
-// });
-// this.socket
-// .fromEvent("countdown-tick-final")
-// .subscribe(({ message, picture }) => {
-//   this.state = "flash";
-//   this.multiple = message.length > 1;
-//   this.multipleDisplay = message;
-//   const pictureIndex = message.filter(x => !x).length - 1;
-//   this.pictures[pictureIndex] = { display: false, fileName: picture };
-// });
-// this.socket.fromEvent("camera-picture-fail").subscribe(() => {
-// this.state = "home";
-// console.error("camera-picture-fail");
-// this.snackBar.open("Camera fail", "dismiss", {
-//   duration: 5000
-// });
-// });
-// this.socket
-// .fromEvent("countdown-finish")
-// .subscribe((message: Array<number>) => {
-//   setTimeout(() => {
-//     this.state = "home";
-//   }, 30000);
-//   console.debug("countdown-finish", message, this);
-// });
-// this.socket
-// .fromEvent("camera-picture-ready")
-// .subscribe((fileName: string) => {
-//   if (this.multipleDisplay.length > 1) {
-//     const index = this.pictures.findIndex(e => e.fileName === fileName);
-//     this.pictures[index].display = true;
-//   } else {
-//     this.state = "picture";
-//     this.pictureURL = fileName;
-//   }
-//   console.debug("camera-picture-ready", fileName, this);
-// });
-// this.socket.fromEvent("dropbox-url").subscribe((f: String) => {
-// console.log("dropbox-url", f);
-// this.qrCodeURL = f;
-// this.qrCodeVisible = true;
-// });
-// this.socket.fromEvent("dropbox-login-success").subscribe(d => {
-// console.log("dropbox-login-success", d);
-// this.snackBar.open("Dropbox log in success", "dismiss", {
-//   duration: 5000
-// });
-// });
-// this.socket.fromEvent("dropbox-upload-success").subscribe(d => {
-// console.log("dropbox-upload-success", d);
-// this.snackBar.open("Dropbox upload success", "dismiss", {
-//   duration: 5000
-// });
-// });
 
 
 /***/ }),
@@ -881,7 +756,7 @@ var View;
 })(View || (View = {}));
 var initialCountdownState = {
     number: null,
-    numberUrl: '',
+    numberUrl: ""
 };
 var StateService = /** @class */ (function () {
     function StateService(socket) {
@@ -890,47 +765,23 @@ var StateService = /** @class */ (function () {
         this.view$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](View.HOME);
         this.webcam$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
         this.countdown$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](initialCountdownState);
-        this.socket.on('webcam-status', function (enable) { return _this.webcam$.next(enable); });
-        this.socket.on('countdown-start', function () {
-            _this.view$.next(View.COUNTDOWN);
-            _this.countdown$.next({
-                number: null,
-                numberUrl: '',
-            });
-        });
-        this.socket.on('countdown-tick', function (count) { return _this.countdown$.next({
-            number: count[0],
-            numberUrl: "url(../../assets/number-" + count[0] + ".svg)",
-        }); });
-        this.socket.on('countdown-tick-final', function () {
-            _this.view$.next(View.FLASH);
-            setTimeout(function () { _this.view$.next(View.HOME); }, 1000);
-        });
-        this.socket.on("countdown-finish", function () {
-            console.log('countdown finish');
-        });
-        this.socket.on("camera-picture-fail", function () {
-            console.error('camera picture fail');
-        });
-        this.socket.on("camera-picture-ready", function () {
-            console.log('camera picture ready');
-        });
-        this.socket.on('dropbox-url', function (f) {
-            console.log("dropbox-url", f);
-        });
-        this.socket.on('dropbox-login-success', function () {
-            console.log("dropbox-login-success");
-        });
-        this.socket.on('dropbox-upload-success', function () {
-            console.log("dropbox-upload-success");
+        this.filePath$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]("/file path");
+        this.socket.on("state", function (newState) {
+            console.log(newState);
+            if (_this.webcam$.value !== newState.webcam.enabled) {
+                _this.webcam$.next(newState.webcam.enabled);
+            }
+            if (_this.filePath$.value !== newState.filePath) {
+                _this.filePath$.next(newState.filePath);
+            }
         });
     }
     StateService.prototype.toggleWebcam = function () {
-        this.socket.emit('webcam-enabled-toggle');
+        this.socket.emit("webcam-enabled-toggle");
     };
     StateService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
+            providedIn: "root"
         }),
         __metadata("design:paramtypes", [ngx_socket_io__WEBPACK_IMPORTED_MODULE_0__["Socket"]])
     ], StateService);
@@ -959,7 +810,7 @@ module.exports = ".webcamContainer {\n  display: flex;\n  align-content: center;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"webcamContainer\">\n  <webcam [width]=\"screenWidth\" [height]=\"screenHeight\"></webcam>\n</div>\n"
+module.exports = "<div *ngIf=\"(state.webcam$ | async)\" class=\"webcamContainer\">\n  <webcam [width]=\"screenWidth\" [height]=\"screenHeight\"></webcam>\n</div>\n"
 
 /***/ }),
 
@@ -974,6 +825,7 @@ module.exports = "<div class=\"webcamContainer\">\n  <webcam [width]=\"screenWid
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebcamComponent", function() { return WebcamComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_state_state_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/state/state.service */ "./src/app/state/state.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -984,30 +836,34 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var WebcamComponent = /** @class */ (function () {
-    function WebcamComponent() {
+    function WebcamComponent(state) {
+        this.state = state;
     }
     WebcamComponent.prototype.ngOnInit = function () {
         this.getScreenSize();
+        this.state.webcam$.subscribe(function (webcam) {
+            console.log("webcam", webcam);
+        });
     };
     WebcamComponent.prototype.getScreenSize = function (event) {
         this.screenHeight = window.innerHeight - 50;
         this.screenWidth = window.innerWidth;
-        console.log(this.screenHeight, this.screenWidth);
     };
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])('window:resize', ['$event']),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])("window:resize", ["$event"]),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
     ], WebcamComponent.prototype, "getScreenSize", null);
     WebcamComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-webcam',
+            selector: "app-webcam",
             template: __webpack_require__(/*! ./webcam.component.html */ "./src/app/webcam/webcam.component.html"),
             styles: [__webpack_require__(/*! ./webcam.component.css */ "./src/app/webcam/webcam.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [app_state_state_service__WEBPACK_IMPORTED_MODULE_1__["StateService"]])
     ], WebcamComponent);
     return WebcamComponent;
 }());

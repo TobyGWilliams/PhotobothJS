@@ -1,3 +1,4 @@
+<div *ngIf="(state.view$ | async) === View.HOME" class="title-picture"></div>
 <countdown *ngIf="(state.view$ | async) === View.COUNTDOWN"></countdown>
 <flash *ngIf="(state.view$ | async) === View.FLASH"></flash>
 <div class="qr" *ngIf="qrCodeVisible">

@@ -48,7 +48,7 @@ export class Dropbox {
         this.email = r.email;
         this.name = r.name.display_name;
 
-        this.emitter.emit("dropbox-login-success", {
+        this.emitter.emit("dropbox-token-valid", {
           status: this.status,
           name: this.name,
           email: this.email,
